@@ -46,6 +46,8 @@ public class GiornoEntityTest {
 		assertEquals("23:00", giorno2.getOrarioChiusuraCentro());
 		
 		System.out.println(giorno2);
+		
+		System.out.println("OKK!");
 	}
 
 }
