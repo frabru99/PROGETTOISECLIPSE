@@ -47,7 +47,7 @@ public class GiornoEntityTest {
 		
 		System.out.println(giorno2);
 		
-		System.out.println("OKK!");
+		System.out.println("OKK");
 	}
 
 }
