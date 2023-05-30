@@ -25,6 +25,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        
+        <dependency>
+    		<groupId>junit</groupId>
+    		<artifactId>junit</artifactId>
+    		<version>4.13.2</version><!--$NO-MVN-MAN-VER$-->
+    		<scope>test</scope>
+		</dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -38,6 +45,8 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    
+    
 
     <build>
         <plugins>
