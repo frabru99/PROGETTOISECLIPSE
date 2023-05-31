@@ -19,7 +19,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/brune/OneDrive/Desktop/I. S/mysql-connector-j-8.0.33/mysql-connector-j-8.0.33.jar">
+	<classpathentry kind="lib" path="C:/Users/salva/Downloads/mysql-connector-j-8.0.33/mysql-connector-j-8.0.33/mysql-connector-j-8.0.33.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
@@ -29,6 +29,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/brune/OneDrive/Desktop/I. S/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/salva/Downloads/hamcrest-core-2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/salva/Downloads/junit-4.13.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

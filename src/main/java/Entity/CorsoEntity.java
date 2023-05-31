@@ -14,7 +14,7 @@ public class CorsoEntity {
 	private String durataCorso;
 	private int idSalaperCorsi;
 	private SalaperCorsiEntity salaCorso;
-	private ArrayList<GiornoEntity> giorni;
+	//private ArrayList<GiornoEntity> giorni;
 	
 	public CorsoEntity(int codiceCorso) {
 		
@@ -26,10 +26,10 @@ public class CorsoEntity {
 		this.oraInizio=corso.getOraInizio();
 		this.durataCorso=corso.getDurataCorso();
 		
-		this.giorni=new ArrayList<GiornoEntity>();
+		//this.giorni=new ArrayList<GiornoEntity>();
 		
-		corso.caricaGiorniCorsodaDB();
-		caricaGiorni(corso);
+		//corso.caricaGiorniCorsodaDB();
+		//caricaGiorni(corso);
 		
 		
 		corso.caricaSalaperCorsiCorsodaDB();
@@ -46,7 +46,7 @@ public class CorsoEntity {
         this.oraInizio=corso.getOraInizio();
         this.durataCorso=corso.getDurataCorso();
         this.idSalaperCorsi=corso.getIdSalaperCorsi();
-        this.giorni=new ArrayList<GiornoEntity>();
+       // this.giorni=new ArrayList<GiornoEntity>();
         
        //corso.caricaGiorniCorsodaDB();
         //caricaGiorni(corso);
@@ -120,12 +120,13 @@ public class CorsoEntity {
 	public void setIdSalaperCorsi(int idSalaperCorsi) {
 		this.idSalaperCorsi = idSalaperCorsi;
 	}
-	public ArrayList<GiornoEntity> getGiorni() {
+	
+	/*public ArrayList<GiornoEntity> getGiorni() {
 		return giorni;
 	}
 	public void setGiorni(ArrayList<GiornoEntity> giorni) {
 		this.giorni = giorni;
-	}
+	}*/
 
 	
 	
@@ -145,7 +146,7 @@ public class CorsoEntity {
 		//TO STRING DA RIVEDERE
 	}
 	
-	public void caricaGiorni (CorsoDAO corso) {
+	/*public void caricaGiorni (CorsoDAO corso) {
 		
 		for (int i =0;i<corso.getGiorni().size();i++) {
 			
@@ -154,7 +155,7 @@ public class CorsoEntity {
 			
 		}
 		
-	}
+	}*/
 	
 	public void caricaSalaperCorsi(CorsoDAO corso) {
 		
