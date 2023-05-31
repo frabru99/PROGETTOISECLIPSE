@@ -44,6 +44,7 @@ public class GiornoDAO {
 	
 	public void caricaCorsiGiornoDaDB() {
 		
+		//gia inizializzato nel costruttore, probabilmente da torgliere qua
 		corsi = new ArrayList<CorsoDAO>();
 		
 		
