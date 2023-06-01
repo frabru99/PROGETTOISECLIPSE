@@ -30,9 +30,9 @@ public class ClienteIscrittoDAO {
 		super();
 		this.abbonamentoAnnuale=new AbbonamentoAnnualeDAO();
 		this.abbonamentoMensile=new AbbonamentoMensileDAO();
-		caricaDaDB();
 		
 	}
+	
 	
 	//Per caricare il cliente dal database
 	public void caricaDaDB() {

@@ -12,7 +12,7 @@ public class PrenotazioneDAO {
 	private int idPrenotazione;
 	private String dataPrenotazione;
 	private String codiceCliente;
-	private String codiceCorso;
+	private int codiceCorso;
 	private String emailCliente;
 	private ClienteIscrittoDAO cliente;
 	private CorsoDAO corso;
@@ -38,7 +38,7 @@ public class PrenotazioneDAO {
 				this.setIdPrenotazione(rs.getInt("idPrenotazione"));
 				this.setDataPrenotazione(rs.getString("dataPrenotazione"));
 				this.setCodiceCliente(rs.getString("codiceCliente"));
-				this.setCodiceCorso(rs.getString("codiceCorso"));
+				this.setCodiceCorso(rs.getInt("codiceCorso"));
 				this.setEmailCliente(rs.getString("emailCliente"));
 				
 			}
@@ -52,12 +52,87 @@ public class PrenotazioneDAO {
 	}
 	
 	
-//	public void caricaCorsoDaDB() {
-//		
-//		String query = "SELECT * FROM Corso WHERE codiceCorso"
-//		
-//	}
+	public PrenotazioneDAO() {
+		super();
+	}
 	
+	
+	public void caricaCorsoDaDB() {
+		
+		String query = "SELECT * FROM Corso WHERE codiceCorso =" + this.codiceCorso;
+		
+		
+		this.corso = new CorsoDAO();
+		
+		try {
+			
+			
+			ResultSet rs = DBConnectionManager.selectQuery(query);
+			
+			
+			if(rs.next()) {
+				CorsoDAO corso = new CorsoDAO();
+				
+				corso.setCodiceCorso(rs.getInt("codiceCorso"));
+				corso.setDurataCorso(rs.getString("durataCorso"));
+				corso.setIdSalaperCorsi(rs.getInt("SalaperCorsi_idSalaperCorsi"));
+				corso.setNomeCorso(rs.getString("nomeCorso"));
+				corso.setOraInizio(rs.getString("oraInizio"));
+				corso.setIstruttore(rs.getString("istruttore"));
+				
+				this.corso=corso;
+				
+			}
+			
+			
+			
+			
+		} catch(SQLException | ClassNotFoundException e) {
+			System.err.println("Errore nella query!");
+			
+		}
+		
+	}
+	
+	
+	public void caricaClienteDaDB() {
+		
+		String query = "SELECT * FROM Cliente WHERE codiceCliente =" + this.codiceCliente;
+		
+		
+		this.cliente = new ClienteIscrittoDAO();
+		
+		try {
+			
+			
+			ResultSet rs = DBConnectionManager.selectQuery(query);
+			
+			
+			if(rs.next()) {
+				ClienteIscrittoDAO cl = new ClienteIscrittoDAO();
+				
+				cl.setCodiceCliente(rs.getString("codiceCliente"));
+				cl.setNome(rs.getString("nome"));
+				cl.setCognome(rs.getString("cognome"));
+				cl.setEmail(rs.getString("email"));
+				cl.setIdAbbonamentoAnnuale(rs.getInt("idAbbAnnuale"));
+				cl.setIdAbbonamentoMensile(rs.getInt("idAbbMensile"));
+				
+				
+				
+				this.cliente=cl;
+				
+			}
+			
+			
+			
+			
+		} catch(SQLException | ClassNotFoundException e) {
+			System.err.println("Errore nella query!");
+			
+		}
+		
+	}
 	
 	public int prelevaIdMassimo() {
 		
@@ -84,6 +159,24 @@ public class PrenotazioneDAO {
 		
 		
 	}
+	
+	public int scrivisuDB(int idPrenotazione, String dataPrenotazione, String codiceCliente, String email, int codiceCorso) {
+		int ret=0;
+		
+        String query = "INSERT INTO Prenotazione (idPrenotazione, dataPrenotazione, ClienteIscritto_codiceCliente, ClienteIscritto_email, Corso_codiceCorso) VALUES (\'"+idPrenotazione+"\',"+"\'"+dataPrenotazione+"\'"+codiceCliente+"\','"+"\',"+email+"\','"+"\'"+codiceCorso+"\');";
+        
+        try {
+            
+         ret =  DBConnectionManager.updateQuery(query);
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            ret = -1;
+        }
+        
+        return ret;
+	}
 
 	public int getIdPrenotazione() {
 		return idPrenotazione;
@@ -109,11 +202,11 @@ public class PrenotazioneDAO {
 		this.codiceCliente = codiceCliente;
 	}
 
-	public String getCodiceCorso() {
+	public int getCodiceCorso() {
 		return codiceCorso;
 	}
 
-	public void setCodiceCorso(String codiceCorso) {
+	public void setCodiceCorso(int codiceCorso) {
 		this.codiceCorso = codiceCorso;
 	}
 
