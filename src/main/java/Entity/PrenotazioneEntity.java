@@ -1,39 +1,125 @@
 package Entity;
 
+import java.sql.Date;
+
 import Database.PrenotazioneDAO;
 
 public class PrenotazioneEntity {
 
-	private final int idPrenotazione;
-	private final String dataPrenotazione;
-	private final String codiceCliente;
-	private final String codiceCorso;
-	private final String emailCliente;
-	private final ClienteIscrittoEntity cliente;
-	private final CorsoEntity corso;
+	private int idPrenotazione;
+	private String dataPrenotazione;
+	private String codiceCliente;
+	private int codiceCorso;
+	private String emailCliente;
+	private ClienteIscrittoEntity cliente;
+	private CorsoEntity corso;
 	
 	//Per creare una prenotazione dall'applicazione
-	public PrenotazioneEntity(String codiceCliente,String codiceCorso,String dataPrenotazione,String emailCliente) throws NullPointerException {
-	
-		if (codiceCliente==null || codiceCorso==null) {
+	public PrenotazioneEntity(ClienteIscrittoEntity cl , CorsoEntity cr) throws NullPointerException {
+
+		
+		if (cl==null || cr==null) {
 			
 			throw new NullPointerException();
 			
 		}
 		
-		
-	this.dataPrenotazione = dataPrenotazione;
-	this.codiceCliente = codiceCliente;
-	this.codiceCorso = codiceCorso;
-	this.emailCliente = emailCliente;
+	this.cliente=cl;
+	this.corso=cr;
+	Date dataod = new java.sql.Date(System.currentTimeMillis());
+	this.dataPrenotazione = dataod.toString();
+	this.codiceCliente = cl.getCodiceCliente();
+	this.codiceCorso = cr.getCodiceCorso();
+	this.emailCliente = cl.getEmail();
 	
 	//Setto l'id
 	PrenotazioneDAO pdao = new PrenotazioneDAO();
 	this.idPrenotazione = (pdao.prelevaIdMassimo()+1);
 	
-	//Scrivi su db del DAO
+	//Scrivi su db del DAO   
 		
 	
+	scrivisuDB(); //devo scrivere le informazioni della prenotazione nel Database
+	
+	}
+	
+	
+	
+	public PrenotazioneEntity(int idPren) {
+		// TODO Auto-generated constructor stub
+		
+		PrenotazioneDAO pren = new PrenotazioneDAO(idPren);
+		
+		
+		this.idPrenotazione = pren.getIdPrenotazione();
+		this.dataPrenotazione = pren.getDataPrenotazione();
+		this.codiceCliente = pren.getCodiceCliente();
+		this.codiceCorso = pren.getCodiceCorso();
+		this.emailCliente = pren.getEmailCliente();
+		
+		
+		//mi devo caricare cliente e corso!
+		pren.caricaClienteDaDB();
+		caricaCliente(pren);
+		
+		pren.caricaCorsoDaDB();
+		caricaCorso(pren);
+		
+		
+		
+	}
+	
+	public PrenotazioneEntity(PrenotazioneDAO pren) {
+		
+		this.idPrenotazione = pren.getIdPrenotazione();
+		this.dataPrenotazione = pren.getDataPrenotazione();
+		this.codiceCliente = pren.getCodiceCliente();
+		this.codiceCorso = pren.getCodiceCorso();
+		this.emailCliente = pren.getEmailCliente();
+		
+		//mi devo caricare cliente e corso!
+		
+		pren.caricaClienteDaDB();
+		caricaCliente(pren);
+		
+		pren.caricaCorsoDaDB();
+		caricaCorso(pren);
+		
+	}
+	
+	
+	public int scrivisuDB() {
+		
+		PrenotazioneDAO pr = new PrenotazioneDAO();
+		
+		int ret = pr.scrivisuDB(this.idPrenotazione, this.dataPrenotazione, this.codiceCliente, this.emailCliente, this.codiceCorso);
+		
+		
+		if(ret != -1) {
+			System.out.println("Ho scritto la prenotazione!"); //gestione messaggio di conferma o meno!
+		} else {
+			System.out.println("Non ho scritto!");
+		}
+		
+		
+		return ret;
+		
+		
+	}
+	
+	
+	public void caricaCliente(PrenotazioneDAO pren) {
+		ClienteIscrittoEntity cl = new ClienteIscrittoEntity(pren.getCliente());
+		this.cliente=cl;
+		
+		
+	}
+	
+	
+	public void caricaCorso(PrenotazioneDAO pren ) {
+		CorsoEntity cr = new CorsoEntity(pren.getCorso());
+		this.corso = cr;
+		
 	}
 	
 	

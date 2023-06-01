@@ -88,6 +88,74 @@ public class ClienteIscrittoEntity {
 	public void scriviSuDb(String ok){
 		
 	}
+
+	public String getCodiceCliente() {
+		return codiceCliente;
+	}
+
+	public void setCodiceCliente(String codiceCliente) {
+		this.codiceCliente = codiceCliente;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCognome() {
+		return cognome;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public int getIdAbbonamentoMensile() {
+		return idAbbonamentoMensile;
+	}
+
+	public void setIdAbbonamentoMensile(int idAbbonamentoMensile) {
+		this.idAbbonamentoMensile = idAbbonamentoMensile;
+	}
+
+	public int getIdAbbonamentoAnnuale() {
+		return idAbbonamentoAnnuale;
+	}
+
+	public void setIdAbbonamentoAnnuale(int idAbbonamentoAnnuale) {
+		this.idAbbonamentoAnnuale = idAbbonamentoAnnuale;
+	}
+
+	public AbbonamentoMensileEntity getAbbonamentoMensile() {
+		return abbonamentoMensile;
+	}
+
+	public void setAbbonamentoMensile(AbbonamentoMensileEntity abbonamentoMensile) {
+		this.abbonamentoMensile = abbonamentoMensile;
+	}
+
+	public AbbonamentoAnnualeEntity getAbbonamentoAnnuale() {
+		return abbonamentoAnnuale;
+	}
+
+	public void setAbbonamentoAnnuale(AbbonamentoAnnualeEntity abbonamentoAnnuale) {
+		this.abbonamentoAnnuale = abbonamentoAnnuale;
+	}
+	
+	
+	
+	
 	
 	
 	
