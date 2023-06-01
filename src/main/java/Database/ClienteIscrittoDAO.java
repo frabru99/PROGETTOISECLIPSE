@@ -87,9 +87,9 @@ public class ClienteIscrittoDAO {
 		String query;
 			
 		//Controllo se è un abbonato mensile
-		if (this.idAbbonamentoMensile!=-1) {
+		//if (this.idAbbonamentoMensile!=-1 ) {
 			
-			query=new String("SELECT * FROM AbbonamentoMensile WHERE idAbbonamentoMensile= "+this.idAbbonamentoMensile+" ;");
+			query=new String("SELECT * FROM AbbonamentoMensile WHERE idAbbonamentoMensile= "+this.idAbbonamentoMensile+";");
 		
 			try {
 			
@@ -97,11 +97,14 @@ public class ClienteIscrittoDAO {
 				
 				if (rs.next()) {
 					
-					this.abbonamentoMensile.setIdAbbonamentoMensile(rs.getInt("idAbbonamentoMensile"));
-					this.abbonamentoMensile.setPrezzo(rs.getInt("prezzo"));
-					this.abbonamentoMensile.setDataScadenza(rs.getString("dataScadenza"));
-					this.abbonamentoMensile.setDataSottoscrizione(rs.getString("dataSottoscrizione"));
-					this.abbonamentoMensile.setNomeMese(rs.getString("nomeMese"));
+					AbbonamentoMensileDAO dao = new AbbonamentoMensileDAO();
+					dao.setIdAbbonamentoMensile(rs.getInt("idAbbonamentoMensile"));
+					dao.setPrezzo(rs.getInt("prezzo"));
+					dao.setDataScadenza(rs.getString("dataScadenza"));
+					dao.setDataSottoscrizione(rs.getString("dataSottoscrizione"));
+					dao.setNomeMese(rs.getString("nomeMese"));
+					
+					this.abbonamentoMensile =dao;
 					
 				}
 			
@@ -110,9 +113,9 @@ public class ClienteIscrittoDAO {
 			}
 		
 
-		}
+		//}
 		//Controllo se è un abbonato annuale
-		else if (this.idAbbonamentoAnnuale!=-1) {
+		//else if (this.idAbbonamentoAnnuale!=-1  && this.idAbbonamentoMensile==-1) {
 			
 			query=new String("SELECT * FROM AbbonamentoAnnuale WHERE idAbbonamentoAnnuale= "+this.idAbbonamentoAnnuale+" ;");	
 		
@@ -122,13 +125,15 @@ public class ClienteIscrittoDAO {
 				
 				if (rs.next()) {
 					
-					this.abbonamentoAnnuale.setIdAbbonamentoAnnuale(rs.getInt("idAbbonamentoAnnuale"));
-					this.abbonamentoAnnuale.setPrezzo(rs.getInt("prezzo"));
-					this.abbonamentoAnnuale.setDataScadenza(rs.getString("dataScadenza"));
-					this.abbonamentoAnnuale.setDataSottoscrizione(rs.getString("dataSottoscrizione"));
-					this.abbonamentoAnnuale.setDataSopensione(rs.getString("dataSospensione"));
-					this.abbonamentoAnnuale.setDataRipresa(rs.getString("dataRipresa"));
+					AbbonamentoAnnualeDAO dao = new AbbonamentoAnnualeDAO();
+					dao.setIdAbbonamentoAnnuale(rs.getInt("idAbbonamentoAnnuale"));
+					dao.setPrezzo(rs.getInt("prezzo"));
+					dao.setDataScadenza(rs.getString("dataScadenza"));
+					dao.setDataSottoscrizione(rs.getString("dataSottoscrizione"));
+					dao.setDataSopensione(rs.getString("dataSospensione"));
+					dao.setDataRipresa(rs.getString("dataRipresa"));
 					
+					this.abbonamentoAnnuale =dao;
 				}
 			
 			} catch (ClassNotFoundException | SQLException e) {
@@ -136,15 +141,17 @@ public class ClienteIscrittoDAO {
 			}
 			
 		}
+			
+		//}
 		//Se non è abbonato
-		else {
+		/*else {
 			
 			System.out.println("Cliente non abbonato");
 			return;
 			
 		}
 		
-	}
+	}*/
 	
 	
 	//Getters and setters

@@ -25,6 +25,7 @@ public class CorsoEntity {
 		this.istruttore=corso.getIstruttore();
 		this.oraInizio=corso.getOraInizio();
 		this.durataCorso=corso.getDurataCorso();
+		this.idSalaperCorsi = corso.getIdSalaperCorsi();
 		
 		//this.giorni=new ArrayList<GiornoEntity>();
 		

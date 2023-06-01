@@ -3,6 +3,7 @@ package Entity;
 import Database.AbbonamentoAnnualeDAO;
 import Database.AbbonamentoMensileDAO;
 import Database.ClienteIscrittoDAO;
+import Database.CorsoDAO;
 
 public class ClienteIscrittoEntity {
 	
@@ -61,32 +62,34 @@ public class ClienteIscrittoEntity {
 	
 	//Metodo carica abbonamento
 	public void caricaAbbonamento(ClienteIscrittoDAO cdao) {
-				
-		if (this.idAbbonamentoAnnuale !=-1) {
 			
-			this.abbonamentoAnnuale.setPrezzo(cdao.getAbbonamentoAnnuale().getPrezzo());
-			this.abbonamentoAnnuale.setDataSottoscrizione(cdao.getAbbonamentoAnnuale().getDataSottoscrizione());
-			this.abbonamentoAnnuale.setDataScadenza(cdao.getAbbonamentoAnnuale().getDataScadenza());
-			this.abbonamentoAnnuale.setDataRipresa(cdao.getAbbonamentoAnnuale().getDataRipresa());		
-			
-		}
-		else if (this.idAbbonamentoMensile!=-1) {
-			
-			this.abbonamentoMensile.setPrezzo(cdao.getAbbonamentoMensile().getPrezzo());
-			this.abbonamentoMensile.setDataSottoscrizione(cdao.getAbbonamentoMensile().getDataSottoscrizione());
-			this.abbonamentoMensile.setDataScadenza(cdao.getAbbonamentoMensile().getDataScadenza());
-			this.abbonamentoMensile.setNomeMese(cdao.getAbbonamentoMensile().getNomeMese());		
-			
-		}
-		else {
-			System.out.println("Cliente non abbonato");
-		}
-		
+			AbbonamentoAnnualeEntity abbann = new AbbonamentoAnnualeEntity(cdao.getAbbonamentoAnnuale());
+			this.abbonamentoAnnuale=abbann;
+			AbbonamentoMensileEntity abbmen = new AbbonamentoMensileEntity(cdao.getAbbonamentoMensile());
+			this.abbonamentoMensile=abbmen;
 	}
 	
 	//Metodo scrivi su db
-	public void scriviSuDb(String ok){
+	public int scriviSuDb(String codiceCLiente, String nome, String cognome, String email){
+		int ret=0;
 		
+		ClienteIscrittoDAO corso  = new ClienteIscrittoDAO();
+		//provo a scrivere sul DB
+		
+		ret = corso.salvaInDB(codiceCLiente, nome, cognome, email);
+		
+		if(ret!=-1) {	
+			this.setCodiceCliente(codiceCLiente);
+			this.setNome(nome);
+			this.setCognome(cognome);
+			this.setEmail(email);
+			this.setIdAbbonamentoAnnuale(-1);
+			this.setIdAbbonamentoMensile(-1);
+			this.setAbbonamentoAnnuale(null);
+			this.setAbbonamentoMensile(null);
+		}
+		
+		return ret;
 	}
 
 	public String getCodiceCliente() {
@@ -152,6 +155,14 @@ public class ClienteIscrittoEntity {
 	public void setAbbonamentoAnnuale(AbbonamentoAnnualeEntity abbonamentoAnnuale) {
 		this.abbonamentoAnnuale = abbonamentoAnnuale;
 	}
+
+	@Override
+	public String toString() {
+		return "ClienteIscrittoEntity [codiceCliente=" + codiceCliente + ", nome=" + nome + ", cognome=" + cognome
+				+ ", email=" + email + ", abbonamentoMensile=" + abbonamentoMensile + ", abbonamentoAnnuale="
+				+ abbonamentoAnnuale + "]";
+	}
+	
 	
 	
 	

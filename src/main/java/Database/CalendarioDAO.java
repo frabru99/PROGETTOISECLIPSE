@@ -11,6 +11,7 @@ public class CalendarioDAO {
     //Costruttore per caricare dal db
     public CalendarioDAO() {
         
+    	giorni = new ArrayList<GiornoDAO>();
         caricaDaDB();
         
     }

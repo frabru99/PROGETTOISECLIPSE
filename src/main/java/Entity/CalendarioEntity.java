@@ -75,6 +75,19 @@ public class CalendarioEntity {
     public static void setGiorni(ArrayList<GiornoEntity> giorni) {
         CalendarioEntity.giorni = giorni;
     }
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		String gio = new String();
+		for(int i=0; i<giorni.size(); i++) {
+			gio += "  ##  "+ giorni.get(i).toString() + "  ##  \n";
+		}
+		
+		return gio;
+	}
+    
+    
     
     
 }

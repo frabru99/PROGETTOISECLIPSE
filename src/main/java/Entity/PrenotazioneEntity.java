@@ -121,6 +121,59 @@ public class PrenotazioneEntity {
 		this.corso = cr;
 		
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "PrenotazioneEntity [idPrenotazione=" + idPrenotazione + ", dataPrenotazione=" + dataPrenotazione
+				+ ", codiceCliente=" + codiceCliente + ", codiceCorso=" + codiceCorso + ", emailCliente=" + emailCliente
+				+ "]";
+	}
+
+
+
+	public int getIdPrenotazione() {
+		return idPrenotazione;
+	}
+
+
+
+	public String getDataPrenotazione() {
+		return dataPrenotazione;
+	}
+
+
+
+	public String getCodiceCliente() {
+		return codiceCliente;
+	}
+
+
+
+	public int getCodiceCorso() {
+		return codiceCorso;
+	}
+
+
+
+	public String getEmailCliente() {
+		return emailCliente;
+	}
+
+
+
+	public ClienteIscrittoEntity getCliente() {
+		return cliente;
+	}
+
+
+
+	public CorsoEntity getCorso() {
+		return corso;
+	}
+	
+	
 	
 	
 	

@@ -27,7 +27,7 @@ public class PrenotazioneDAO {
 	
 	public void caricaDaDB() {
 		
-		String query = "SELECT * FROM Prenotazione WHERE idPrenotazione="+this.idPrenotazione;	
+		String query = "SELECT * FROM Prenotazione WHERE idPrenotazione='"+this.idPrenotazione+"';";	
 		
 		try {
 			
@@ -37,15 +37,15 @@ public class PrenotazioneDAO {
 				
 				this.setIdPrenotazione(rs.getInt("idPrenotazione"));
 				this.setDataPrenotazione(rs.getString("dataPrenotazione"));
-				this.setCodiceCliente(rs.getString("codiceCliente"));
-				this.setCodiceCorso(rs.getInt("codiceCorso"));
-				this.setEmailCliente(rs.getString("emailCliente"));
+				this.setCodiceCliente(rs.getString("ClienteIscritto_codiceCliente"));
+				this.setCodiceCorso(rs.getInt("Corso_codiceCorso"));
+				this.setEmailCliente(rs.getString("ClienteIscritto_email"));
 				
 			}
 			
 		}catch(SQLException| ClassNotFoundException e) {
 			
-			System.err.println("Non trovato");
+			System.err.println("Non trovato" + e.getMessage());
 			
 		}
 		
@@ -97,7 +97,7 @@ public class PrenotazioneDAO {
 	
 	public void caricaClienteDaDB() {
 		
-		String query = "SELECT * FROM Cliente WHERE codiceCliente =" + this.codiceCliente;
+		String query = "SELECT * FROM ClienteIscritto WHERE codiceCliente = '" + this.codiceCliente+"';";
 		
 		
 		this.cliente = new ClienteIscrittoDAO();
@@ -118,17 +118,15 @@ public class PrenotazioneDAO {
 				cl.setIdAbbonamentoAnnuale(rs.getInt("idAbbAnnuale"));
 				cl.setIdAbbonamentoMensile(rs.getInt("idAbbMensile"));
 				
-				
-				
+			
 				this.cliente=cl;
 				
 			}
 			
 			
 			
-			
 		} catch(SQLException | ClassNotFoundException e) {
-			System.err.println("Errore nella query!");
+			System.err.println("Errore nella query!" + e.getMessage());
 			
 		}
 		
@@ -139,7 +137,7 @@ public class PrenotazioneDAO {
 		//Inizializziamo il massimo a -1. Se non ci sono prenotazioni si parte con l'id 0
 		int max =-1;
 		
-		String query = "SELECT idPrenotazione FROM Prenotazione WHEERE idPrenotazione >= ALL(SELECT idPrenotazione FROM Prenotazione)";
+		String query = "SELECT idPrenotazione FROM Prenotazione WHERE idPrenotazione >= ALL(SELECT idPrenotazione FROM Prenotazione)";
 		
 		try {
 			
@@ -163,17 +161,37 @@ public class PrenotazioneDAO {
 	public int scrivisuDB(int idPrenotazione, String dataPrenotazione, String codiceCliente, String email, int codiceCorso) {
 		int ret=0;
 		
-        String query = "INSERT INTO Prenotazione (idPrenotazione, dataPrenotazione, ClienteIscritto_codiceCliente, ClienteIscritto_email, Corso_codiceCorso) VALUES (\'"+idPrenotazione+"\',"+"\'"+dataPrenotazione+"\'"+codiceCliente+"\','"+"\',"+email+"\','"+"\'"+codiceCorso+"\');";
+		//qui magari una query con if !
+		
+		String search = "SELECT * FROM Prenotazione WHERE ClienteIscritto_codiceCliente = \'"+codiceCliente+"' AND Corso_codiceCorso= \'"+codiceCorso+"';";
+		
+		
+		try {
+			
+		ResultSet set = DBConnectionManager.selectQuery(search);
+		
+		
+		if(!set.next()) { //FARE UN CHECK
+		
+        String query = "INSERT INTO Prenotazione (idPrenotazione, dataPrenotazione, ClienteIscritto_codiceCliente, ClienteIscritto_email, Corso_codiceCorso) VALUES (\'"+idPrenotazione+"\',"+"\'"+dataPrenotazione+"\','"+codiceCliente+"\','"+email+"\','"+codiceCorso+"');";
         
-        try {
+        
             
          ret =  DBConnectionManager.updateQuery(query);
+         
+		} else {
+			
+			ret =-1;
+			System.err.println("Prenotazione già presente");
+		}
             
         } catch (ClassNotFoundException | SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             ret = -1;
         }
+        
+		
         
         return ret;
 	}

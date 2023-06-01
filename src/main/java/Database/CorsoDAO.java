@@ -119,7 +119,7 @@ public class CorsoDAO {
 		
 		int ret=0;
 		
-		String query="INSERT INTO Corso(codiceCorso, nomeCorso, istruttore, oraInizio, durataCorso, SalaperCorsi_idSalaperCorsi) VALUES (\'"+codiceCorso+"\',"+"\'"+nomeCorso+"\','"+istruttore+"\','"+oraInizio+"\','"+durataCorso+"\','"+idSalaperCorsi+"')";
+		String query="INSERT INTO Corso(codiceCorso, nomeCorso, istruttore, oraInizio, durataCorso, SalaperCorsi_idSalaperCorsi) VALUES (\'"+codiceCorso+"\',"+"\'"+nome+"\','"+istruttore+"\','"+oraInizio+"\','"+durataCorso+"\','"+idSalaperCorsi+"')";
 		
 		System.out.println(query);
 
