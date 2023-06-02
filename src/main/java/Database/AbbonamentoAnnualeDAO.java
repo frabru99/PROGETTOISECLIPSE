@@ -46,6 +46,25 @@ public class AbbonamentoAnnualeDAO {
 			
 		}
 		
+		//questa funzione serve per incrementare gli id degli abbonamenti (se non ce ne sono, si parte dall'id 0)
+		public int prelevaIdmassimo() {
+			int max=-1;
+			String query = "SELECT idAbbonamentoAnnuale FROM AbbonamentoAnnuale WHERE idAbbonamentoAnnuale >=ALL(SELECT idAbbonamentoAnnuale FROM AbbonamentoAnnuale)";
+			
+			try {
+				
+				ResultSet rs = DBConnectionManager.selectQuery(query);
+				
+				if(rs.next()) {
+					max=rs.getInt("idAbbonamentoAnnuale");
+				}
+				
+			}catch(ClassNotFoundException | SQLException e) {
+				System.err.println("Non ci sono id");
+			}
+			return max;
+		}
+		
 		public int scriviAbbonamentoAnnuale(int id, String dataSottoscrizione, String dataScadenza, int prezzo){
 			int ret =0;
 			
@@ -67,6 +86,18 @@ public class AbbonamentoAnnualeDAO {
 			
 			return ret;
 		
+		}
+		
+		public int sospendiAbbonamentoAnnuale(int idAbb, String dataSospensione) {
+			int ret=0;
+			String query = "UPDATE AbbonamentoAnnuale SET dataSospensione = '"+dataSospensione+"'";
+			try {
+				ret=DBConnectionManager.updateQuery(query);
+			}catch(ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+				ret = -1;
+			}
+			return ret;
 		}
 
 		public int getIdAbbonamentoAnnuale() {

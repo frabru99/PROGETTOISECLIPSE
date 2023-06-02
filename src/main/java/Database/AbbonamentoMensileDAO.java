@@ -47,6 +47,26 @@ public class AbbonamentoMensileDAO {
 		
 	}
 	
+	public int prelevaIdMassimo() {
+		int max=-1;
+		String query="SELECT idAbbonamentoMensile FROM AbbonamentoMensile WHERE idAbbonamentoMensile >= ALL(SELECT idAbbonamentoMensile FROM AbbonamentoMensile)";
+		
+		try {
+			
+			ResultSet rs=DBConnectionManager.selectQuery(query);
+			
+			if(rs.next()) {
+				max=rs.getInt("idAbbonamentoMensile");
+			}
+						
+		}catch(ClassNotFoundException | SQLException e) {
+			System.err.println("Non ci sono id");
+		}
+		
+		return max;
+		
+	}
+	
 	public int scriviAbbonamentoMensile(int id, String dataSottoscrizione, String dataScadenza, int prezzo, String nomeMese){
 		int ret =0;
 		

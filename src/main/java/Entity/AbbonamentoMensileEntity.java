@@ -24,11 +24,12 @@ public class AbbonamentoMensileEntity {
 	}
 	
 	public AbbonamentoMensileEntity(AbbonamentoMensileDAO db) {
-		this.idAbbonamentoMensile = db.getIdAbbonamentoMensile();
+		//this.idAbbonamentoMensile = db.getIdAbbonamentoMensile();
 		this.dataSottoscrizione = db.getDataSottoscrizione();
 		this.dataScadenza = db.getDataScadenza();
 		this.prezzo = db.getPrezzo();
 		this.nomeMese = db.getNomeMese();
+		this.idAbbonamentoMensile=(db.prelevaIdMassimo()+1);
 	}
 	
 	public int scrivisuDB(int idAbbonamentoMensile, String dataSottoscrizione, String dataScadenza, int prezzo, String nomeMese) {
