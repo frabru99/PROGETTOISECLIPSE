@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
 
 public class CorsoDAO {
 	

@@ -146,9 +146,9 @@ public class CorsoEntity {
 
 	@Override
 	public String toString() {
-		return "CorsoEntity [codiceCorso=" + codiceCorso + ", nomeCorso=" + nomeCorso + ", istruttore=" + istruttore
-				+ ", oraInizio=" + oraInizio + ", durataCorso=" + durataCorso + ", idSalaperCorsi=" + idSalaperCorsi+"]";
-		
+		//MANNAGGIA DIO LA BOUNDARY RITORNA IL TOSTRING SOLO SE APRITE LA CONSOLE QUANDO RUNNATE!!!
+		return ("CORSO: "+this.getNomeCorso()+" "+this.getIdSalaperCorsi()+" "+this.getOraInizio());
+		//return "ciao";
 		//TO STRING DA RIVEDERE
 	}
 	

@@ -40,7 +40,7 @@ public class Controller {
 	}
 	
 	//permette di ottenere la lista dei corsi, dato un giorno specifico
-	public static ArrayList<CorsoEntity> listaCorsi(String giorno_scelto){
+	public static ArrayList<CorsoEntity> ricercaCorsiOggetto(String giorno_scelto){
 		GiornoEntity giorno = new GiornoEntity(giorno_scelto);
 		ArrayList<CorsoEntity> corsi = new ArrayList<CorsoEntity>();
 		corsi=giorno.getCorsi();
@@ -48,11 +48,22 @@ public class Controller {
 	}
 	
 	//VARIANTE DELLA FUNZIONE PRECEDENTE: CHECKARE QUALE SIA LA PIU' CONVENIENTE
-	public static String listaCorsi2(String giorno_scelto){
+	public static String ricercaCorsiStringa(String giorno_scelto){
 		GiornoEntity giorno = new GiornoEntity(giorno_scelto);
 		ArrayList<CorsoEntity> corsi = new ArrayList<CorsoEntity>();
 		corsi=giorno.getCorsi();
 		return corsi.toString();
+	}
+	
+	public static ArrayList<String> ricercaCorsiArrayStringa(String giorno_scelto){
+		GiornoEntity giorno = new GiornoEntity(giorno_scelto);
+		ArrayList<String> corsi = new ArrayList<String>();
+		for(int i=0;i<giorno.getCorsi().size();i++) {
+			String corso = giorno.getCorsi().get(i).toString();
+			System.out.println(corso);
+			corsi.add(corso);
+		}
+		return corsi;
 	}
 	
 	//permette di sottoscrivere un abbonamento annuale (CHECKARE)
