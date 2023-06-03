@@ -37,12 +37,11 @@ public class PrenotazioneEntity {
 	this.idPrenotazione = (pdao.prelevaIdMassimo()+1);
 	
 	//Scrivi su db del DAO   
+	
+	
 		
 	
-	scrivisuDB(); //devo scrivere le informazioni della prenotazione nel Database
-	
 	}
-	
 	
 	
 	public PrenotazioneEntity(int idPren) {

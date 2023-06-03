@@ -86,8 +86,7 @@ public class AbbonamentoMensileDAO {
 			ret = -1;
 		}
 		
-		
-
+	
 		return ret;
 	
 	}

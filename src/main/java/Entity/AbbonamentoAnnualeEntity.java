@@ -36,76 +36,77 @@ public class AbbonamentoAnnualeEntity {
 	}
 	
 	public AbbonamentoAnnualeEntity(AbbonamentoAnnualeDAO db) {
-		//this.idAbbonamentoAnnuale = db.getIdAbbonamentoAnnuale();
+		this.idAbbonamentoAnnuale = db.getIdAbbonamentoAnnuale();
 		this.dataSottoscrizione = db.getDataSottoscrizione();
 		this.dataScadenza = db.getDataScadenza();
 		this.prezzo = db.getPrezzo();
 		this.dataSospensione = db.getDataSopensione();
 		this.dataRipresa = db.getDataRipresa();
-		this.idAbbonamentoAnnuale=(db.prelevaIdmassimo()+1);
+		//this.idAbbonamentoAnnuale=(db.prelevaIdmassimo()+1);
 	}
 	
-	//QUESTA LA INVOCA IL CONTROLLER
-	public int ControllerScrivisuDB() {
-		AbbonamentoAnnualeDAO abbann = new AbbonamentoAnnualeDAO();
-		int max=(abbann.prelevaIdmassimo()+1);
-		int ret=0;
-		Date dataSottoscrizione = new java.sql.Date(System.currentTimeMillis()); //la data di sottoscrizione sarà, per forza di cose, coincidente con la data in cui invoco il metodo
-		Date dataScadenza = this.addDays(dataSottoscrizione, 365);//la data di scadenza è esattamente 365 giorni dopo quella di sottoscrizione
-		//fare eventualmente un altro scrivisuDB ma solo con id e datasottoscrizione (provare a usare il tipo Date di PrenotazioneDAO)
-		ret=scriviAbbsuDB(max,dataSottoscrizione,dataScadenza);
-		
-		return ret;
-	}
 	
-	//funzione per scrivere su DB tramite richiesta dell'utente (attraverso boundary)
-	public int scriviAbbsuDB(int idAbbonamentoAnnuale,Date dataSottoscrizione,Date dataScadenza) {
+	
+	//funzione per scrivere su DB tramite richiesta dell'utente (attraverso controller!)
+	public int scriviAbbsuDB() {
 		int ret=0;
 		AbbonamentoAnnualeDAO abb = new AbbonamentoAnnualeDAO();
-		//int max=(abb.prelevaIdmassimo()+1);
-		//provo a scrivere sul DB (commento vecchio)
 		
-		Date dataScadenza = this.addDays(dataSottoscrizione, 365); //la data di scadenza è esattamente 365 giorni dopo quella di sottoscrizione
+		int max=(abb.prelevaIdmassimo()+1);
+		
+		Date dataSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+		
+		Date dataScadenza = addDays(dataSottoscrizione, 365); //la data di scadenza è esattamente 365 giorni dopo quella di sottoscrizione
 		
 		//AGGIUNGERE NUOVO METODO DI SCRITTURA SU DB (solo con idAbbAnn, dataSottoscrizione e dataScadenza) IN ABBONAMENTOANNUALEDAO
-		ret = abb.scriviAbbonamentoAnnuale(idAbbonamentoAnnuale, dataSottoscrizione, dataScadenza, prezzo);
+		ret = abb.scriviAbbonamentoAnnuale(max, dataSottoscrizione.toString(), dataScadenza.toString(), 250);
 		
 		if(ret!=-1) {	
-			this.idAbbonamentoAnnuale = idAbbonamentoAnnuale;
-            this.dataSottoscrizione = dataSottoscrizione;
-            this.dataScadenza = dataScadenza;
-            this.prezzo = prezzo;	
+			this.idAbbonamentoAnnuale = max;
+            this.dataSottoscrizione = dataSottoscrizione.toString();
+            this.dataScadenza = dataScadenza.toString();
+            this.prezzo = 250;	
 		}
 		
 		return ret;
 	}
 	
-	public int sospendiAbbonamentoAnnualeEntity() {
-		
-	}
-	
-	//classica funzione di scrittura
-	public int scrivisuDB(int idAbbonamentoAnnuale, String dataSottoscrizione, String dataScadenza, int prezzo) {
-		
-		int ret=0;
+	public int sospendiAbbonamento(int idAbb, java.util.Date dataSospensione, java.util.Date dataRipresa) {
 		
 		AbbonamentoAnnualeDAO abb = new AbbonamentoAnnualeDAO();
 		
-		//provo a scrivere sul DB
 		
-		ret = abb.scriviAbbonamentoAnnuale(idAbbonamentoAnnuale, dataSottoscrizione, dataScadenza, prezzo);
-		
-		if(ret!=-1) {	
-			this.idAbbonamentoAnnuale = idAbbonamentoAnnuale;
-            this.dataSottoscrizione = dataSottoscrizione;
-            this.dataScadenza = dataScadenza;
-            this.prezzo = prezzo;	
-		}
+		int ret = abb.sospendiAbbonamentoAnnuale(idAbb, dataSospensione, dataRipresa);
 		
 		return ret;
-		
-		
 	}
+	
+//	public int sospendiAbbonamentoAnnualeEntity(String sospensione, String ripresa) { //aggiunger euna data sospensione e una data di ripresa!
+//		
+//	}
+	
+	
+	//classica funzione di scrittura
+//	public int scrivisuDB(int idAbbonamentoAnnuale, String dataSottoscrizione, String dataScadenza, int prezzo) {
+//		
+//		int ret=0;
+//		
+//		AbbonamentoAnnualeDAO abb = new AbbonamentoAnnualeDAO();
+//		
+//		//provo a scrivere sul DB
+//		
+//		ret = abb.scriviAbbonamentoAnnuale(idAbbonamentoAnnuale, dataSottoscrizione, dataScadenza, prezzo);
+//		
+//		if(ret!=-1) {	
+//			this.idAbbonamentoAnnuale = idAbbonamentoAnnuale;
+//            this.dataSottoscrizione = dataSottoscrizione;
+//            this.dataScadenza = dataScadenza;
+//            this.prezzo = prezzo;	
+//		}
+//		
+//		return ret;
+//		
+//	}
 	
 	//metodo per aggiungere "days" giorni all'oggetto "date"
 	public static Date addDays(Date date, int days) {
@@ -115,13 +116,7 @@ public class AbbonamentoAnnualeEntity {
         return new Date(c.getTimeInMillis());
     }
 	
-	
-	public int getIdAbbonamentoMensile() {
-		return idAbbonamentoAnnuale;
-	}
-	public void setIdAbbonamentoMensile(int idAbbonamentoMensile) {
-		this.idAbbonamentoAnnuale = idAbbonamentoMensile;
-	}
+
 	public String getDataSottoscrizione() {
 		return dataSottoscrizione;
 	}

@@ -1,5 +1,7 @@
 package Database;
 
+import java.sql.Date;
+import java.util.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -23,7 +25,7 @@ public class AbbonamentoAnnualeDAO {
 			super();
 		}
 		
-		
+
 		public void caricaDaDB(int id) {
 			String query = "SELECT * FROM AbbonamentoAnnuale WHERE idAbbonamentoAnnuale = '"+this.idAbbonamentoAnnuale+"';";
 			
@@ -88,17 +90,36 @@ public class AbbonamentoAnnualeDAO {
 		
 		}
 		
-		public int sospendiAbbonamentoAnnuale(int idAbb, String dataSospensione) {
+		
+		public int sospendiAbbonamentoAnnuale(int idAbbAnnuale, java.util.Date dataSospensione, java.util.Date dataRipresa) {
+		
 			int ret=0;
-			String query = "UPDATE AbbonamentoAnnuale SET dataSospensione = '"+dataSospensione+"'";
+			
+			
+			
+			//faccio prima una selecty di controllo, per prenedere id Abbonamento!
+			
+			int anno =(dataSospensione.getYear())-100;
+		
+			
+			String datasosp = "20"+anno+"-"+dataSospensione.getMonth()+"-"+dataSospensione.getDay(); //scusaci ingegner de luca.......
+			
+			String datarip = "20"+anno+"-"+dataRipresa.getMonth()+"-"+dataRipresa.getDay(); //scusaci ingegner de luca.......
+			
+			
 			try {
-				ret=DBConnectionManager.updateQuery(query);
+                String upd = "UPDATE AbbonamentoAnnuale SET dataSospensione = '"+datasosp+"', dataRipresa = '"+datarip+"' WHERE idAbbonamentoAnnuale = "+idAbbAnnuale+";";
+         			
+     			ret=DBConnectionManager.updateQuery(upd);
+             
 			}catch(ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 				ret = -1;
 			}
+			
 			return ret;
 		}
+		
 
 		public int getIdAbbonamentoAnnuale() {
 			return idAbbonamentoAnnuale;

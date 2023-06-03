@@ -63,6 +63,10 @@ public class ClienteIscrittoDAO {
 	//Per salvare il cliente nel database
 	public int salvaInDB(String codiceCliente, String nome, String cognome, String email) {
 		
+		//devo prelevare il massimo!
+		
+		
+		
 		String query = "INSERT INTO clienteiscritto(codiceCliente,nome,cognome,email) VALUES (\'"+codiceCliente+"\',"+"\'"+nome+"\','"+cognome+"\','"+email+"')";
 		
 		int ret=0;
@@ -79,6 +83,25 @@ public class ClienteIscrittoDAO {
 		
 		return ret;
 		
+	}
+	
+	public String prelevaIdmassimo() {
+		String max=null;
+		String query = "SELECT codiceCliente FROM ClienteIscritto WHERE codiceCliente >=ALL(SELECT codiceCliente FROM ClienteIscritto)";
+		
+		try {
+			
+			ResultSet rs = DBConnectionManager.selectQuery(query);
+			
+			if(rs.next()) {
+				max=rs.getString("codiceCliente");
+			}
+			
+		}catch(ClassNotFoundException | SQLException e) {
+			System.err.println("Non ci sono id" + e.getMessage());
+		}
+		
+		return max;
 	}
 	
 	//Carica gli abbonamenti dell'iscritto se ci sono

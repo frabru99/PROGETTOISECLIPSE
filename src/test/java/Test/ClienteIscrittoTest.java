@@ -42,12 +42,12 @@ public class ClienteIscrittoTest {
 	@Test
 	public void testScriviSuDb() {
 		
-		ClienteIscrittoDAO dao  = new ClienteIscrittoDAO();
+		ClienteIscrittoEntity dao  = new ClienteIscrittoEntity();
 		
-		dao.salvaInDB("Cliente_5", "Antonio", "de Gasperi","deGasp@gmail.com");
+		dao.scriviSuDb("Antonio", "de Gasperi","deGasp@gmail.com");
 		
 		
-		ClienteIscrittoEntity cl = new ClienteIscrittoEntity("Cliente_5");
+		ClienteIscrittoEntity cl = new ClienteIscrittoEntity("Cliente_6");
 		
 		System.out.println(cl);
 		

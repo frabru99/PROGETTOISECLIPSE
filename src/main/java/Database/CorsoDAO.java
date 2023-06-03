@@ -137,6 +137,32 @@ public class CorsoDAO {
 		
 	}
 	
+	public int prelevaIdMassimo() {
+		
+		//Inizializziamo il massimo a -1. Se non ci sono prenotazioni si parte con l'id 0
+		int max =-1;
+		
+		String query = "SELECT codiceCorso FROM Corso WHERE codiceCorso >= ALL(SELECT codiceCorso FROM Corso)";
+		
+		try {
+			
+			ResultSet rs = DBConnectionManager.selectQuery(query);
+			
+			if (rs.next()) {
+				max=rs.getInt("codiceCorso");
+			}
+			
+		}catch(SQLException | ClassNotFoundException e) {
+			
+			System.err.println("Non ci sono id"+ e.getMessage());
+			
+		}
+		
+		return max;
+		
+		
+	}
+	
 
 	public int getCodiceCorso() {
 		return codiceCorso;

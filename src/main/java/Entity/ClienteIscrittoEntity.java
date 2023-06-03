@@ -70,16 +70,20 @@ public class ClienteIscrittoEntity {
 	}
 	
 	//Metodo scrivi su db
-	public int scriviSuDb(String codiceCLiente, String nome, String cognome, String email){
+	public int scriviSuDb(String nome, String cognome, String email){
 		int ret=0;
 		
 		ClienteIscrittoDAO corso  = new ClienteIscrittoDAO();
 		//provo a scrivere sul DB
 		
-		ret = corso.salvaInDB(codiceCLiente, nome, cognome, email);
+		Integer maxcod = Integer.parseInt(corso.prelevaIdmassimo().split("_")[1])+1;
+		
+		String codiceCliente = "Cliente_"+maxcod;
+		
+		ret = corso.salvaInDB(codiceCliente, nome, cognome, email);
 		
 		if(ret!=-1) {	
-			this.setCodiceCliente(codiceCLiente);
+			this.setCodiceCliente(codiceCliente);
 			this.setNome(nome);
 			this.setCognome(cognome);
 			this.setEmail(email);

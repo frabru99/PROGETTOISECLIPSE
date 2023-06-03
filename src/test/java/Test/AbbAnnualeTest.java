@@ -2,6 +2,8 @@ package Test;
 
 import static org.junit.Assert.*;
 
+import java.sql.Date;
+
 import org.junit.Test;
 
 import Database.AbbonamentoAnnualeDAO;
@@ -35,18 +37,51 @@ public class AbbAnnualeTest {
 	@Test
 	public void testAbbonamentoAnnualeinsert() {
 		
-		AbbonamentoAnnualeDAO db = new AbbonamentoAnnualeDAO();
+		AbbonamentoAnnualeEntity abb = new AbbonamentoAnnualeEntity();
 		
-		db.scriviAbbonamentoAnnuale(111, "01/07/23", "01/07/24", 250);
+		abb.scriviAbbsuDB();
 		
-		System.out.println("Scritto!");
+		System.out.println("Scritto su DB");
 		
-		AbbonamentoAnnualeEntity abb = new AbbonamentoAnnualeEntity(111);
 		
-		System.out.println(abb.toString());
+		AbbonamentoAnnualeEntity abbon = new AbbonamentoAnnualeEntity(214);
 		
-		assertEquals("01/07/23", abb.getDataSottoscrizione());
+		
+		System.out.println(abbon);
+		
+		
+		assertEquals(214, abbon.getIdAbbonamentoAnnuale());
+		
 	}
+	
+	@Test
+	public void testAbbonamentoAnnualeupdate() {
+		
+		AbbonamentoAnnualeEntity abb = new AbbonamentoAnnualeEntity();
+		
+		Date dataSospensione = new java.sql.Date(System.currentTimeMillis());
+		
+	
+		Date dataRipresa = AbbonamentoAnnualeEntity.addDays(dataSospensione, 30);
+		
+		abb.sospendiAbbonamento(213, dataSospensione, dataRipresa);
+		
+		System.out.println("Updated!");
+		
+		
+		AbbonamentoAnnualeEntity abbon = new AbbonamentoAnnualeEntity(213);
+		
+		System.out.println(abbon);
+		
+		
+		assertEquals(213, abbon.getIdAbbonamentoAnnuale());
+		
+	}
+	
+	
+	
+	
+	
 
 }
 

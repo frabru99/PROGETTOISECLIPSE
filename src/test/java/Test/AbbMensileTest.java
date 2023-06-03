@@ -37,17 +37,17 @@ public class AbbMensileTest {
 	@Test
 	public void testAbbonamentoMensileinsert() {
 		
-		AbbonamentoMensileDAO db = new AbbonamentoMensileDAO();
+		AbbonamentoMensileEntity abb = new AbbonamentoMensileEntity();
 		
-		db.scriviAbbonamentoMensile(333, "01/01/23", "01/02/23", 40, "Gennaio");
+		abb.scrivisuDB("Gennaio");
 		
 		System.out.println("Scritto!");
 		
-		AbbonamentoMensileEntity abb = new AbbonamentoMensileEntity(333);
+		AbbonamentoMensileEntity abbon = new AbbonamentoMensileEntity(568);
 		
-		System.out.println(abb.toString());
+		System.out.println(abbon.toString());
 		
-		assertEquals("01/01/23", abb.getDataSottoscrizione());
+		assertEquals("2023-01-01", abb.getDataSottoscrizione());
 	}
 
 }

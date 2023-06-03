@@ -37,13 +37,13 @@ public class CorsoEntityTest {
 	@Test
 	public void testScriviSuDb() {
 		
-		CorsoDAO corso = new CorsoDAO();
 		
+		CorsoEntity corso = new CorsoEntity();
 		
-		corso.salvaInDB(125, "Samba", "Antonio Boccarossa", "16:00", "2:30 h", 13);
+
+		corso.scriviSuDb("Samba", "Antonio Boccarossa", "16:00", "2:30 h", 12);
 		
-		
-		CorsoEntity cor = new CorsoEntity(125);
+		CorsoEntity cor = new CorsoEntity(126);
 		
 		System.out.println(cor.toString());
 		

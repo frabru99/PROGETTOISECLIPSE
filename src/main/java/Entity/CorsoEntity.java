@@ -59,11 +59,17 @@ public class CorsoEntity {
 	
 	
 	
-	public int scriviSuDb(int idCorso, String nomeCorso, String istruttore, String oraInizio, String durataCorso, int idSalaperCorsi) {
+	public int scriviSuDb(String nomeCorso, String istruttore, String oraInizio, String durataCorso, int idSalaperCorsi) {
 		int ret=0;
+		
+		
 		
 		CorsoDAO corso  = new CorsoDAO();
 		//provo a scrivere sul DB
+		
+		int idCorso = corso.prelevaIdMassimo()+1;
+		
+		
 		
 		ret = corso.salvaInDB(idCorso, nomeCorso, istruttore, oraInizio, durataCorso, idSalaperCorsi);
 		
@@ -129,8 +135,7 @@ public class CorsoEntity {
 		this.giorni = giorni;
 	}*/
 
-	
-	
+
 	public SalaperCorsiEntity getSalaCorso() {
 		return salaCorso;
 	}

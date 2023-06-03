@@ -1,7 +1,11 @@
 package Entity;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 import Database.AbbonamentoAnnualeDAO;
 import Database.AbbonamentoMensileDAO;
+import ch.qos.logback.core.joran.conditional.IfAction;
 
 public class AbbonamentoMensileEntity {
 	private int idAbbonamentoMensile;
@@ -23,6 +27,12 @@ public class AbbonamentoMensileEntity {
 		this.nomeMese = db.getNomeMese();
 	}
 	
+	
+	
+	public AbbonamentoMensileEntity() {
+		super();
+	}
+
 	public AbbonamentoMensileEntity(AbbonamentoMensileDAO db) {
 		//this.idAbbonamentoMensile = db.getIdAbbonamentoMensile();
 		this.dataSottoscrizione = db.getDataSottoscrizione();
@@ -32,29 +42,79 @@ public class AbbonamentoMensileEntity {
 		this.idAbbonamentoMensile=(db.prelevaIdMassimo()+1);
 	}
 	
-	public int scrivisuDB(int idAbbonamentoMensile, String dataSottoscrizione, String dataScadenza, int prezzo, String nomeMese) {
+	public int scrivisuDB(String nomeMese) {
 		
 		int ret=0;
 		
 		AbbonamentoMensileDAO abb = new AbbonamentoMensileDAO();
 		
+		int max=(abb.prelevaIdMassimo()+1);
+		
 		//provo a scrivere sul DB
 		
-		ret = abb.scriviAbbonamentoMensile(idAbbonamentoMensile, dataSottoscrizione, dataScadenza, prezzo, nomeMese);
+		Date tempoSott = new java.sql.Date(System.currentTimeMillis());
+			
+		
+		
+		int anno = tempoSott.getYear();
+		
+			String dataSottoscrizione = new String();
+			String dataScadenza = new String();
+			
+			
+		if(nomeMese.equals("Gennaio")){
+			dataSottoscrizione = new String("20"+(anno-100)+"-01-01");	 //gestione hardcoded della data, scusaci ing de Luca....
+			dataScadenza = new String("20"+(anno-100)+"-02-01");
+		} else if(nomeMese.equals("Febbraio")){
+			dataSottoscrizione = new String("20"+(anno-100)+"-02-01");	
+			dataScadenza = new String("20"+(anno-100)+"-03-01");
+		} else if(nomeMese.equals("Marzo")){
+			dataSottoscrizione = new String("20"+(anno-100)+"-03-01");	
+			dataScadenza = new String("20"+(anno-100)+"-04-01");
+		} else if(nomeMese.equals("Aprile")){
+			dataSottoscrizione = new String("20"+(anno-100)+"-04-01");	
+			dataScadenza = new String("20"+(anno-100)+"-05-01");
+		} else if(nomeMese.equals("Maggio")){
+			dataSottoscrizione = new String("20"+(anno-100)+"-05-01");	
+			dataScadenza = new String("20"+(anno-100)+"-06-01");
+		} else if(nomeMese.equals("Giugno")){
+			dataSottoscrizione = new String("20"+(anno-100)+"-06-01");	
+			dataScadenza = new String("20"+(anno-100)+"-07-01");
+		} else if(nomeMese.equals("Luglio")){
+			dataSottoscrizione = new String("20"+(anno-100)+"-07-01");	
+			dataScadenza = new String("20"+(anno-100)+"-08-01");
+		} else if(nomeMese.equals("Agosto")){
+			dataSottoscrizione = new String("20"+(anno-100)+"-08-01");	
+			dataScadenza = new String("20"+(anno-100)+"-09-01");
+		} else if(nomeMese.equals("Settembre")){
+			dataSottoscrizione = new String("20"+(anno-100)+"-09-01");	
+			dataScadenza = new String("20"+(anno-100)+"-10-01");
+		} else if(nomeMese.equals("Ottobre")){
+			dataSottoscrizione = new String("20"+(anno-100)+"-10-01");	
+			dataScadenza = new String("20"+(anno-100)+"-11-01");
+		} else if(nomeMese.equals("Novembre")){
+			dataSottoscrizione = new String("20"+(anno-100)+"-11-01");	
+			dataScadenza = new String("20"+(anno-100)+"-12-01");
+		} else if(nomeMese.equals("Dicembre")){
+			dataSottoscrizione = new String("20"+(anno-100)+"-01-01");	
+			dataScadenza = new String(("20"+(anno-100)+1)+"-02-01");
+		}
+		
+		
+		ret = abb.scriviAbbonamentoMensile(max, dataSottoscrizione, dataScadenza, 40, nomeMese);
 		
 		if(ret!=-1) {	
-			this.idAbbonamentoMensile = idAbbonamentoMensile;
+			this.idAbbonamentoMensile = max;
             this.dataSottoscrizione = dataSottoscrizione;
             this.dataScadenza = dataScadenza;
-            this.prezzo = prezzo;
+            this.prezzo = 40;
             this.nomeMese=nomeMese;
 		}
 		
 		return ret;
 		
 	}
-	
-	
+		
 	public int getIdAbbonamentoMensile() {
 		return idAbbonamentoMensile;
 	}
@@ -92,7 +152,5 @@ public class AbbonamentoMensileEntity {
 				+ dataSottoscrizione + ", dataScadenza=" + dataScadenza + ", prezzo=" + prezzo + ", nomeMese="
 				+ nomeMese + "]";
 	}
-	
-	
-	
+
 }
