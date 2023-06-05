@@ -12,7 +12,7 @@ public class GiornoEntityTest {
 	
 	@Test
 	public void testGiornoEntityString() {
-		GiornoEntity giorno = new GiornoEntity("Lunedi");
+		GiornoEntity giorno = new GiornoEntity("Lunedi", true);
 		
 		System.out.println(giorno);
 		
@@ -41,7 +41,7 @@ public class GiornoEntityTest {
 		
 		System.out.println("Scritto!");
 		
-		GiornoEntity giorno2 = new GiornoEntity("Mercoledi");
+		GiornoEntity giorno2 = new GiornoEntity("Mercoledi", false);
 		
 		assertEquals("23:00", giorno2.getOrarioChiusuraCentro());
 		

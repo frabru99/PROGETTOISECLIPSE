@@ -64,8 +64,6 @@ public class GiornoDAO {
 				corso.setDurataCorso(rs.getString("durataCorso"));
 				corso.setIdSalaperCorsi(rs.getInt("SalaperCorsi_idSalaperCorsi"));
 				
-			
-				
 				//chiamata a cascata
 				//corso.caricaGiorniCorsodaDB();
 				this.corsi.add(corso);
@@ -76,6 +74,37 @@ public class GiornoDAO {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void caricaCorsiPostiDisponibili() {
+		//gia inizializzato nel costruttore, probabilmente da torgliere qua
+				corsi = new ArrayList<CorsoDAO>();
+				
+				
+				String query=new String("SELECT * FROM Corso C JOIN SalaperCorsi S ON C.SalaperCorsi_idSalaperCorsi= S.idSalaperCorsi WHERE codiceCorso IN(SELECT Corso_codiceCorso FROM Corso_has_Giorno  WHERE Giorno_nomeGiorno=\'"+this.nomeGiorno+"') AND S.numeroPosti>0");
+				
+				try {
+					
+					ResultSet rs=DBConnectionManager.selectQuery(query);
+					
+					while(rs.next()) {
+						CorsoDAO corso=new CorsoDAO();
+						corso.setCodiceCorso(rs.getInt("codiceCorso"));
+						corso.setNomeCorso(rs.getString("nomeCorso"));
+						corso.setIstruttore(rs.getString("istruttore"));
+						corso.setOraInizio(rs.getString("oraInizio"));
+						corso.setDurataCorso(rs.getString("durataCorso"));
+						corso.setIdSalaperCorsi(rs.getInt("SalaperCorsi_idSalaperCorsi"));
+						
+						//chiamata a cascata
+						//corso.caricaGiorniCorsodaDB();
+						this.corsi.add(corso);
+					}
+					
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
 	}
 	
 	public int salvaInDB(String nomeGiorno,String orarioAperturaCentro, String orarioChiusuraCentro) {
@@ -98,7 +127,6 @@ public class GiornoDAO {
 		return ret;
 		
 	}
-	
 	
 	//Setter e Getter
 	public String getNomeGiorno() {

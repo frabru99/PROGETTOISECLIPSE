@@ -10,7 +10,9 @@ public class GiornoEntity {
 	String orarioChiusuraCentro;
 	ArrayList<CorsoEntity> corsi;
 	
-	public GiornoEntity(String nomeGiorno) {
+	public GiornoEntity(String nomeGiorno, boolean disponibili) {
+		
+		
 		
 		GiornoDAO giorno=new GiornoDAO(nomeGiorno);
 		
@@ -19,9 +21,17 @@ public class GiornoEntity {
 		this.orarioChiusuraCentro=giorno.getOrarioChiusuraCentro();
 		
 		this.corsi=new ArrayList<CorsoEntity>();
+		
+		if(disponibili == false) {
 		giorno.caricaCorsiGiornoDaDB();
+		}else if(disponibili == true) {
+		giorno.caricaCorsiPostiDisponibili();
+				
+		
+		}
 		
 		caricaCorsi(giorno);
+		
 	}
 	
 	public GiornoEntity(GiornoDAO giorno) {
@@ -62,6 +72,7 @@ public class GiornoEntity {
 		
 		return ret;
 	}
+	
 	
 
 
