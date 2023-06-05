@@ -11,8 +11,8 @@ public class DBConnectionManager {
 	public static String url = "jdbc:mysql://localhost:3306/"; //linbk al database
 	public static String dbName= "centrosportivo"; //nome
 	public static String driver = "com.mysql.cj.jdbc.Driver"; //driver scelto per la gestione
-	public static String userName="frabru99"; //nome e password per accesso
-	public static String password="Cmcfb2002!";
+	public static String userName="Antonio"; //nome e password per accesso
+	public static String password="Spallettone26";
 	//fornisco le costanti che servono per la connessione
 	
 

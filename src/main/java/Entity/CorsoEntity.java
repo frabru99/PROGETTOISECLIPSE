@@ -144,25 +144,15 @@ public class CorsoEntity {
 		this.salaCorso = salaCorso;
 	}
 
+	//To String che ritorna informazioni sul corso
 	@Override
 	public String toString() {
-		//MANNAGGIA DIO LA BOUNDARY RITORNA IL TOSTRING SOLO SE APRITE LA CONSOLE QUANDO RUNNATE!!!
-		return ("CORSO: "+this.getNomeCorso()+" "+this.getIdSalaperCorsi()+" "+this.getOraInizio());
-		//return "ciao";
-		//TO STRING DA RIVEDERE
+		
+		return ("CORSO: "+this.getNomeCorso()+" ID: "+this.getCodiceCorso()+" ORA: "+this.getOraInizio()+" SALA: "+this.getSalaCorso().getIdSalaCorsi());
+		
 	}
 	
-	/*public void caricaGiorni (CorsoDAO corso) {
-		
-		for (int i =0;i<corso.getGiorni().size();i++) {
-			
-			GiornoEntity giorno = new GiornoEntity (corso.getGiorni().get(i));
-			this.giorni.add(giorno);
-			
-		}
-		
-	}*/
-	
+	//Carica la sala
 	public void caricaSalaperCorsi(CorsoDAO corso) {
 		
 		

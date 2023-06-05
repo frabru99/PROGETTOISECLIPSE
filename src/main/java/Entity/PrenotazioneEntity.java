@@ -2,6 +2,8 @@ package Entity;
 
 import java.sql.Date;
 
+import Database.ClienteIscrittoDAO;
+import Database.CorsoDAO;
 import Database.PrenotazioneDAO;
 
 public class PrenotazioneEntity {
@@ -36,14 +38,16 @@ public class PrenotazioneEntity {
 	PrenotazioneDAO pdao = new PrenotazioneDAO();
 	this.idPrenotazione = (pdao.prelevaIdMassimo()+1);
 	
-	//Scrivi su db del DAO   
-	
-	
-		
-	
+	//Scrivo sul db chiamando il metodo
+	scrivisuDB();
+
 	}
 	
+	public PrenotazioneEntity() {
+		super();
+	}
 	
+	//Costruttore per leggere informazioni dal DAO dato l'id
 	public PrenotazioneEntity(int idPren) {
 		// TODO Auto-generated constructor stub
 		
@@ -68,6 +72,7 @@ public class PrenotazioneEntity {
 		
 	}
 	
+	//Costruttore per leggere le informazioni dal DAO
 	public PrenotazioneEntity(PrenotazioneDAO pren) {
 		
 		this.idPrenotazione = pren.getIdPrenotazione();
@@ -85,7 +90,7 @@ public class PrenotazioneEntity {
 		caricaCorso(pren);
 		
 	}
-	
+
 	
 	public int scrivisuDB() {
 		
@@ -102,6 +107,22 @@ public class PrenotazioneEntity {
 		
 		
 		return ret;
+		
+		
+	}
+	
+	public int controllerScriviSuDB(String icCliente, String email, int idCorso) {
+		
+		PrenotazioneDAO pdao = new PrenotazioneDAO();
+		
+		int idpren = pdao.prelevaIdMassimo()+1;
+		Date dataod = new java.sql.Date(System.currentTimeMillis());
+		String data= dataod.toString();
+		
+		
+		int val = pdao.scrivisuDB(idpren, data, icCliente, email, idCorso);
+		
+		return val;
 		
 		
 	}

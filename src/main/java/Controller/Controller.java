@@ -6,13 +6,32 @@ import Entity.AbbonamentoAnnualeEntity;
 import Entity.CentroSportivoEntity;
 import Entity.CorsoEntity;
 import Entity.GiornoEntity;
+import Entity.PrenotazioneEntity;
 import Entity.RegistroClientiEntity;
 
 public class Controller {
 	
+	private static Controller uniqueInstance;
 	
-	public Controller() {
+	//Costruttore
+	private Controller() {
+		
 		super();
+		
+	}
+	
+	//getInstance singleton
+	public static Controller getInstance() {
+        
+	    if (uniqueInstance == null) {
+	            
+	    	uniqueInstance = new Controller();
+	        
+	            
+	    }
+	        
+	    return uniqueInstance;
+	        
 	}
 	
 	public static ArrayList<CorsoEntity> ricercaCorsiDisponibili(String giorno_scelto){
@@ -25,16 +44,21 @@ public class Controller {
 		
 	}
 	
-	public static void AccessoAlCentro(String codiceCliente) {
+	public static boolean AccessoAlCentro(String codiceCliente,String email) {
 		
+		boolean val = false;
 		RegistroClientiEntity registro=RegistroClientiEntity.getInstance();
-		registro.AccessoAlCentro(codiceCliente);
+		val =registro.AccessoAlCentro(codiceCliente,email);
+		
+		return val;
+		
 	}
 	
-	public static void EffetuaPrenotazione() {
+	public static void EffettuaPrenotazione() {
 		
 		//Completato tutto quello che serviva per questa funzionalità
 		//bisogna solo implementarla
+		
 		
 		
 	}
@@ -80,5 +104,15 @@ public class Controller {
 //	public static int sospendiAbbonamentoAnnuale() {
 //		AbbonamentoAnnualeEntity abbann = new AbbonamentoAnnualeEntity();
 //	}
+	
+	
+	public static int scriviPrenotazione(String codiceCliente, String email, int codiceCorso) {
+		
+		PrenotazioneEntity pren = new PrenotazioneEntity();
+		
+		int val = pren.controllerScriviSuDB(codiceCliente, email, codiceCorso);
+		
+		return val; //funzione di scrittura prenotazione da Boundary		
+	}
 	
 }
