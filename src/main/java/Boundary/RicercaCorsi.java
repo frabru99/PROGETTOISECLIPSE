@@ -36,6 +36,9 @@ public class RicercaCorsi extends JFrame {
 			public void run() {
 				try {
 					RicercaCorsi frame = new RicercaCorsi();
+//					JPanel pannelloCorsiDisponibili = new JPanel();
+//				frame.getContentPane().add(pannelloCorsiDisponibili);
+					//frame.pack();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -71,25 +74,10 @@ public class RicercaCorsi extends JFrame {
 		btnConfermaGiorno.setBounds(273, 227, 151, 23);
 		contentPane.add(btnConfermaGiorno);
 		
-		//Laber per eventuale errore
+		//Label per eventuale errore
 		LabelErrore = new JLabel("");
 		LabelErrore.setBounds(10, 67, 341, 14);
 		contentPane.add(LabelErrore);
-		
-		//Reset input sul click del mouse
-		textInputGiorno.addMouseListener(new MouseAdapter() {
-			boolean clickato=false;
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				if(clickato==false) {
-					textInputGiorno.setText(" ");
-					clickato=true;
-				}
-				
-			}
-			
-		}) ;
 		
 		//Listener sul bottone di conferma
 		btnConfermaGiorno.addMouseListener(new MouseAdapter() {
@@ -100,33 +88,38 @@ public class RicercaCorsi extends JFrame {
 				String giorno=textInputGiorno.getText();
 				
 				//Errore nel caso di formattazione errata
-				if(giorno.compareTo("Lunedi")!=0 || giorno.compareTo("Martedi")!=0 || 
-					giorno.compareTo("Mercoledi")!=0 || giorno.compareTo("Giovedi")!=0
-					|| giorno.compareTo("Venerdi")!=0) {
+				if(giorno.compareTo("Lunedi")==0 || giorno.compareTo("Martedi")==0 || 
+					giorno.compareTo("Mercoledi")==0 || giorno.compareTo("Giovedi")==0
+					|| giorno.compareTo("Venerdi")==0) {
 					
-					LabelErrore.setText("Giorno non valido");
 					
-				}
-				
-				//Costruisco il pannello passando il giorno scelto come parametro
-				pannelloCorsiDisponibili = new DestinazionePanel(giorno);
-				LabelErrore.setText("");
-				ArrayList<String> corsi = Controller.ricercaCorsiArrayStringa(giorno);
-				//Se non vengono trovati corsi viene promptato un errore
-				if (corsi.size()==0) {
-					LabelErrore.setText("Nessun corso disponibile in quel giorno");
-				}
-				//Altrimenti passiamo al pannello corsi
-				else {
-					//Switch pannello
-					passaAlPannello();
-					
-					//Append dei corsi
-					for(int i=0;i<corsi.size();i++) {
-						pannelloCorsiDisponibili.getJTextAreaCorsi().append(corsi.get(i)+"\n");
+					//Costruisco il pannello passando il giorno scelto come parametro
+//					pannelloCorsiDisponibili = new DestinazionePanel(giorno);
+//					pannelloCorsiDisponibili.setVisible(true);
+					LabelErrore.setText("");
+					ArrayList<String> corsi = Controller.ricercaCorsiArrayStringa(giorno);
+					//Se non vengono trovati corsi viene promptato un errore
+					if (corsi.size()==0) {
+						LabelErrore.setText("Nessun corso disponibile in quel giorno");
+					}
+					//Altrimenti passiamo al pannello corsi
+					else {
+						//Switch pannello
+						//passaAlPannello();
+						pannelloCorsiDisponibili = new DestinazionePanel(giorno);
+						pannelloCorsiDisponibili.setVisible(true);
+						//Append dei corsi
+						for(int i=0;i<corsi.size();i++) {
+							pannelloCorsiDisponibili.getJTextAreaCorsi().append(corsi.get(i)+"\n");
+						}
+						
 					}
 					
+				}else {
+					LabelErrore.setText("Giorno non valido");
 				}
+				
+				
 					
 			}
 			
@@ -138,7 +131,9 @@ public class RicercaCorsi extends JFrame {
 	//Funzione di utilità per cambiare pannello
 	public void passaAlPannello() {
 		remove(this.getContentPane());
-		add(pannelloCorsiDisponibili);
+		//this.getContentPane().add(pannelloCorsiDisponibili);
+		this.pack();
+		this.setVisible(true);
 		validate();
 	}
 }

@@ -195,6 +195,9 @@ public class PrenotazioneDAO {
         
         return ret;
 	}
+	
+	
+	
 
 	public int getIdPrenotazione() {
 		return idPrenotazione;

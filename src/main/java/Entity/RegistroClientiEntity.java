@@ -28,7 +28,6 @@ public class RegistroClientiEntity {
             
         }
         
-		
 	}
 	
 	
@@ -45,21 +44,26 @@ public class RegistroClientiEntity {
 	        
 	}
 	
-	public void AccessoAlCentro(String codiceCliente) {
+	//Controllo accesso al centro sulla pk dei clienty
+	public boolean AccessoAlCentro(String codiceCliente,String email) {
 		
-		for (int i=0;i<clienti.size();i++) {
+		for (int i=0;i<clienti.size(); i++) {
             
-            if(clienti.get(i).getCodiceCliente()==codiceCliente) {
+            if(clienti.get(i).getCodiceCliente()==codiceCliente && clienti.get(i).getEmail()==email) {
             
             	clienteAttivo=clienti.get(i);
-            	return;
+            	return true;
             	
             }
             
-            //se non ha trovato il cliente, significa che non Ã¨ iscritto o codice non valido
+            //Cliente non iscritto o codice non valido
             System.out.println("codice cliente non valido");
             
+            
         }
+		
+		
+		return false;
 		
 	}
 
