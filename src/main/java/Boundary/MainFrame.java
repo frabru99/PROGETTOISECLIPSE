@@ -82,12 +82,12 @@ public class MainFrame extends JFrame {
 		
 		//Eventuale errore
 		JLabel labelErroreLogin = new JLabel("");
-		labelErroreLogin.setBounds(159, 157, 86, 20);
+		labelErroreLogin.setBounds(222, 190, 97, 20);
 		contentPane.add(labelErroreLogin);
 		
 		//Bottone di conferma
 		JButton btnConfermaLogin = new JButton("Conferma");
-		btnConfermaLogin.setBounds(148, 169, 107, 23);
+		btnConfermaLogin.setBounds(212, 156, 107, 23);
 		contentPane.add(btnConfermaLogin);
 				
 		//Listener sul bottone di conferma

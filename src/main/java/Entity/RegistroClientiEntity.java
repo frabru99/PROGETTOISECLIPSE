@@ -49,20 +49,24 @@ public class RegistroClientiEntity {
 		
 		for (int i=0;i<clienti.size(); i++) {
             
-            if(clienti.get(i).getCodiceCliente()==codiceCliente && clienti.get(i).getEmail()==email) {
+            if((clienti.get(i).getCodiceCliente()).compareTo(codiceCliente)==0 && (clienti.get(i).getEmail()).compareTo(email)==0) {
             
+            	
+            	System.out.println(clienti.get(i).getEmail());
             	clienteAttivo=clienti.get(i);
             	return true;
+            	
+            	
             	
             }
             
             //Cliente non iscritto o codice non valido
-            System.out.println("codice cliente non valido");
+            
             
             
         }
 		
-		
+		System.out.println("codice cliente non valido");
 		return false;
 		
 	}

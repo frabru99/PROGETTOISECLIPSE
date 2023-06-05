@@ -8,6 +8,7 @@ public class RegistroClientiDAO {
     
     private ArrayList<ClienteIscrittoDAO> clienti;
     
+    
     public RegistroClientiDAO() {
         
         clienti = new ArrayList<ClienteIscrittoDAO>();
