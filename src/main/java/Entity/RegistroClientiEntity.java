@@ -9,7 +9,7 @@ import Database.RegistroClientiDAO;
 
 public class RegistroClientiEntity {
 
-	private ClienteIscrittoEntity clienteAttivo;
+	//private ClienteIscrittoEntity clienteAttivo;
 	private static RegistroClientiEntity uniqueInstance;
 	private static ArrayList<ClienteIscrittoEntity> clienti;
 	
@@ -53,9 +53,8 @@ public class RegistroClientiEntity {
             
             	
             	System.out.println(clienti.get(i).getEmail());
-            	clienteAttivo=clienti.get(i);
+            	//clienteAttivo=clienti.get(i);
             	return true;
-            	
             	
             	
             }
@@ -72,14 +71,14 @@ public class RegistroClientiEntity {
 	}
 
 
-	public ClienteIscrittoEntity getClienteAttivo() {
-		return clienteAttivo;
-	}
-
-
-	public void setClienteAttivo(ClienteIscrittoEntity clienteAttivo) {
-		this.clienteAttivo = clienteAttivo;
-	}
+//	public ClienteIscrittoEntity getClienteAttivo() {
+//		return clienteAttivo;
+//	}
+//
+//
+//	public void setClienteAttivo(ClienteIscrittoEntity clienteAttivo) {
+//		this.clienteAttivo = clienteAttivo;
+//	}
 
 
 	public static ArrayList<ClienteIscrittoEntity> getClienti() {

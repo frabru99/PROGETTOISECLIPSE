@@ -48,21 +48,23 @@ public class CentroSportivoEntity {
 	
 	public ArrayList<CorsoEntity> ricercaCorsiDisponibili(String nomeGiorno){
 		
-		ArrayList<GiornoEntity> giorni=calendario.getGiorni();
+		ArrayList<GiornoEntity> giorni=CalendarioEntity.getGiorni();
 		ArrayList<CorsoEntity> corsi=new ArrayList<CorsoEntity>();
 		ArrayList<CorsoEntity> corsiDisponibili=new ArrayList<CorsoEntity>();
+		
+		
 		
 		//prima mi cerco i corsi di quel giorno
 		for(int i=0;i<giorni.size();i++) {
 			
-			if(giorni.get(i).getNomeGiorno()==nomeGiorno) {
+			if((giorni.get(i).getNomeGiorno()).compareTo(nomeGiorno)==0) {
 				
 				corsi=giorni.get(i).getCorsi();
 				
 				//poi tra i corsi di quel giorno mi cerco quelli disponibili
 				for(int j=0;j<corsi.size();j++) {
 					
-					if(corsi.get(j).getSalaCorso().getNumeroPosti() > 0) {
+					if(corsi.get(j).getPostiDisponibili() > 0) {
 						
 						corsiDisponibili.add(corsi.get(j));
 						

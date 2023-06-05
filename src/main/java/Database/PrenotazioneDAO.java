@@ -179,6 +179,10 @@ public class PrenotazioneDAO {
             
          ret =  DBConnectionManager.updateQuery(query);
          
+         CorsoDAO corso = new CorsoDAO(codiceCorso); //dopo aver inserito la prenotazione update dei posti del corso stesso!
+	        
+	     corso.updatePosti(); 
+	     
 		} else {
 			
 			ret =-1;

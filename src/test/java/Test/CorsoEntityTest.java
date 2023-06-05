@@ -41,7 +41,7 @@ public class CorsoEntityTest {
 		CorsoEntity corso = new CorsoEntity();
 		
 
-		corso.scriviSuDb("Samba", "Antonio Boccarossa", "16:00", "2:30 h", 12);
+		corso.scriviSuDb("Samba", "Antonio Boccarossa", "16:00", "2:30 h", 30 ,12);
 		
 		CorsoEntity cor = new CorsoEntity(126);
 		

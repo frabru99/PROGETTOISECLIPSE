@@ -10,7 +10,7 @@ public class GiornoEntity {
 	String orarioChiusuraCentro;
 	ArrayList<CorsoEntity> corsi;
 	
-	public GiornoEntity(String nomeGiorno, boolean disponibili) {
+	public GiornoEntity(String nomeGiorno) {
 		
 		
 		
@@ -22,13 +22,9 @@ public class GiornoEntity {
 		
 		this.corsi=new ArrayList<CorsoEntity>();
 		
-		if(disponibili == false) {
-		giorno.caricaCorsiGiornoDaDB();
-		}else if(disponibili == true) {
-		giorno.caricaCorsiPostiDisponibili();
-				
 		
-		}
+		giorno.caricaCorsiGiornoDaDB();
+		
 		
 		caricaCorsi(giorno);
 		

@@ -82,7 +82,8 @@ public class MainFrame extends JFrame {
 		
 		//Eventuale errore
 		JLabel labelErroreLogin = new JLabel("");
-		labelErroreLogin.setBounds(222, 190, 97, 20);
+		labelErroreLogin.setHorizontalAlignment(SwingConstants.RIGHT);
+		labelErroreLogin.setBounds(10, 190, 309, 25);
 		contentPane.add(labelErroreLogin);
 		
 		//Bottone di conferma
@@ -108,7 +109,7 @@ public class MainFrame extends JFrame {
 				else if (esito == true) {
 				
 					dispose();
-					new RicercaCorsi().setVisible(true);
+					new RicercaCorsi(codiceCliente, email).setVisible(true);
 					
 				}
 				

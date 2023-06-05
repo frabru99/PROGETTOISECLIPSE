@@ -1,9 +1,12 @@
 package Entity;
 
+import java.sql.Date;
+
 import Database.AbbonamentoAnnualeDAO;
 import Database.AbbonamentoMensileDAO;
 import Database.ClienteIscrittoDAO;
 import Database.CorsoDAO;
+import Database.PrenotazioneDAO;
 
 public class ClienteIscrittoEntity {
 	
@@ -169,10 +172,22 @@ public class ClienteIscrittoEntity {
 	
 	
 	
+	public int controllerScriviPrenotazioneSuDB(int idCorso) {
+		
+		PrenotazioneDAO pdao = new PrenotazioneDAO();
+		
+		int idpren = pdao.prelevaIdMassimo()+1;
+		Date dataod = new java.sql.Date(System.currentTimeMillis());
+		String data= dataod.toString();
+		
+		
+		int val = pdao.scrivisuDB(idpren, data, this.codiceCliente, this.email, idCorso);
 	
-	
-	
-	
+		
+		return val;
+		
+		
+	}
 	
 	
 }

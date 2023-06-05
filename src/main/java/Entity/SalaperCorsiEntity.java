@@ -4,23 +4,23 @@ import Database.SalaperCorsiDAO;
 
 public class SalaperCorsiEntity {
 
-		private int numeroPosti;
+		private int capienza;
 		private int idSalaCorsi;
 		
 		
 		public SalaperCorsiEntity(int idSalaCorsi) {
 			SalaperCorsiDAO db = new SalaperCorsiDAO(idSalaCorsi);
-			this.numeroPosti = db.getNumeroPosti();
+			this.capienza = db.getCapienza();
 			this.idSalaCorsi = idSalaCorsi;
 		}
 		
 		
 		public SalaperCorsiEntity(SalaperCorsiDAO db) {
-			this.numeroPosti = db.getNumeroPosti();
+			this.capienza = db.getCapienza();
             this.idSalaCorsi = db.getIdSalaCorsi();
 		}
 		
-		public int ScriviSuDB(int idSalaCorsi, int numeroPosti) {
+		public int ScriviSuDB(int idSalaCorsi, int capienza) {
 			
 			int ret=0;
 			
@@ -28,11 +28,11 @@ public class SalaperCorsiEntity {
 			
 			//provo a scrivere sul DB
 			
-			ret = sala.scriviSala(idSalaCorsi, numeroPosti);
+			ret = sala.scriviSala(idSalaCorsi, capienza);
 			
 			if(ret!=-1) {			
 				this.setIdSalaCorsi(idSalaCorsi);
-				this.setNumeroPosti(numeroPosti);
+				this.setCapienza(capienza);
 			}
 			
 			return ret;
@@ -44,12 +44,12 @@ public class SalaperCorsiEntity {
 		}
 
 
-		public int getNumeroPosti() {
-            return numeroPosti;
+		public int getCapienza() {
+            return capienza;
         }
 		
-		public void setNumeroPosti(int numeroPosti) {
-            this.numeroPosti = numeroPosti;
+		public void setCapienza(int capienza) {
+            this.capienza = capienza;
         }
 		
         public int getIdSalaCorsi() {
@@ -63,7 +63,7 @@ public class SalaperCorsiEntity {
 
 		@Override
 		public String toString() {
-			return "SalaperCorsiEntity [numeroPosti=" + numeroPosti + ", idSalaCorsi=" + idSalaCorsi + "]";
+			return "SalaperCorsiEntity [Capienza=" + capienza+ ", idSalaCorsi=" + idSalaCorsi + "]";
 		}
         
         

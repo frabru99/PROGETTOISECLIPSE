@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import Entity.AbbonamentoAnnualeEntity;
 import Entity.CentroSportivoEntity;
+import Entity.ClienteIscrittoEntity;
 import Entity.CorsoEntity;
 import Entity.GiornoEntity;
 import Entity.PrenotazioneEntity;
 import Entity.RegistroClientiEntity;
+import Entity.SalaperCorsiEntity;
 
 public class Controller {
 	
@@ -53,19 +55,11 @@ public class Controller {
 		return val;
 		
 	}
-	
-	public static void EffettuaPrenotazione() {
-		
-		//Completato tutto quello che serviva per questa funzionalità
-		//bisogna solo implementarla
-		
-		
-		
-	}
+
 	
 	//permette di ottenere la lista dei corsi, dato un giorno specifico
 	public static ArrayList<CorsoEntity> ricercaCorsiOggetto(String giorno_scelto){
-		GiornoEntity giorno = new GiornoEntity(giorno_scelto, false);
+		GiornoEntity giorno = new GiornoEntity(giorno_scelto);
 		ArrayList<CorsoEntity> corsi = new ArrayList<CorsoEntity>();
 		corsi=giorno.getCorsi();
 		return corsi;
@@ -73,22 +67,43 @@ public class Controller {
 	
 	//VARIANTE DELLA FUNZIONE PRECEDENTE: CHECKARE QUALE SIA LA PIU' CONVENIENTE
 	public static String ricercaCorsiStringa(String giorno_scelto){
-		GiornoEntity giorno = new GiornoEntity(giorno_scelto, false);
+		GiornoEntity giorno = new GiornoEntity(giorno_scelto);
 		ArrayList<CorsoEntity> corsi = new ArrayList<CorsoEntity>();
+		
+		//posso scremare qui i corsi disponibili!
 		corsi=giorno.getCorsi();
-		return corsi.toString();
+		ArrayList<CorsoEntity> corsidisp = new ArrayList<CorsoEntity>();
+		
+		for(int i =0; i < corsi.size(); i++){
+			if(corsi.get(i).getPostiDisponibili()>0) {
+				corsidisp.add(corsi.get(i)); 
+			}
+		}
+		
+		return corsidisp.toString();
 	}
 	
 	public static ArrayList<String> ricercaCorsiArrayStringa(String giorno_scelto){
-		GiornoEntity giorno = new GiornoEntity(giorno_scelto, true);
-		ArrayList<String> corsi = new ArrayList<String>();
-		for(int i=0;i<giorno.getCorsi().size();i++) {
-			String corso = giorno.getCorsi().get(i).toString();
+//		GiornoEntity giorno = new GiornoEntity(giorno_scelto);
+//
+//		ArrayList<CorsoEntity> corsi = new ArrayList<CorsoEntity>();
+//		
+//		corsi = giorno.getCorsi();
+		
+		
+		ArrayList<CorsoEntity> corsidisp = ricercaCorsiDisponibili(giorno_scelto);
+		
+		
+		ArrayList<String> corsistr = new ArrayList<String>();
+		
+		for(int k=0;k<corsidisp.size();k++) {
+			String corso = corsidisp.get(k).toString();
 			System.out.println(corso);
 			
-			corsi.add(corso);
+			corsistr.add(corso);
 		}
-		return corsi;
+		
+		return corsistr;
 	}
 	
 	
@@ -106,13 +121,16 @@ public class Controller {
 //	}
 	
 	
-	public static int scriviPrenotazione(String codiceCliente, String email, int codiceCorso) {
+	public static int scriviPrenotazione(String codiceCliente, int codiceCorso) {
 		
-		PrenotazioneEntity pren = new PrenotazioneEntity();
+		ClienteIscrittoEntity cliente = new ClienteIscrittoEntity(codiceCliente);
 		
-		int val = pren.controllerScriviSuDB(codiceCliente, email, codiceCorso);
+	
+		int val = cliente.controllerScriviPrenotazioneSuDB(codiceCorso);
 		
 		return val; //funzione di scrittura prenotazione da Boundary		
 	}
+	
+	
 	
 }

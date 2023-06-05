@@ -8,7 +8,7 @@ public class SalaperCorsiDAO {
 	
 	//Data members
 	private int idSalaCorsi;
-	private int numeroPosti;
+	private int capienza;
 	
 	//Costruttore
 	public SalaperCorsiDAO(int idSala) {
@@ -35,7 +35,7 @@ public class SalaperCorsiDAO {
 				
 				//mi vado a prendere i dati, accedendo tramite il nome dell'attributo-colonna
 				this.setIdSalaCorsi(rs.getInt("idSalaperCorsi"));
-				this.setNumeroPosti(rs.getInt("numeroPosti"));		
+				this.setCapienza(rs.getInt("capienza"));		
 				
 			}
 		
@@ -47,10 +47,10 @@ public class SalaperCorsiDAO {
 		
 	}
 	
-	public int scriviSala(int idSalaCorsi, int numeroPosti) {
+	public int scriviSala(int idSalaCorsi, int capienza) {
 		int ret=0;
 		
-        String query = "INSERT INTO SalaperCorsi (idSalaperCorsi, numeroPosti) VALUES (\'"+idSalaCorsi+"\',"+"\'"+numeroPosti+"\');";
+        String query = "INSERT INTO SalaperCorsi (idSalaperCorsi, capienza) VALUES (\'"+idSalaCorsi+"\',"+"\'"+capienza+"\');";
         try {
             
          ret =  DBConnectionManager.updateQuery(query);
@@ -105,12 +105,12 @@ public class SalaperCorsiDAO {
 		this.idSalaCorsi = idSalaCorsi;
 	}
 
-	public int getNumeroPosti() {
-		return numeroPosti;
+	public int getCapienza() {
+		return capienza;
 	}
 
-	public void setNumeroPosti(int numeroPosti) {
-		this.numeroPosti = numeroPosti;
+	public void setCapienza(int capienza) {
+		this.capienza =capienza;
 	}
 	
 }

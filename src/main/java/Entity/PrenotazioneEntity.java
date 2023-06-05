@@ -110,23 +110,7 @@ public class PrenotazioneEntity {
 		
 		
 	}
-	
-	public int controllerScriviSuDB(String icCliente, String email, int idCorso) {
 		
-		PrenotazioneDAO pdao = new PrenotazioneDAO();
-		
-		int idpren = pdao.prelevaIdMassimo()+1;
-		Date dataod = new java.sql.Date(System.currentTimeMillis());
-		String data= dataod.toString();
-		
-		
-		int val = pdao.scrivisuDB(idpren, data, icCliente, email, idCorso);
-		
-		return val;
-		
-		
-	}
-	
 	
 	public void caricaCliente(PrenotazioneDAO pren) {
 		ClienteIscrittoEntity cl = new ClienteIscrittoEntity(pren.getCliente());

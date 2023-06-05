@@ -12,6 +12,7 @@ public class CorsoEntity {
 	private String istruttore;
 	private String oraInizio;
 	private String durataCorso;
+	private int postiDisponibili;
 	private int idSalaperCorsi;
 	private SalaperCorsiEntity salaCorso;
 	//private ArrayList<GiornoEntity> giorni;
@@ -25,12 +26,10 @@ public class CorsoEntity {
 		this.istruttore=corso.getIstruttore();
 		this.oraInizio=corso.getOraInizio();
 		this.durataCorso=corso.getDurataCorso();
+		this.postiDisponibili = corso.getPostiDisponibili();
 		this.idSalaperCorsi = corso.getIdSalaperCorsi();
 		
-		//this.giorni=new ArrayList<GiornoEntity>();
-		
-		//corso.caricaGiorniCorsodaDB();
-		//caricaGiorni(corso);
+	
 		
 		
 		corso.caricaSalaperCorsiCorsodaDB();
@@ -46,12 +45,9 @@ public class CorsoEntity {
         this.istruttore=corso.getIstruttore();
         this.oraInizio=corso.getOraInizio();
         this.durataCorso=corso.getDurataCorso();
+        this.postiDisponibili = corso.getPostiDisponibili();
         this.idSalaperCorsi=corso.getIdSalaperCorsi();
-       // this.giorni=new ArrayList<GiornoEntity>();
-        
-       //corso.caricaGiorniCorsodaDB();
-        //caricaGiorni(corso);
-        
+
     
         corso.caricaSalaperCorsiCorsodaDB(); 
         caricaSalaperCorsi(corso);;
@@ -59,8 +55,12 @@ public class CorsoEntity {
 	
 	
 	
-	public int scriviSuDb(String nomeCorso, String istruttore, String oraInizio, String durataCorso, int idSalaperCorsi) {
+	
+	
+	public int scriviSuDb(String nomeCorso, String istruttore, String oraInizio, String durataCorso, int postiDisp ,int idSalaperCorsi) {
 		int ret=0;
+		
+		
 		
 		
 		
@@ -71,7 +71,7 @@ public class CorsoEntity {
 		
 		
 		
-		ret = corso.salvaInDB(idCorso, nomeCorso, istruttore, oraInizio, durataCorso, idSalaperCorsi);
+		ret = corso.salvaInDB(idCorso, nomeCorso, istruttore, oraInizio, durataCorso, postiDisp, idSalaperCorsi);
 		
 		if(ret!=-1) {	
 			this.setCodiceCorso(idCorso);
@@ -80,6 +80,7 @@ public class CorsoEntity {
 			this.setNomeCorso(nomeCorso);
 			this.setIstruttore(istruttore);
 			this.setOraInizio(oraInizio);
+			this.setPostiDisponibili(postiDisp);
 			this.setDurataCorso(durataCorso);
 		}
 		
@@ -91,6 +92,16 @@ public class CorsoEntity {
 	}
 	
 	
+	public int getPostiDisponibili() {
+		return postiDisponibili;
+	}
+
+
+	public void setPostiDisponibili(int postiDisponibili) {
+		this.postiDisponibili = postiDisponibili;
+	}
+
+
 	public int getCodiceCorso() {
 		return codiceCorso;
 	}
@@ -148,7 +159,7 @@ public class CorsoEntity {
 	@Override
 	public String toString() {
 		
-		return ("CORSO: "+this.getNomeCorso()+" ID: "+this.getCodiceCorso()+" ORA: "+this.getOraInizio()+" SALA: "+this.getSalaCorso().getIdSalaCorsi());
+		return ("CORSO: "+this.getNomeCorso()+" #  ID: "+this.getCodiceCorso()+" #  ORA: "+this.getOraInizio()+" #  SALA: "+this.getSalaCorso().getIdSalaCorsi()+" #  POSTI DISPONIBILI:"+this.getPostiDisponibili());
 		
 	}
 	

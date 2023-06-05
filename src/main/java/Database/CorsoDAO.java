@@ -12,6 +12,7 @@ public class CorsoDAO {
 	private String istruttore;
 	private String oraInizio;
 	private String durataCorso;
+	private int postiDisponibili;
 	private SalaperCorsiDAO salaCorso;
 	private int idSalaperCorsi;
 	private ArrayList<GiornoDAO> giorni;
@@ -43,6 +44,7 @@ public class CorsoDAO {
 				this.setIstruttore(rs.getString("istruttore"));
 				this.setOraInizio(rs.getString("oraInizio"));
 				this.setDurataCorso(rs.getString("durataCorso"));
+				this.setPostiDisponibili(rs.getInt("postiDisponibili"));
 				this.setIdSalaperCorsi(rs.getInt("SalaperCorsi_idSalaperCorsi"));
 				
 			}
@@ -98,7 +100,7 @@ public class CorsoDAO {
 			if (rs.next()) {
 				
 				SalaperCorsiDAO sala = new SalaperCorsiDAO();
-				sala.setNumeroPosti(rs.getInt("numeroPosti"));
+				sala.setCapienza(rs.getInt("capienza"));
 				sala.setIdSalaCorsi(rs.getInt("idSalaperCorsi"));
 				
 				this.salaCorso = sala;
@@ -114,11 +116,11 @@ public class CorsoDAO {
 	}
 	
 	
-	public int salvaInDB(int codiceCorso,String nome, String istruttore, String oraInizio, String durataCorso, int idSalaperCorsi) {
+	public int salvaInDB(int codiceCorso,String nome, String istruttore, String oraInizio, String durataCorso, int postiDisponibili,int idSalaperCorsi) {
 		
 		int ret=0;
 		
-		String query="INSERT INTO Corso(codiceCorso, nomeCorso, istruttore, oraInizio, durataCorso, SalaperCorsi_idSalaperCorsi) VALUES (\'"+codiceCorso+"\',"+"\'"+nome+"\','"+istruttore+"\','"+oraInizio+"\','"+durataCorso+"\','"+idSalaperCorsi+"')";
+		String query="INSERT INTO Corso(codiceCorso, nomeCorso, istruttore, oraInizio, durataCorso, postiDisponibili ,SalaperCorsi_idSalaperCorsi) VALUES (\'"+codiceCorso+"\',"+"\'"+nome+"\','"+istruttore+"\','"+oraInizio+"\','"+durataCorso+"\','"+postiDisponibili+"\','"+idSalaperCorsi+"')";
 		
 		System.out.println(query);
 
@@ -162,6 +164,28 @@ public class CorsoDAO {
 		
 	}
 	
+	public void updatePosti() {
+		
+        String query = "UPDATE Corso SET postiDisponibili = postiDisponibili - 1 WHERE codiceCorso = "+this.codiceCorso;
+        
+        try {
+            
+            DBConnectionManager.updateQuery(query);
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+	}
+	
+	
+	public int getPostiDisponibili() {
+		return postiDisponibili;
+	}
+
+	public void setPostiDisponibili(int postiDisponibili) {
+		this.postiDisponibili = postiDisponibili;
+	}
 
 	public int getCodiceCorso() {
 		return codiceCorso;
