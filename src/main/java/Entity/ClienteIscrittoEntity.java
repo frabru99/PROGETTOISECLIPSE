@@ -190,4 +190,16 @@ public class ClienteIscrittoEntity {
 	}
 	
 	
+	public int checkAbbonamento() {
+		
+		if (this.idAbbonamentoAnnuale != 0) {
+			return 1;
+		} else if (this.idAbbonamentoMensile!= 0) {
+			return 2;
+		}
+		
+		return 0;
+	}
+	
+	
 }

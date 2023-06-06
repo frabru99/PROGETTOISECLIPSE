@@ -131,6 +131,15 @@ public class Controller {
 		return val; //funzione di scrittura prenotazione da Boundary		
 	}
 	
+	public static int checkAbbonamento (String codiceCliente) {
+		
+        ClienteIscrittoEntity cliente = new ClienteIscrittoEntity(codiceCliente);
+        
+        int val = cliente.checkAbbonamento();
+        
+        return val; //funzione di scrittura prenotazione da Boundary
+	}
+	
 	
 	
 }

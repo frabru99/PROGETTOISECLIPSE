@@ -272,13 +272,25 @@ public class RicercaCorsi extends JFrame {
 		btnConfermaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				
 				//check per capire se l'utente e' abbonato
 				
 				
+				int val = Controller.checkAbbonamento(codCliente);
 				
+				System.out.println(codCliente);
+				System.out.println(val);
+				if(val==1 || val ==2) {
+					System.out.println("Il cliente è abbonato!");
+					
+					//posso procedere con la prenotazione
+				} else {
+					System.out.println("Il cliente non è abbonato!");
+					
+					//non posso procedere con la prenotazione
+					labelErrorePrenotazione.setText("Non sei abbonato!");
+				}
 				
+			
 				
 			}	
 			
