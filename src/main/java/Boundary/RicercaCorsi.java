@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controller.Controller;
+import Entity.PrenotazioneEntity;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -44,8 +45,8 @@ public class RicercaCorsi extends JFrame {
 //			public void run() {
 //				try {
 //					RicercaCorsi frame = new RicercaCorsi();
-////					JPanel pannelloCorsiDisponibili = new JPanel();
-////				frame.getContentPane().add(pannelloCorsiDisponibili);
+//					JPanel pannelloCorsiDisponibili = new JPanel();
+//				frame.getContentPane().add(pannelloCorsiDisponibili);
 //					//frame.pack();
 //					frame.setVisible(true);
 //				} catch (Exception e) {
@@ -123,7 +124,8 @@ public class RicercaCorsi extends JFrame {
 		textFieldScelta.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Aggiungi l'ID del corso da prenotare:");
-		lblNewLabel.setBounds(98, 267, 174, 13);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel.setBounds(61, 267, 237, 13);
 		contentPane.add(lblNewLabel);
 		
 		JLabel labelErroreCorso = new JLabel("");
@@ -158,6 +160,7 @@ public class RicercaCorsi extends JFrame {
 					for(int i=0;i<corsi.size();i++) {
 						textAreaCorsi.append(corsi.get(i)+"\n");
 					}
+					
 					
 				} 
 			}	
@@ -282,12 +285,30 @@ public class RicercaCorsi extends JFrame {
 				if(val==1 || val ==2) {
 					System.out.println("Il cliente è abbonato!");
 					
+					
+					if((textFieldScelta.getText()).compareTo("")!=0) {
+	
+					int value = Integer.parseInt(textFieldScelta.getText());					
+						
+					int ret = Controller.scriviPrenotazione(codCliente, value);
+					
+						if(ret !=-1) {
+							labelErrorePrenotazione.setText("Prenotazione effettuata!");
+						} else {
+							labelErrorePrenotazione.setText("La prenotazione è già presente!");
+						}
+					
+					} else {
+						labelErrorePrenotazione.setText("Inserisci il valore del corso da prenotare");
+					}
+					
 					//posso procedere con la prenotazione
 				} else {
 					System.out.println("Il cliente non è abbonato!");
 					
 					//non posso procedere con la prenotazione
 					labelErrorePrenotazione.setText("Non sei abbonato!");
+					
 				}
 				
 			

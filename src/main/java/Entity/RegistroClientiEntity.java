@@ -65,7 +65,7 @@ public class RegistroClientiEntity {
             
         }
 		
-		System.out.println("codice cliente non valido");
+		System.out.println("Codice cliente o email non valida");
 		return false;
 		
 	}

@@ -37,7 +37,6 @@ public class CorsoDAO {
 			ResultSet rs=DBConnectionManager.selectQuery(query);
 			
 			
-			
 			if(rs.next()) {
 				
 				this.setNomeCorso(rs.getString("nomeCorso"));
@@ -167,6 +166,8 @@ public class CorsoDAO {
 	public void updatePosti() {
 		
         String query = "UPDATE Corso SET postiDisponibili = postiDisponibili - 1 WHERE codiceCorso = "+this.codiceCorso;
+        
+        
         
         try {
             

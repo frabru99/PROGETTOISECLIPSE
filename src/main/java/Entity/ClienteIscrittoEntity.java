@@ -184,6 +184,8 @@ public class ClienteIscrittoEntity {
 		int val = pdao.scrivisuDB(idpren, data, this.codiceCliente, this.email, idCorso);
 	
 		
+		
+		
 		return val;
 		
 		

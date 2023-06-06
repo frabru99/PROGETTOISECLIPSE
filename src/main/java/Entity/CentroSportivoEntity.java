@@ -50,6 +50,8 @@ public class CentroSportivoEntity {
 		
 		ArrayList<GiornoEntity> giorni=CalendarioEntity.getGiorni();
 		ArrayList<CorsoEntity> corsi=new ArrayList<CorsoEntity>();
+		
+		
 		ArrayList<CorsoEntity> corsiDisponibili=new ArrayList<CorsoEntity>();
 		
 		
@@ -61,6 +63,7 @@ public class CentroSportivoEntity {
 				
 				corsi=giorni.get(i).getCorsi();
 				
+				System.out.println(corsi);
 				//poi tra i corsi di quel giorno mi cerco quelli disponibili
 				for(int j=0;j<corsi.size();j++) {
 					

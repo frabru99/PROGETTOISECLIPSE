@@ -62,6 +62,7 @@ public class GiornoDAO {
 				corso.setIstruttore(rs.getString("istruttore"));
 				corso.setOraInizio(rs.getString("oraInizio"));
 				corso.setDurataCorso(rs.getString("durataCorso"));
+				corso.setPostiDisponibili(rs.getInt("postiDisponibili"));
 				corso.setIdSalaperCorsi(rs.getInt("SalaperCorsi_idSalaperCorsi"));
 				
 				//chiamata a cascata

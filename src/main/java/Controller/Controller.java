@@ -3,6 +3,7 @@ package Controller;
 import java.util.ArrayList;
 
 import Entity.AbbonamentoAnnualeEntity;
+import Entity.CalendarioEntity;
 import Entity.CentroSportivoEntity;
 import Entity.ClienteIscrittoEntity;
 import Entity.CorsoEntity;
@@ -41,6 +42,7 @@ public class Controller {
 		CentroSportivoEntity centro=CentroSportivoEntity.getInstance();
 		
 		ArrayList<CorsoEntity> corsi=centro.ricercaCorsiDisponibili(giorno_scelto);
+		
 		
 		return corsi;
 		
@@ -84,7 +86,7 @@ public class Controller {
 	}
 	
 	public static ArrayList<String> ricercaCorsiArrayStringa(String giorno_scelto){
-//		GiornoEntity giorno = new GiornoEntity(giorno_scelto);
+		//GiornoEntity giorno = new GiornoEntity(giorno_scelto);
 //
 //		ArrayList<CorsoEntity> corsi = new ArrayList<CorsoEntity>();
 //		
@@ -92,6 +94,7 @@ public class Controller {
 		
 		
 		ArrayList<CorsoEntity> corsidisp = ricercaCorsiDisponibili(giorno_scelto);
+		
 		
 		
 		ArrayList<String> corsistr = new ArrayList<String>();
@@ -102,6 +105,8 @@ public class Controller {
 			
 			corsistr.add(corso);
 		}
+		
+	
 		
 		return corsistr;
 	}
@@ -128,8 +133,25 @@ public class Controller {
 	
 		int val = cliente.controllerScriviPrenotazioneSuDB(codiceCorso);
 		
+		
+		if(val!=-1) {
+		
+		ArrayList<GiornoEntity> giorni  = CalendarioEntity.getGiorni();
+		
+		
+		for(int i=0; i<giorni.size(); i++) {
+			for(int j=0; j<giorni.get(i).getCorsi().size(); j++) {
+				if(giorni.get(i).getCorsi().get(j).getCodiceCorso()==codiceCorso) {
+					giorni.get(i).getCorsi().get(j).decrementaPostiDisponibili();
+					}
+				}
+			}
+		
+		}
+		
 		return val; //funzione di scrittura prenotazione da Boundary		
 	}
+	
 	
 	public static int checkAbbonamento (String codiceCliente) {
 		

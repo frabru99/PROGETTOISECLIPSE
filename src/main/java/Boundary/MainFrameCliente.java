@@ -17,7 +17,7 @@ import javax.swing.JButton;
 
 import Controller.Controller;
 
-public class MainFrame extends JFrame {
+public class MainFrameCliente extends JFrame {
 
 	
 	private JPanel contentPane;	//Content 
@@ -31,7 +31,7 @@ public class MainFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainFrame frame = new MainFrame();
+					MainFrameCliente frame = new MainFrameCliente();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,7 +42,7 @@ public class MainFrame extends JFrame {
 
 	
 	//Costruttore del mainframe
-	public MainFrame() {
+	public MainFrameCliente() {
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

@@ -28,9 +28,7 @@ public class CorsoEntity {
 		this.durataCorso=corso.getDurataCorso();
 		this.postiDisponibili = corso.getPostiDisponibili();
 		this.idSalaperCorsi = corso.getIdSalaperCorsi();
-		
 	
-		
 		
 		corso.caricaSalaperCorsiCorsodaDB();
 		caricaSalaperCorsi(corso);
@@ -53,14 +51,14 @@ public class CorsoEntity {
         caricaSalaperCorsi(corso);;
 	}
 	
-	
+	public void decrementaPostiDisponibili() {
+		this.postiDisponibili--;
+	}
 	
 	
 	
 	public int scriviSuDb(String nomeCorso, String istruttore, String oraInizio, String durataCorso, int postiDisp ,int idSalaperCorsi) {
 		int ret=0;
-		
-		
 		
 		
 		
@@ -87,6 +85,8 @@ public class CorsoEntity {
 		return ret;
 	}
 	
+	
+	
 	public CorsoEntity() {
 		super();
 	}
@@ -100,6 +100,7 @@ public class CorsoEntity {
 	public void setPostiDisponibili(int postiDisponibili) {
 		this.postiDisponibili = postiDisponibili;
 	}
+
 
 
 	public int getCodiceCorso() {
