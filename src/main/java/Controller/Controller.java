@@ -162,6 +162,14 @@ public class Controller {
         return val; //funzione di scrittura prenotazione da Boundary
 	}
 	
+	public static int checkCorso(int idCorso) {
+		
+        CorsoEntity corso = new CorsoEntity();
+        
+        int val = corso.checkCorso(idCorso);
+        
+        return val; //funzione di check corso!
+	}
 	
 	
 }

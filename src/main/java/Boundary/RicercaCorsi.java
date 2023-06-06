@@ -29,9 +29,7 @@ public class RicercaCorsi extends JFrame {
 
 	private JPanel contentPane;
 	private JButton btnConfermaPrenotazione;
-	
-	//variabili di utilità
-	private DestinazionePanel pannelloCorsiDisponibili;
+
 	private JTextField textFieldScelta;
 	
 	private String codCliente;
@@ -58,12 +56,12 @@ public class RicercaCorsi extends JFrame {
 
 	//Costruttore
 	public RicercaCorsi(String codCliente, String email) {
+		setResizable(false);
 		
 		this.codCliente =  codCliente;
 		this.email = email;
 		
 		getContentPane().setLayout(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 503, 331);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -76,7 +74,8 @@ public class RicercaCorsi extends JFrame {
 		contentPane.add(LabelGiorno);
 		
 		//Bottone di conferma
-		btnConfermaPrenotazione = new JButton("Conferma");
+		btnConfermaPrenotazione = new JButton("Conferma"); //da farcomparire
+		btnConfermaPrenotazione.setVisible(false);
 		btnConfermaPrenotazione.setBounds(328, 263, 151, 21);
 		contentPane.add(btnConfermaPrenotazione);
 		
@@ -118,13 +117,15 @@ public class RicercaCorsi extends JFrame {
 		textAreaCorsi.setBounds(127, 35, 352, 141);
 		contentPane.add(textAreaCorsi);
 		
-		textFieldScelta = new JTextField();
+		textFieldScelta = new JTextField(); //da far comparire
+		textFieldScelta.setVisible(false);
 		textFieldScelta.setBounds(282, 264, 36, 19);
 		contentPane.add(textFieldScelta);
 		textFieldScelta.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Aggiungi l'ID del corso da prenotare:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel.setVisible(false);
 		lblNewLabel.setBounds(61, 267, 237, 13);
 		contentPane.add(lblNewLabel);
 		
@@ -148,6 +149,12 @@ public class RicercaCorsi extends JFrame {
 				textAreaCorsi.setText("");
 				labelErroreCorso.setText("");
 				labelErrorePrenotazione.setText("");
+				
+				btnConfermaPrenotazione.setVisible(false);
+				lblNewLabel.setVisible(false);
+				textFieldScelta.setVisible(false);
+				
+				
 				ArrayList<String> corsi = Controller.ricercaCorsiArrayStringa("Lunedi");
 				//Se non vengono trovati corsi viene promptato un errore
 				
@@ -157,6 +164,10 @@ public class RicercaCorsi extends JFrame {
 				//Altrimenti passiamo al pannello corsi
 				else {
 					
+					
+					btnConfermaPrenotazione.setVisible(true);
+					lblNewLabel.setVisible(true);
+					textFieldScelta.setVisible(true);
 					for(int i=0;i<corsi.size();i++) {
 						textAreaCorsi.append(corsi.get(i)+"\n");
 					}
@@ -179,6 +190,10 @@ public class RicercaCorsi extends JFrame {
 				textAreaCorsi.setText("");
 				labelErroreCorso.setText("");
 				labelErrorePrenotazione.setText("");
+				
+				btnConfermaPrenotazione.setVisible(false);
+				lblNewLabel.setVisible(false);
+				textFieldScelta.setVisible(false);
 				ArrayList<String> corsi = Controller.ricercaCorsiArrayStringa("Martedi");
 				//Se non vengono trovati corsi viene promptato un errore
 				
@@ -188,6 +203,9 @@ public class RicercaCorsi extends JFrame {
 				//Altrimenti passiamo al pannello corsi
 				else {
 					
+					btnConfermaPrenotazione.setVisible(true);
+					lblNewLabel.setVisible(true);
+					textFieldScelta.setVisible(true);
 					for(int i=0;i<corsi.size();i++) {
 						textAreaCorsi.append(corsi.get(i)+"\n");
 					}
@@ -204,6 +222,10 @@ public class RicercaCorsi extends JFrame {
 				textAreaCorsi.setText("");
 				labelErroreCorso.setText("");
 				labelErrorePrenotazione.setText("");
+				
+				btnConfermaPrenotazione.setVisible(false);
+				lblNewLabel.setVisible(false);
+				textFieldScelta.setVisible(false);
 				ArrayList<String> corsi = Controller.ricercaCorsiArrayStringa("Mercoledi");
 				//Se non vengono trovati corsi viene promptato un errore
 				
@@ -212,6 +234,10 @@ public class RicercaCorsi extends JFrame {
 				}
 				//Altrimenti passiamo al pannello corsi
 				else {
+					
+					btnConfermaPrenotazione.setVisible(true);
+					lblNewLabel.setVisible(true);
+					textFieldScelta.setVisible(true);
 					
 					for(int i=0;i<corsi.size();i++) {
 						textAreaCorsi.append(corsi.get(i)+"\n");
@@ -229,6 +255,10 @@ public class RicercaCorsi extends JFrame {
 				textAreaCorsi.setText("");
 				labelErroreCorso.setText("");
 				labelErrorePrenotazione.setText("");
+				
+				btnConfermaPrenotazione.setVisible(false);
+				lblNewLabel.setVisible(false);
+				textFieldScelta.setVisible(false);
 				ArrayList<String> corsi = Controller.ricercaCorsiArrayStringa("Giovedi");
 				//Se non vengono trovati corsi viene promptato un errore
 				
@@ -238,6 +268,9 @@ public class RicercaCorsi extends JFrame {
 				//Altrimenti passiamo al pannello corsi
 				else {
 					
+					btnConfermaPrenotazione.setVisible(true);
+					lblNewLabel.setVisible(true);
+					textFieldScelta.setVisible(true);
 					for(int i=0;i<corsi.size();i++) {
 						textAreaCorsi.append(corsi.get(i)+"\n");
 					}
@@ -254,6 +287,9 @@ public class RicercaCorsi extends JFrame {
 				textAreaCorsi.setText("");
 				labelErroreCorso.setText("");
 				labelErrorePrenotazione.setText("");
+				btnConfermaPrenotazione.setVisible(false);
+				lblNewLabel.setVisible(false);
+				textFieldScelta.setVisible(false);
 				ArrayList<String> corsi = Controller.ricercaCorsiArrayStringa("Venerdi");
 				//Se non vengono trovati corsi viene promptato un errore
 				
@@ -262,6 +298,11 @@ public class RicercaCorsi extends JFrame {
 				}
 				//Altrimenti passiamo al pannello corsi
 				else {
+					
+					btnConfermaPrenotazione.setVisible(true);
+					lblNewLabel.setVisible(true);
+					textFieldScelta.setVisible(true);
+					
 					
 					for(int i=0;i<corsi.size();i++) {
 						textAreaCorsi.append(corsi.get(i)+"\n");
@@ -278,28 +319,55 @@ public class RicercaCorsi extends JFrame {
 				//check per capire se l'utente e' abbonato
 				
 				
+				
+				
+				
+				
 				int val = Controller.checkAbbonamento(codCliente);
 				
-				System.out.println(codCliente);
-				System.out.println(val);
-				if(val==1 || val ==2) {
-					System.out.println("Il cliente è abbonato!");
+				
+				
+				
+				
+				
+			if(val==1 || val ==2) {
+					
+				System.out.println("Il cliente è abbonato!");
 					
 					
-					if((textFieldScelta.getText()).compareTo("")!=0) {
-	
-					int value = Integer.parseInt(textFieldScelta.getText());					
+					
+				int value = Integer.parseInt(textFieldScelta.getText());
+					
+					//devo checkare sul corso!
+					
+					
+				int checkid = Controller.checkCorso(value);
+					
+					
+					if(checkid!= -1) {
+					
+						if((textFieldScelta.getText()).compareTo("")!=0) {
+		
+						 value = Integer.parseInt(textFieldScelta.getText());					
+							
+						int ret = Controller.scriviPrenotazione(codCliente, value);
 						
-					int ret = Controller.scriviPrenotazione(codCliente, value);
-					
-						if(ret !=-1) {
-							labelErrorePrenotazione.setText("Prenotazione effettuata!");
+							if(ret !=-1) {
+								labelErrorePrenotazione.setText("Prenotazione effettuata!");
+							} else {
+								labelErrorePrenotazione.setText("La prenotazione è già presente!");
+							}
+						
 						} else {
-							labelErrorePrenotazione.setText("La prenotazione è già presente!");
+							labelErrorePrenotazione.setText("Inserisci il valore del corso da prenotare");
+							
 						}
+						
+					
 					
 					} else {
-						labelErrorePrenotazione.setText("Inserisci il valore del corso da prenotare");
+						labelErrorePrenotazione.setText("Codice corso errato!");
+						
 					}
 					
 					//posso procedere con la prenotazione
@@ -311,6 +379,8 @@ public class RicercaCorsi extends JFrame {
 					
 				}
 				
+				
+		
 			
 				
 			}	

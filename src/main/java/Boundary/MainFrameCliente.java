@@ -109,7 +109,7 @@ public class MainFrameCliente extends JFrame {
 				else if (esito == true) {
 				
 					dispose();
-					new RicercaCorsi(codiceCliente, email).setVisible(true);
+					new HomePage(codiceCliente, email).setVisible(true); //home page di scelta
 					
 				}
 				

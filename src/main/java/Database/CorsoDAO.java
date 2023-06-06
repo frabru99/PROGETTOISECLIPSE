@@ -180,6 +180,32 @@ public class CorsoDAO {
 	}
 	
 	
+	public int checkCorsosuDB(int codCorso) {
+		
+        String query = "SELECT * FROM Corso WHERE codiceCorso = "+codCorso+";";
+        
+        try {
+            
+            ResultSet rs=DBConnectionManager.selectQuery(query);
+            
+            if(rs.next()) {
+                
+               return 1;
+                
+            } else {
+            	return -1;
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            return -1;
+        }
+       
+		
+		
+	}
+	
 	public int getPostiDisponibili() {
 		return postiDisponibili;
 	}

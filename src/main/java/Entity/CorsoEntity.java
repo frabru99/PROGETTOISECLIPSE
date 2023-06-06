@@ -166,12 +166,18 @@ public class CorsoEntity {
 	
 	//Carica la sala
 	public void caricaSalaperCorsi(CorsoDAO corso) {
-		
-		
 		SalaperCorsiEntity sala = new SalaperCorsiEntity(corso.getSalaCorso());
 		this.salaCorso = sala;
 		
+	}
+	
+	public int checkCorso(int idCorso) {
+		CorsoDAO corso = new CorsoDAO();
 		
+		int val = corso.checkCorsosuDB(idCorso);
+		
+		return val;
+        
 	}
 	
 }
