@@ -6,11 +6,12 @@ import java.util.ArrayList;
 
 public class SalaperCorsiDAO {
 	
-	//Data members
+	//Variabili membro
 	private int idSalaCorsi;
 	private int capienza;
 	
-	//Costruttore
+	
+	//Costruttore per caricamento da DB attraverso la PK
 	public SalaperCorsiDAO(int idSala) {
 		
 		this.idSalaCorsi = idSala;		
@@ -18,47 +19,55 @@ public class SalaperCorsiDAO {
 		
 	}
 	
+	
+	//Costruttore vuoto per inizializzazione
 	public SalaperCorsiDAO() {
 		super();
 	}
 	
-	//Metodi
 	
+	//Funzione di loading degli attributi del DAO attraverso una query di SELECT
 	public void caricaDaDB() {
 		
 		String query = "SELECT * FROM SalaperCorsi WHERE idSalaperCorsi='"+this.idSalaCorsi+"';";
+		
 		try {
 			
 			ResultSet rs = DBConnectionManager.selectQuery(query);
 			
-			if(rs.next()) { //se ho un risultato
+			if(rs.next()) {
 				
-				//mi vado a prendere i dati, accedendo tramite il nome dell'attributo-colonna
 				this.setIdSalaCorsi(rs.getInt("idSalaperCorsi"));
 				this.setCapienza(rs.getInt("capienza"));		
 				
 			}
 		
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			System.err.println("[SALA-PER-CORSI-DAO] Errore nel metodo caricaDaDB");
 			
 		}
 		
 	}
 	
+	
+	//Metodo di CREATE del CRUD
 	public int scriviSala(int idSalaCorsi, int capienza) {
+		
+		//Variabile per il risultato della query
 		int ret=0;
 		
         String query = "INSERT INTO SalaperCorsi (idSalaperCorsi, capienza) VALUES (\'"+idSalaCorsi+"\',"+"\'"+capienza+"\');";
+        
         try {
             
          ret =  DBConnectionManager.updateQuery(query);
             
         } catch (ClassNotFoundException | SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            
+        	System.out.println("[SALA-PER-CORSI-DAO] Errore nella CREATE");
             ret = -1;
+            
         }
         
         return ret;
@@ -95,7 +104,7 @@ public class SalaperCorsiDAO {
 //	}
 	
 
-//Setters e getters
+	//GETTERS AND SETTERS
 
 	public int getIdSalaCorsi() {
 		return idSalaCorsi;
@@ -112,5 +121,6 @@ public class SalaperCorsiDAO {
 	public void setCapienza(int capienza) {
 		this.capienza =capienza;
 	}
+	
 	
 }

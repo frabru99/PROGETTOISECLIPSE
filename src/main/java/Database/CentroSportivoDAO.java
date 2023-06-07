@@ -6,9 +6,11 @@ import java.util.ArrayList;
 
 public class CentroSportivoDAO {
     
-    //riferimenti ai DAO di calendario e registro
+    //Variabili membro.
     private ArrayList<SalaperCorsiDAO> sale;
     
+    
+    //Costruttore vuoto per caricamento da DB
     public CentroSportivoDAO() {
         
         sale = new ArrayList<SalaperCorsiDAO>();
@@ -16,14 +18,15 @@ public class CentroSportivoDAO {
         
     }
     
+    
+    //Funzione di loading degli attributi del DAO attraverso una query di SELECT
     public void caricaDaDB() {
     
-        //Devo caricare tutti i giorni
+    	 //La query seleziona tutti i giorni
         String query = "SELECT idSalaperCorsi  FROM SalaperCorsi";
         
         try {
             
-            //effettuo la query
             ResultSet rs = DBConnectionManager.selectQuery(query);
             
             while (rs.next()) {
@@ -36,12 +39,14 @@ public class CentroSportivoDAO {
             
         }catch(SQLException | ClassNotFoundException e) {
             
-            System.err.println("Non ci sono sale");
+        	System.err.println("[CENTRO-SPORTIVO-DAO] Errore nel metodo caricaDaDB");
             
         }
                 
     }
+    
 
+    //GETTERS AND SETTERS
     public ArrayList<SalaperCorsiDAO> getSale() {
         return sale;
     }
@@ -50,7 +55,5 @@ public class CentroSportivoDAO {
         this.sale = sale;
     }
     
-    
-        
     
 }
