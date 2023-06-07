@@ -39,7 +39,7 @@ public class PrenotazioneEntity {
 		this.idPrenotazione = (pdao.prelevaIdMassimo()+1);
 		
 		//Scrivo su DB
-		scrivisuDB();
+		scriviSuDB();
 
 	}
 	

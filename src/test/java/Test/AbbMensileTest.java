@@ -39,7 +39,7 @@ public class AbbMensileTest {
 		
 		AbbonamentoMensileEntity abb = new AbbonamentoMensileEntity();
 		
-		abb.scrivisuDB("Gennaio");
+		abb.scriviSuDB("Gennaio");
 		
 		System.out.println("Scritto!");
 		

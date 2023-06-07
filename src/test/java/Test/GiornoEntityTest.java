@@ -37,7 +37,7 @@ public class GiornoEntityTest {
 	public void testScriviSuDb() {
 		GiornoEntity giorno = new GiornoEntity();
 		
-		giorno.scriviSuDb("Mercoledi", "8:00", "23:00");
+		giorno.scriviSuDB("Mercoledi", "8:00", "23:00");
 		
 		System.out.println("Scritto!");
 		

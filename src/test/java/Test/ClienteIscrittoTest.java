@@ -44,7 +44,7 @@ public class ClienteIscrittoTest {
 		
 		ClienteIscrittoEntity dao  = new ClienteIscrittoEntity();
 		
-		dao.scriviSuDb("Antonio", "de Gasperi","deGasp@gmail.com");
+		dao.scriviSuDB("Antonio", "de Gasperi","deGasp@gmail.com");
 		
 		
 		ClienteIscrittoEntity cl = new ClienteIscrittoEntity("Cliente_6");

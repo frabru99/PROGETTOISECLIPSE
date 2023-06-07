@@ -88,7 +88,7 @@ public class Controller {
 		
 		int ret;
 		ClienteIscrittoEntity cliente = new ClienteIscrittoEntity(codiceCliente);
-		ret=cliente.sospendiAbbonamentoAnnualeEntity(dataSospensione, dataRipresa);
+		ret=cliente.sospendiAbbonamentoAnnuale(dataSospensione, dataRipresa);
 		return ret;
 		
 	}

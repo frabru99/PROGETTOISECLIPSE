@@ -202,7 +202,7 @@ public class CorsoDAO {
 	//Funzione di utility che permette di controllare se data una chiave, esiste quel corso sul DB ed ha disponibilità di posti
 	public int checkDisponibilitaCorsoSuDB(int codCorso) {
 		
-        String query = "SELECT * FROM Corso WHERE codiceCorso = "+codCorso+" AND numeroPosti>0;";
+        String query = "SELECT * FROM Corso WHERE codiceCorso = "+codCorso+" AND postiDisponibili>0;";
         
         try {
             

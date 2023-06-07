@@ -41,9 +41,6 @@ public class VistaAbbonamenti extends JFrame {
 		
 		this.codCliente = cod;
 		this.email=email;
-	
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 351);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -51,15 +48,54 @@ public class VistaAbbonamenti extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		//label riepilogo
+				JLabel lblRiepilogo = new JLabel("Riepilogo:");
+				lblRiepilogo.setBounds(10, 138, 85, 13);
+				contentPane.add(lblRiepilogo);
+				
+				
+				//area di testo di riepilogo
+				JTextArea textAreaRiepilogo = new JTextArea();
+				textAreaRiepilogo.setBounds(10, 161, 560, 91);
+				contentPane.add(textAreaRiepilogo);
+				
 		
+		
+		//bottone di conferma
+				JButton btnConferma = new JButton("Conferma");
+				btnConferma.setVisible(false);	
+				btnConferma.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						
+						
+						
+						
+					}
+					
+				});
+				
+
+				btnConferma.setBounds(463, 262, 107, 21);
+				contentPane.add(btnConferma);
 
 		
 		JButton btnGennaio = new JButton("Gennaio");
 		btnGennaio.setVisible(false);
 		btnGennaio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { 
+			public void actionPerformed(ActionEvent e) {
+				
+				//resetto il text area e conferma
+				textAreaRiepilogo.setText("");
+				btnConferma.setVisible(false);
 				
 				
+				//impostare il riepilogo
+				
+				if(textAreaRiepilogo.getText().compareTo("")!=0) {
+					
+					btnConferma.setVisible(true);
+				}
 				
 			}
 		});
@@ -70,6 +106,18 @@ public class VistaAbbonamenti extends JFrame {
 		btnNovembre.setVisible(false);
 		btnNovembre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//resetto il text area e conferma
+				textAreaRiepilogo.setText("");
+				btnConferma.setVisible(false);
+				
+				
+				//impostare il riepilogo
+				
+				
+				if(textAreaRiepilogo.getText().compareTo("")!=0) {
+					
+					btnConferma.setVisible(true);
+				}
 			}
 		});
 		btnNovembre.setBounds(390, 98, 85, 21);
@@ -79,17 +127,41 @@ public class VistaAbbonamenti extends JFrame {
 		btnFebbraio.setVisible(false);
 		btnFebbraio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//resetto il text area e conferma
+				textAreaRiepilogo.setText("");
+				btnConferma.setVisible(false);
+				
+				
+				//impostare il riepilogo
+				
+				if(textAreaRiepilogo.getText().compareTo("")!=0) {
+					
+					btnConferma.setVisible(true);
+				}
 			}
 		});
 		btnFebbraio.setBounds(105, 64, 85, 21);
 		contentPane.add(btnFebbraio);
+		
+		
 		
 		JButton btnMarzo = new JButton("Marzo");
 		btnMarzo.setVisible(false);
 		btnMarzo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				//resetto il text area e conferma
+				textAreaRiepilogo.setText("");
+				btnConferma.setVisible(false);
 				
+				
+				//impostare il riepilogo
+				
+				if(textAreaRiepilogo.getText().compareTo("")!=0) {
+					
+					btnConferma.setVisible(true);
+				}
 				
 			}
 		});
@@ -100,6 +172,18 @@ public class VistaAbbonamenti extends JFrame {
 		btnSettembre.setVisible(false);
 		btnSettembre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//resetto il text area e conferma
+				textAreaRiepilogo.setText("");
+				btnConferma.setVisible(false);
+				
+				
+				//impostare il riepilogo
+				
+				if(textAreaRiepilogo.getText().compareTo("")!=0) {
+					
+					btnConferma.setVisible(true);
+				}
 			}
 		});
 		btnSettembre.setBounds(200, 98, 85, 21);
@@ -109,6 +193,18 @@ public class VistaAbbonamenti extends JFrame {
 		btnAprile.setVisible(false);
 		btnAprile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//resetto il text area e conferma
+				textAreaRiepilogo.setText("");
+				btnConferma.setVisible(false);
+				
+				
+				//impostare il riepilogo
+				
+				if(textAreaRiepilogo.getText().compareTo("")!=0) {
+					
+					btnConferma.setVisible(true);
+				}
 			}
 		});
 		btnAprile.setBounds(295, 64, 85, 21);
@@ -118,6 +214,18 @@ public class VistaAbbonamenti extends JFrame {
 		btnMaggio.setVisible(false);
 		btnMaggio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//resetto il text area e conferma
+				textAreaRiepilogo.setText("");
+				btnConferma.setVisible(false);
+				
+				
+				//impostare il riepilogo
+				
+				if(textAreaRiepilogo.getText().compareTo("")!=0) {
+					
+					btnConferma.setVisible(true);
+				}
 				
 			}
 		});
@@ -129,6 +237,18 @@ public class VistaAbbonamenti extends JFrame {
 		btnLuglio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				//resetto il text area e conferma
+				textAreaRiepilogo.setText("");
+				btnConferma.setVisible(false);
+				
+				
+				//impostare il riepilogo
+				
+				if(textAreaRiepilogo.getText().compareTo("")!=0) {
+					
+					btnConferma.setVisible(true);
+				}
+				
 			}
 		});
 		btnLuglio.setBounds(10, 98, 85, 21);
@@ -138,6 +258,18 @@ public class VistaAbbonamenti extends JFrame {
 		btnGiugno.setVisible(false);
 		btnGiugno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//resetto il text area e conferma
+				textAreaRiepilogo.setText("");
+				btnConferma.setVisible(false);
+				
+				
+				//impostare il riepilogo
+				
+				if(textAreaRiepilogo.getText().compareTo("")!=0) {
+					
+					btnConferma.setVisible(true);
+				}
 				
 			}
 		});
@@ -149,6 +281,17 @@ public class VistaAbbonamenti extends JFrame {
 		btnAgosto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				//resetto il text area e conferma
+				textAreaRiepilogo.setText("");
+				btnConferma.setVisible(false);
+				
+				
+				//impostare il riepilogo
+				
+				if(textAreaRiepilogo.getText().compareTo("")!=0) {
+					
+					btnConferma.setVisible(true);
+				}
 			}
 		});
 		btnAgosto.setBounds(105, 98, 85, 21);
@@ -158,7 +301,20 @@ public class VistaAbbonamenti extends JFrame {
 		btnOttobre.setVisible(false);
 		btnOttobre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//resetto il text area e conferma
+				textAreaRiepilogo.setText("");
+				btnConferma.setVisible(false);
 				
+				
+				//impostare il riepilogo
+				
+				textAreaRiepilogo.setText("Ciao");
+				
+				
+				if(textAreaRiepilogo.getText().compareTo("")!=0) {
+				
+					btnConferma.setVisible(true);
+				}
 			}
 		});
 		btnOttobre.setBounds(295, 98, 85, 21);
@@ -168,6 +324,19 @@ public class VistaAbbonamenti extends JFrame {
 		btnDicembre.setVisible(false);
 		btnDicembre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//resetto il text area e conferma
+				textAreaRiepilogo.setText("");
+				btnConferma.setVisible(false);
+				
+				
+				//impostare il riepilogo
+				
+				
+				
+				if(textAreaRiepilogo.getText().compareTo("")!=0) {
+					
+					btnConferma.setVisible(true);
+				}
 				
 			}
 		});
@@ -175,43 +344,6 @@ public class VistaAbbonamenti extends JFrame {
 		contentPane.add(btnDicembre);
 		
 		
-		//bottone di conferma
-		JButton btnConferma = new JButton("Conferma");
-		btnConferma.setVisible(false);	
-		btnConferma.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				
-				
-				
-			}
-			
-		});
-		
-
-		btnConferma.setBounds(463, 262, 107, 21);
-		contentPane.add(btnConferma);
-		
-		
-		
-		//label riepilogo
-		JLabel lblRiepilogo = new JLabel("Riepilogo:");
-		lblRiepilogo.setBounds(10, 138, 85, 13);
-		contentPane.add(lblRiepilogo);
-		
-		
-		//area di testo di riepilogo
-		JTextArea textAreaRiepilogo = new JTextArea();
-		textAreaRiepilogo.setBounds(10, 161, 560, 91);
-		contentPane.add(textAreaRiepilogo);
-		
-		
-		
-		
-		
-		
-	
 		
 		//Label all'inizio della pagina
 		JLabel lblAbbonamenti = new JLabel("Scegli una tipologia di abbonamento:");
@@ -220,13 +352,13 @@ public class VistaAbbonamenti extends JFrame {
 		
 		
 		
-		
-		
-		
 		//Bottone abbonamento annuale
 		JButton btnAbbAnnuale = new JButton("Abbonamento Annuale");
 		btnAbbAnnuale.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				textAreaRiepilogo.setText("");
+				btnConferma.setVisible(false);
+				
 				btnGennaio.setVisible(false);
 				btnNovembre.setVisible(false);
 				btnFebbraio.setVisible(false);
@@ -239,7 +371,18 @@ public class VistaAbbonamenti extends JFrame {
 				btnAgosto.setVisible(false);
 				btnDicembre.setVisible(false);
 				btnOttobre.setVisible(false);
-				btnConferma.setVisible(true);
+				
+				
+				//settare il testo da visualizzare come riepilogo
+				
+				
+				textAreaRiepilogo.setText("ciao");
+				
+				if(textAreaRiepilogo.getText().compareTo("")!=0) {
+					
+					btnConferma.setVisible(true);
+				}
+				
 				
 				
 				//
@@ -255,6 +398,7 @@ public class VistaAbbonamenti extends JFrame {
 		JButton btnAbbMensile = new JButton("Abbonamento Mensile");
 		btnAbbMensile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				textAreaRiepilogo.setText("");
 				btnGennaio.setVisible(true);
 				btnNovembre.setVisible(true);
 				btnFebbraio.setVisible(true);
@@ -267,9 +411,7 @@ public class VistaAbbonamenti extends JFrame {
 				btnAgosto.setVisible(true);
 				btnDicembre.setVisible(true);
 				btnOttobre.setVisible(true);
-				btnConferma.setVisible(true);
-				
-				
+				btnConferma.setVisible(false);
 			}
 		});
 		

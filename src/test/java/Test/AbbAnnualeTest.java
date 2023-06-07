@@ -39,7 +39,7 @@ public class AbbAnnualeTest {
 		
 		AbbonamentoAnnualeEntity abb = new AbbonamentoAnnualeEntity();
 		
-		abb.scriviAbbsuDB();
+		abb.scriviSuDB();
 		
 		System.out.println("Scritto su DB");
 		
@@ -64,7 +64,7 @@ public class AbbAnnualeTest {
 	
 		Date dataRipresa = AbbonamentoAnnualeEntity.addDays(dataSospensione, 30);
 		
-		abb.sospendiAbbonamento(213, dataSospensione, dataRipresa);
+		abb.sospendiAbbonamento(dataSospensione, dataRipresa);
 		
 		System.out.println("Updated!");
 		

@@ -36,7 +36,7 @@ public class SalaperCorsiTest {
 	public void testScriviSuDB() {
 		SalaperCorsiEntity sala = new SalaperCorsiEntity();
 		
-		sala.ScriviSuDB(13, 27);
+		sala.scriviSuDB(13, 27);
 		
 		SalaperCorsiEntity sala1 =  new SalaperCorsiEntity(13);
 		
