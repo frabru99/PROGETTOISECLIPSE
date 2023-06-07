@@ -10,6 +10,7 @@ import Database.PrenotazioneDAO;
 
 public class ClienteIscrittoEntity {
 	
+	//Variabili membro.
 	private String codiceCliente;
 	private String nome;
 	private String cognome;
@@ -19,6 +20,7 @@ public class ClienteIscrittoEntity {
 	private AbbonamentoMensileEntity abbonamentoMensile;
 	private AbbonamentoAnnualeEntity abbonamentoAnnuale;
 	
+	
 	//Costruttore vuoto
 	public ClienteIscrittoEntity() {
 		
@@ -26,7 +28,7 @@ public class ClienteIscrittoEntity {
 		
 	}
 	
-	//Costruttore passando oggetto DAO
+	//Costruttore per caricamento da un'istanza della classe DAO
 	public ClienteIscrittoEntity(ClienteIscrittoDAO	cdao) {
 		
 		this.codiceCliente = cdao.getCodiceCliente();
@@ -36,19 +38,17 @@ public class ClienteIscrittoEntity {
 		this.idAbbonamentoAnnuale= cdao.getIdAbbonamentoAnnuale();
 		this.idAbbonamentoMensile= cdao.getIdAbbonamentoMensile();
 		
+		//Carico anche gli eventuali abbonamenti
 		cdao.caricaAbbonamentoClienteIscrittoDaDB();
-		
-		//Carica abbonamento (cdao)
 		caricaAbbonamento(cdao);
 				
 	}
 	
-	//Costruttore passando la PK
+	
+	//Costruttore per caricamento da classe DAO attraverso la PK
 	public ClienteIscrittoEntity(String codiceCliente) {
 		
-		//Creo un DAO con costruttore PK
 		ClienteIscrittoDAO cdao = new ClienteIscrittoDAO(codiceCliente);
-		
 		this.codiceCliente = cdao.getCodiceCliente();
 		this.nome= cdao.getNome();
 		this.cognome= cdao.getCognome();
@@ -56,36 +56,42 @@ public class ClienteIscrittoEntity {
 		this.idAbbonamentoAnnuale= cdao.getIdAbbonamentoAnnuale();
 		this.idAbbonamentoMensile= cdao.getIdAbbonamentoMensile();
 		
+		//Carico anche gli eventuali abbonamenti
 		cdao.caricaAbbonamentoClienteIscrittoDaDB();
-		
-		//Carica abbonamento (cdao)
 		caricaAbbonamento(cdao);
 		
 	}
 	
-	//Metodo carica abbonamento
+	
+	//Funzione di loading degli abbonamenti del cliente SE ESISTONO.
 	public void caricaAbbonamento(ClienteIscrittoDAO cdao) {
 			
 			AbbonamentoAnnualeEntity abbann = new AbbonamentoAnnualeEntity(cdao.getAbbonamentoAnnuale());
 			this.abbonamentoAnnuale=abbann;
 			AbbonamentoMensileEntity abbmen = new AbbonamentoMensileEntity(cdao.getAbbonamentoMensile());
 			this.abbonamentoMensile=abbmen;
+			
 	}
+	
 	
 	//Metodo scrivi su db
 	public int scriviSuDb(String nome, String cognome, String email){
+		
+		//Variabile per il risultato della query
 		int ret=0;
 		
+		//Inizializzo un oggetto DAO per accedere ai suoi metodi
 		ClienteIscrittoDAO corso  = new ClienteIscrittoDAO();
-		//provo a scrivere sul DB
 		
+		//Chiamo la funzione prelevaIdMassimo del DAO a cui aggiungo 1 per ottenere il nuovo codiceCliente
 		Integer maxcod = Integer.parseInt(corso.prelevaIdmassimo().split("_")[1])+1;
-		
 		String codiceCliente = "Cliente_"+maxcod;
 		
 		ret = corso.salvaInDB(codiceCliente, nome, cognome, email);
 		
+		//Se la richiesta al DAO va a buon fine
 		if(ret!=-1) {	
+			
 			this.setCodiceCliente(codiceCliente);
 			this.setNome(nome);
 			this.setCognome(cognome);
@@ -94,11 +100,14 @@ public class ClienteIscrittoEntity {
 			this.setIdAbbonamentoMensile(-1);
 			this.setAbbonamentoAnnuale(null);
 			this.setAbbonamentoMensile(null);
+			
 		}
 		
 		return ret;
 	}
-
+	
+	
+	//GETTERS AND SETTERS
 	public String getCodiceCliente() {
 		return codiceCliente;
 	}
@@ -162,7 +171,10 @@ public class ClienteIscrittoEntity {
 	public void setAbbonamentoAnnuale(AbbonamentoAnnualeEntity abbonamentoAnnuale) {
 		this.abbonamentoAnnuale = abbonamentoAnnuale;
 	}
-
+	
+	
+	
+	//TO - STRING
 	@Override
 	public String toString() {
 		return "ClienteIscrittoEntity [codiceCliente=" + codiceCliente + ", nome=" + nome + ", cognome=" + cognome
@@ -171,27 +183,28 @@ public class ClienteIscrittoEntity {
 	}
 	
 	
-	
+	//Metodo chiamato dal controller in seguito ad una richiesta di creazione di prenotazione
 	public int controllerScriviPrenotazioneSuDB(int idCorso) {
 		
+		//Inizializzo un oggetto DAO per accedere ai suoi metodi
 		PrenotazioneDAO pdao = new PrenotazioneDAO();
 		
+		//Setto l'id chiamando il metodo prelevaIdMassimo
 		int idpren = pdao.prelevaIdMassimo()+1;
+		
+		//Setto la data alla data odierna, e chiamo il metodo toString
 		Date dataod = new java.sql.Date(System.currentTimeMillis());
 		String data= dataod.toString();
 		
-		
+		//Chiamo il metodo dell'oggetto DAO per scrivere sul DB
 		int val = pdao.scrivisuDB(idpren, data, this.codiceCliente, this.email, idCorso);
 	
-		
-		
-		
 		return val;
-		
 		
 	}
 	
 	
+	//Funzione di utility che controlla se il cliente è un abbonato mensile o annuale
 	public int checkAbbonamento() {
 		
 		if (this.idAbbonamentoAnnuale != 0) {

@@ -7,27 +7,38 @@ import java.util.ArrayList;
 
 public class CorsoDAO {
 	
+	//Variabili membro.
 	private int codiceCorso;
+	private int postiDisponibili;
+	private int idSalaperCorsi;
 	private String nomeCorso;
 	private String istruttore;
 	private String oraInizio;
 	private String durataCorso;
-	private int postiDisponibili;
 	private SalaperCorsiDAO salaCorso;
-	private int idSalaperCorsi;
 	private ArrayList<GiornoDAO> giorni;
 	
+	
+	//Costruttore per caricamento da DB attraverso la PK
 	public CorsoDAO(int codiceCorso) {
+		
 		this.codiceCorso=codiceCorso;
 		this.giorni=new ArrayList<GiornoDAO>();
 		caricaDaDB();
+		
 	}
 
+	
+	//Costruttore vuoto per inizializzazione
 	public CorsoDAO() {
+		
 		super();
 		this.giorni=new ArrayList<GiornoDAO>();
+		
 	}
 	
+	
+	//Funzione di loading degli attributi del DAO attraverso una query di SELECT
 	public void caricaDaDB() {
 		
 		String query="SELECT * FROM Corso WHERE CodiceCorso='"+this.codiceCorso+"';";
@@ -35,7 +46,6 @@ public class CorsoDAO {
 		try {
 			
 			ResultSet rs=DBConnectionManager.selectQuery(query);
-			
 			
 			if(rs.next()) {
 				
@@ -50,12 +60,15 @@ public class CorsoDAO {
 			
 			
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			
+			System.out.println("[CORSO-DAO] Errore nel metodo caricaDaDB");
+			
 		}
 		
 	}
 	
+	
+	//Funzione di loading dell'array GiornoDAO
 	public void caricaGiorniCorsodaDB() {
 		
 		String query=new String("SELECT * FROM Giorno WHERE NomeGiorno IN (SELECT Giorno_nomeGiorno FROM Corso_has_Giorno WHERE Corso_codiceCorso=\'"+this.codiceCorso+"')");
@@ -70,23 +83,25 @@ public class CorsoDAO {
 				giorno.setNomeGiorno(rs.getString("nomeGiorno"));
 				giorno.setOrarioAperturaCentro(rs.getString("orarioAperturaCentro"));
 				giorno.setOrarioChiusuraCentro(rs.getString("orarioChiusuraCentro"));
-				
-				//chiamata ricorsiva
 				giorno.caricaCorsiGiornoDaDB();
 				this.giorni.add(giorno);
+				
 			}
 			
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			
+			System.err.println("[CORSO-DAO] Errore nel metodo caricaGiorniCorsodaDB");
+			
 		}	
 		
 	}
 	
+	
+	//Funzione di loading della SalaperCorsiDAO
 	public void caricaSalaperCorsiCorsodaDB() {
 		
+		//Inizializzo la variabile membro
 		salaCorso = new SalaperCorsiDAO();
-		
 		
 		String query = new String ("SELECT * FROM SalaperCorsi WHERE idSalaperCorsi = "+this.idSalaperCorsi)+";";
 		
@@ -94,54 +109,55 @@ public class CorsoDAO {
 			
 			ResultSet rs=DBConnectionManager.selectQuery(query);
 			
-			
-			
 			if (rs.next()) {
 				
 				SalaperCorsiDAO sala = new SalaperCorsiDAO();
 				sala.setCapienza(rs.getInt("capienza"));
 				sala.setIdSalaCorsi(rs.getInt("idSalaperCorsi"));
-				
+				//Setto la variabile membro salaCorso
 				this.salaCorso = sala;
 				
 			}
 			
-			
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			
+			System.err.println("[CORSO-DAO] Errore nel metodo caricaSalaperCorsiCorsodaDB");
+			
 		}	
 		
 	}
 	
 	
+	//Metodo di CREATE del CRUD
 	public int salvaInDB(int codiceCorso,String nome, String istruttore, String oraInizio, String durataCorso, int postiDisponibili,int idSalaperCorsi) {
 		
+		//Variabile per il risultato della query
 		int ret=0;
 		
 		String query="INSERT INTO Corso(codiceCorso, nomeCorso, istruttore, oraInizio, durataCorso, postiDisponibili ,SalaperCorsi_idSalaperCorsi) VALUES (\'"+codiceCorso+"\',"+"\'"+nome+"\','"+istruttore+"\','"+oraInizio+"\','"+durataCorso+"\','"+postiDisponibili+"\','"+idSalaperCorsi+"')";
-		
-		System.out.println(query);
 
 		try {
 			
 			ret=DBConnectionManager.updateQuery(query);
 			
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO: handle exception
+			
+			System.out.println("[CORSO-DAO] Errore nella CREATE");
 			ret=-1;
-			e.printStackTrace();
+			
 		}
 		
 		return ret;
 		
 	}
 	
+	
+	//Funzione di utility per incrementare automaticamente il counter del codice del corso
 	public int prelevaIdMassimo() {
 		
-		//Inizializziamo il massimo a -1. Se non ci sono prenotazioni si parte con l'id 0
+		//Inizializzo il massimo a -1.
 		int max =-1;
-		
+		//Query di select innestata per prelevare l'attuale codice maggiore
 		String query = "SELECT codiceCorso FROM Corso WHERE codiceCorso >= ALL(SELECT codiceCorso FROM Corso)";
 		
 		try {
@@ -149,37 +165,41 @@ public class CorsoDAO {
 			ResultSet rs = DBConnectionManager.selectQuery(query);
 			
 			if (rs.next()) {
+				
 				max=rs.getInt("codiceCorso");
+				
 			}
 			
 		}catch(SQLException | ClassNotFoundException e) {
 			
-			System.err.println("Non ci sono id"+ e.getMessage());
+			System.out.println("[CORSO-DAO] Errore nel metodo prelevaIdMassimo");
 			
 		}
 		
 		return max;
 		
-		
 	}
 	
+	
+	//Funzione che permette di aggiornare il numero di posti disponibili di un corso
 	public void updatePosti() {
 		
         String query = "UPDATE Corso SET postiDisponibili = postiDisponibili - 1 WHERE codiceCorso = "+this.codiceCorso;
-        
-        
         
         try {
             
             DBConnectionManager.updateQuery(query);
             
         } catch (ClassNotFoundException | SQLException e) {
-            // TODO: handle exception
-            e.printStackTrace();
+            
+        	System.out.println("[CORSO-DAO] Errore nel metodo updatePosti");
+        	
         }
+        
 	}
 	
 	
+	//Funzione di utility che permette di controllare se data una chiave, esiste quel corso sul DB
 	public int checkCorsosuDB(int codCorso) {
 		
         String query = "SELECT * FROM Corso WHERE codiceCorso = "+codCorso+";";
@@ -190,22 +210,25 @@ public class CorsoDAO {
             
             if(rs.next()) {
                 
-               return 1;
+               return 1;	//Se esiste torno 1
                 
             } else {
-            	return -1;
+            	
+            	return -1;	//Se non esiste torno -1
+            	
             }
             
         } catch (ClassNotFoundException | SQLException e) {
-            // TODO: handle exception
-            e.printStackTrace();
+            
+        	System.out.println("[CORSO-DAO] Errore nel metodo checkCorsosuDB");
             return -1;
+            
         }
        
-		
-		
 	}
 	
+	
+	//GETTERS AND SETTERS
 	public int getPostiDisponibili() {
 		return postiDisponibili;
 	}
@@ -263,7 +286,6 @@ public class CorsoDAO {
 	}
 	
 	
-
 	public int getIdSalaperCorsi() {
 		return idSalaperCorsi;
 	}

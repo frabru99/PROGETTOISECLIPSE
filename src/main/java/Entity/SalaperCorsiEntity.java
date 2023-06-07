@@ -4,69 +4,82 @@ import Database.SalaperCorsiDAO;
 
 public class SalaperCorsiEntity {
 
-		private int capienza;
-		private int idSalaCorsi;
+	//Variabili membro.	
+	private int capienza;
+	private int idSalaCorsi;
+	
+	
+	//Costruttore vuoto
+	public SalaperCorsiEntity() {
+		super();
+	}
+	
+	
+	//Costruttore per caricamento da classe DAO attraverso la PK
+	public SalaperCorsiEntity(int idSalaCorsi) {
 		
+		SalaperCorsiDAO db = new SalaperCorsiDAO(idSalaCorsi);
+		this.capienza = db.getCapienza();
+		this.idSalaCorsi = idSalaCorsi;
 		
-		public SalaperCorsiEntity(int idSalaCorsi) {
-			SalaperCorsiDAO db = new SalaperCorsiDAO(idSalaCorsi);
-			this.capienza = db.getCapienza();
-			this.idSalaCorsi = idSalaCorsi;
+	}
+	
+	
+	//Costruttore per caricamento da un'istanza della classe DAO
+	public SalaperCorsiEntity(SalaperCorsiDAO db) {
+		
+		this.capienza = db.getCapienza();
+        this.idSalaCorsi = db.getIdSalaCorsi();
+        
+	}
+	
+	
+	//Metodo scrivi su db
+	public int ScriviSuDB(int idSalaCorsi, int capienza) {
+		
+		//Variabile per il risultato della query
+		int ret=0;
+		
+		//Inizializzo un oggetto DAO per accedere ai suoi metodi
+		SalaperCorsiDAO sala= new SalaperCorsiDAO();
+		
+		ret = sala.scriviSala(idSalaCorsi, capienza);
+		
+		//Se la richiesta al DAO va a buon fine
+		if(ret!=-1) {			
+			
+			this.setIdSalaCorsi(idSalaCorsi);
+			this.setCapienza(capienza);
+			
 		}
 		
-		
-		public SalaperCorsiEntity(SalaperCorsiDAO db) {
-			this.capienza = db.getCapienza();
-            this.idSalaCorsi = db.getIdSalaCorsi();
-		}
-		
-		public int ScriviSuDB(int idSalaCorsi, int capienza) {
-			
-			int ret=0;
-			
-			SalaperCorsiDAO sala= new SalaperCorsiDAO();
-			
-			//provo a scrivere sul DB
-			
-			ret = sala.scriviSala(idSalaCorsi, capienza);
-			
-			if(ret!=-1) {			
-				this.setIdSalaCorsi(idSalaCorsi);
-				this.setCapienza(capienza);
-			}
-			
-			return ret;
-		}
-		
-		
-		public SalaperCorsiEntity() {
-			super();
-		}
+		return ret;
+	}
+	
+
+	//GETTERS AND SETTERS
+	public int getCapienza() {
+        return capienza;
+    }
+	
+	public void setCapienza(int capienza) {
+        this.capienza = capienza;
+    }
+	
+    public int getIdSalaCorsi() {
+        return idSalaCorsi;
+    }
+    
+    public void setIdSalaCorsi(int idSalaCorsi) {
+        this.idSalaCorsi = idSalaCorsi;
+    }
 
 
-		public int getCapienza() {
-            return capienza;
-        }
-		
-		public void setCapienza(int capienza) {
-            this.capienza = capienza;
-        }
-		
-        public int getIdSalaCorsi() {
-            return idSalaCorsi;
-        }
-        
-        public void setIdSalaCorsi(int idSalaCorsi) {
-            this.idSalaCorsi = idSalaCorsi;
-        }
-
-
-		@Override
-		public String toString() {
-			return "SalaperCorsiEntity [Capienza=" + capienza+ ", idSalaCorsi=" + idSalaCorsi + "]";
-		}
-        
-        
-        
-        
+    //TO - STRING
+	@Override
+	public String toString() {
+		return "SalaperCorsiEntity [Capienza=" + capienza+ ", idSalaCorsi=" + idSalaCorsi + "]";
+	}
+    
+  
 }

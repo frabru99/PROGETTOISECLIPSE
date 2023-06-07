@@ -8,59 +8,68 @@ import java.sql.SQLException;
 
 public class DBConnectionManager {
 	
-	public static String url = "jdbc:mysql://localhost:3306/"; //linbk al database
-	public static String dbName= "centrosportivo"; //nome
-	public static String driver = "com.mysql.cj.jdbc.Driver"; //driver scelto per la gestione
-	public static String userName="frabru99"; //nome e password per accesso
+	//Variabili membro - costanti necessarie per la connessione
+	public static String url = "jdbc:mysql://localhost:3306/"; //Link al database
+	public static String dbName= "centrosportivo"; //Nome
+	public static String driver = "com.mysql.cj.jdbc.Driver"; //Driver scelto per la gestione
+	public static String userName="frabru99"; //Nome e password per accesso
 	public static String password="Cmcfb2002!";
-	//fornisco le costanti che servono per la connessione
 	
-
+	
+	//Metodo che crea la connessione dal driver
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
+		
+		//Creo oggetto connection
 		Connection conn = null;
-		Class.forName(driver);	//gestisco connessione e driver
+		Class.forName(driver);
 		
-		conn = DriverManager.getConnection(url+dbName, userName, password); //dal driver manager prendo la connessione
-		//dando url e nome del db con username e password!
-		
-		return conn; //ritorno la connessione!
+		//Ottengo la connessione dal DriverManager passando come parametri le credenziali ed il nome del db
+		conn = DriverManager.getConnection(url+dbName, userName, password); 
+
+		return conn; 
 	}
 	
 	
+	//Metodo che chiude la connessione con il DB
 	public static void closeConnection(Connection c) throws SQLException{
 		
 		System.out.println("Chiudo connessione...");
 		c.close();
+		
 	}
 	
 	
-	
-	
+	//ResultSet - ritorna i risultati di una query
 	public static ResultSet selectQuery(String query) throws ClassNotFoundException, SQLException{
 		
+		//Invoco getConnection
+		Connection conn = getConnection(); 
 		
-		Connection conn = getConnection(); //prendoi la connessione 
+		//Creo uno statement - necessario per effettuare query
+		java.sql.Statement statement = conn.createStatement();
 		
-		java.sql.Statement statement = conn.createStatement();	//creo statement per effettuare query!!!
-		
-		ResultSet ret = statement.executeQuery(query); //faccio la query e torno ret!
+		//Effettuo la query
+		ResultSet ret = statement.executeQuery(query); 
 	
-		//System.out.println("Eseguito la query!");
-		
-		
 		return ret;
 		
 	}
 	
+	
+	//Query per inserimento ed update
 	public static int updateQuery(String query) throws ClassNotFoundException, SQLException{
 		
+		//Invoco getConnection
 		Connection conn = getConnection(); //prendo la connesione 
 		
+		//Creo uno statement - necessario per effettuare query
 		java.sql.Statement  statement = conn.createStatement(); //creo statement 
 		
-		int ret = statement.executeUpdate(query); //faccio query
+		//Effettuo la query
+		int ret = statement.executeUpdate(query); 
 		
-		closeConnection(conn); //chiudo
+		//Chiudo la connessione
+		closeConnection(conn); 
 		
 		return ret;
 	}

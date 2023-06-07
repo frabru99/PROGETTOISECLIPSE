@@ -6,9 +6,11 @@ import java.util.ArrayList;
 
 public class RegistroClientiDAO {
     
+	//Variabili membro.
     private ArrayList<ClienteIscrittoDAO> clienti;
     
     
+    //Costruttore vuoto per inizializzazione
     public RegistroClientiDAO() {
         
         clienti = new ArrayList<ClienteIscrittoDAO>();
@@ -16,15 +18,15 @@ public class RegistroClientiDAO {
         
     }
     
-    //Metodo carica da DB
+    
+    //Funzione di loading degli attributi del DAO attraverso una query di SELECT
     private void caricaDaDB() {
         
-        //Devo caricare tutti i giorni
+        //Carico tutti i clienti
         String query = "SELECT codiceCliente FROM ClienteIscritto";
         
         try {
             
-            //effettuo la query
             ResultSet rs = DBConnectionManager.selectQuery(query);
             
             while (rs.next()) {
@@ -34,15 +36,16 @@ public class RegistroClientiDAO {
                 
             }
             
-            
         }catch(SQLException | ClassNotFoundException e) {
             
-            System.err.println("Non ci sono clienti");
+            System.err.println("[REGISTRO-CLIENTI-DAO] Errore nel metodo caricaDaDB");
             
         }
         
     }
 
+    
+    //GETTERS AND SETTERS
     public void setClienti(ArrayList<ClienteIscrittoDAO> clienti) {
         this.clienti = clienti;
     }
@@ -51,8 +54,6 @@ public class RegistroClientiDAO {
         // TODO Auto-generated method stub
         return clienti;
     }
-    
-    
     
     
 }

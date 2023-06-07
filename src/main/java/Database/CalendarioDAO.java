@@ -6,9 +6,11 @@ import java.util.ArrayList;
 
 public class CalendarioDAO {
 
+	//Variabili membro.
     private ArrayList<GiornoDAO> giorni;
     
-    //Costruttore per caricare dal db
+    
+    //Costruttore vuoto per caricamento da DB
     public CalendarioDAO() {
         
     	giorni = new ArrayList<GiornoDAO>();
@@ -16,15 +18,15 @@ public class CalendarioDAO {
         
     }
     
-    //Metodo carica da DB
+    
+    //Funzione di loading degli attributi del DAO attraverso una query di SELECT
     private void caricaDaDB() {
         
-        //Devo caricare tutti i giorni
+        //La query seleziona tutti i giorni
         String query = "SELECT nomeGiorno FROM Giorno";
         
         try {
             
-            //effettuo la query
             ResultSet rs = DBConnectionManager.selectQuery(query);
             
             while (rs.next()) {
@@ -37,15 +39,14 @@ public class CalendarioDAO {
             
         }catch(SQLException | ClassNotFoundException e) {
             
-            System.err.println("Non ci sono giorni");
+            System.err.println("[CALENDARIO-DAO] Errore nel metodo caricaDaDB");
             
         }
-        
         
     }
     
     
-    //Getters and setters
+    //GETTERS AND SETTERS
 
     public ArrayList<GiornoDAO> getGiorni() {
         return giorni;
@@ -55,7 +56,5 @@ public class CalendarioDAO {
         this.giorni = giorni;
     }
     
-    
-    
-    
+   
 }

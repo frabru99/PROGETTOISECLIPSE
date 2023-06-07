@@ -8,22 +8,26 @@ import Database.GiornoDAO;
 import Database.SalaperCorsiDAO;
 
 public class CentroSportivoEntity {
+	
+	//Variabili membro.
 	private static CentroSportivoEntity uniqueInstance;
 	private static RegistroClientiEntity registro;
 	private static CalendarioEntity calendario;
 	private static ArrayList<SalaperCorsiEntity> sale;
 	
+	
+	//Costruttore vuoto - recupera il registroClienti ed il calendario
 	private CentroSportivoEntity() {
         
-		//vedo se prenderle le istanze solo quando mi servono
 		registro=RegistroClientiEntity.getInstance();
 		calendario=CalendarioEntity.getInstance();
         sale = new ArrayList<SalaperCorsiEntity>();
         
-        //Carico dal DAO
+        //Creo un oggetto DAO per caricare gli attributi
         CentroSportivoDAO centroSportivoDao = new CentroSportivoDAO();
         ArrayList<SalaperCorsiDAO>saledao = centroSportivoDao.getSale();
         
+        //Carico le SalaperCorsiEntity dall'array di SalaperCorsiDAO
         for (int i=0;i<saledao.size();i++) {
             
             SalaperCorsiEntity sala = new SalaperCorsiEntity(saledao.get(i));
@@ -31,9 +35,10 @@ public class CentroSportivoEntity {
             
         }
         
-        
     }
 
+	
+	//Metodo getInstance per implementare il pattern Singleton - crea il Singleton se l'istanza è null oppure la ritorna
 	public static CentroSportivoEntity getInstance() {
 	
 		 if (uniqueInstance == null) {
@@ -46,27 +51,30 @@ public class CentroSportivoEntity {
 	
 	}
 	
+	
+	//Metodo per la ricerca dei corsi disponibili all'interno 
 	public ArrayList<CorsoEntity> ricercaCorsiDisponibili(String nomeGiorno){
 		
+		//Recupero dal calendario i giorni, al fine di recuperarne successivamente i corsi
 		ArrayList<GiornoEntity> giorni=CalendarioEntity.getGiorni();
+		
+		//Inizializzo due array - uno per tutti i corsi, ed uno per tutti i corsi con disponibilità di posti
 		ArrayList<CorsoEntity> corsi=new ArrayList<CorsoEntity>();
-		
-		
 		ArrayList<CorsoEntity> corsiDisponibili=new ArrayList<CorsoEntity>();
 		
-		
-		
-		//prima mi cerco i corsi di quel giorno
+		//Scorro l'array di giorni
 		for(int i=0;i<giorni.size();i++) {
 			
+			//Se trovo il giorno richiesto
 			if((giorni.get(i).getNomeGiorno()).compareTo(nomeGiorno)==0) {
 				
+				//Recupero tutti i corsi di quel giorno
 				corsi=giorni.get(i).getCorsi();
 				
-				System.out.println(corsi);
-				//poi tra i corsi di quel giorno mi cerco quelli disponibili
+				//Filtro tra tutti i corsi di quel giorno, quelli con disponibilità di posti
 				for(int j=0;j<corsi.size();j++) {
 					
+					//Se c'è almeno un posto disponibile, aggiungo il corso all'array di corsi con disponibilità
 					if(corsi.get(j).getPostiDisponibili() > 0) {
 						
 						corsiDisponibili.add(corsi.get(j));
@@ -83,6 +91,8 @@ public class CentroSportivoEntity {
 		
 	}
 
+	
+	//GETTERS AND SETTERS
 	public static RegistroClientiEntity getRegistro() {
 		return registro;
 	}

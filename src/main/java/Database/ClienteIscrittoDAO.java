@@ -5,7 +5,8 @@ import java.sql.ResultSet;
 
 public class ClienteIscrittoDAO {
 	
-	private String  codiceCliente;
+	//Variabili membro.
+	private String codiceCliente;
 	private String nome;
 	private String cognome;
 	private String email;
@@ -14,7 +15,8 @@ public class ClienteIscrittoDAO {
 	private AbbonamentoMensileDAO abbonamentoMensile;
 	private AbbonamentoAnnualeDAO abbonamentoAnnuale;
 	
-	//Costruttore a cui passo la PK
+	
+	//Costruttore per caricamento da DB attraverso la PK
 	public ClienteIscrittoDAO(String codiceCliente) {
 		
 		this.codiceCliente=codiceCliente;
@@ -24,7 +26,7 @@ public class ClienteIscrittoDAO {
 		
 	}
 	
-	//Costruttore senza PK
+	//Costruttore vuoto per inizializzazione
 	public ClienteIscrittoDAO() {
 		
 		super();
@@ -34,7 +36,7 @@ public class ClienteIscrittoDAO {
 	}
 	
 	
-	//Per caricare il cliente dal database
+	//Funzione di loading degli attributi del DAO attraverso una query di SELECT
 	public void caricaDaDB() {
 		
 		String query="SELECT * FROM ClienteIscritto WHERE codiceCliente='"+this.codiceCliente+"';";
@@ -54,38 +56,41 @@ public class ClienteIscrittoDAO {
 				}
 				
 			} catch (ClassNotFoundException | SQLException e) {
-				// TODO: handle exception
-				e.printStackTrace();
+				System.out.println("[CLIENTE-ISCRITTO-DAO] Errore nel metodo caricaDaDB");
 			}
 		
 	}
 	
-	//Per salvare il cliente nel database
+	
+	//Metodo di CREATE del CRUD
 	public int salvaInDB(String codiceCliente, String nome, String cognome, String email) {
 		
-		//devo prelevare il massimo!
-		
-		
+		//Variabile per il risultato della query
+		int ret=0;
 		
 		String query = "INSERT INTO clienteiscritto(codiceCliente,nome,cognome,email) VALUES (\'"+codiceCliente+"\',"+"\'"+nome+"\','"+cognome+"\','"+email+"')";
-		
-		int ret=0;
+	
 		
 		try {
 			
 			ret=DBConnectionManager.updateQuery(query);
 			
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO: handle exception
+			
+			System.out.println("[CLIENTE-ISCRITTO-DAO] Errore nella CREATE");
 			ret=-1;
-			e.printStackTrace();
+	
 		}
 		
 		return ret;
 		
 	}
 	
+	
+	//Funzione di utility per incrementare automaticamente il counter degli id degli iscritti
 	public String prelevaIdmassimo() {
+		
+		//Inizializzo il massimo a null
 		String max=null;
 		String query = "SELECT codiceCliente FROM ClienteIscritto WHERE codiceCliente >=ALL(SELECT codiceCliente FROM ClienteIscritto)";
 		
@@ -94,17 +99,23 @@ public class ClienteIscrittoDAO {
 			ResultSet rs = DBConnectionManager.selectQuery(query);
 			
 			if(rs.next()) {
+				
 				max=rs.getString("codiceCliente");
+				
 			}
 			
 		}catch(ClassNotFoundException | SQLException e) {
-			System.err.println("Non ci sono id" + e.getMessage());
+			
+			System.out.println("[CLIENTE-ISCRITTO-DAO] Errore nel metodo prelevaIdMassimo");
+			
 		}
 		
 		return max;
+		
 	}
 	
-	//Carica gli abbonamenti dell'iscritto se ci sono
+	
+	//Funzione di loading degli abbonamenti del cliente SE ESISTONO.
 	public void caricaAbbonamentoClienteIscrittoDaDB() {
 		
 		String query;
@@ -126,13 +137,12 @@ public class ClienteIscrittoDAO {
 					dao.setDataScadenza(rs.getString("dataScadenza"));
 					dao.setDataSottoscrizione(rs.getString("dataSottoscrizione"));
 					dao.setNomeMese(rs.getString("nomeMese"));
-					
 					this.abbonamentoMensile =dao;
 					
 				}
 			
 			} catch (ClassNotFoundException | SQLException e) {
-				System.err.println(e.getMessage());
+				System.out.println("[CLIENTE-ISCRITTO-DAO] Errore nel metodo caricaAbbonamentoClienteIscrittoDaDB");
 			}
 		
 
@@ -155,29 +165,24 @@ public class ClienteIscrittoDAO {
 					dao.setDataSottoscrizione(rs.getString("dataSottoscrizione"));
 					dao.setDataSopensione(rs.getString("dataSospensione"));
 					dao.setDataRipresa(rs.getString("dataRipresa"));
-					
 					this.abbonamentoAnnuale =dao;
 				}
 			
 			} catch (ClassNotFoundException | SQLException e) {
-				System.err.println(e.getMessage());
+				System.out.println("[CLIENTE-ISCRITTO-DAO] Errore nel metodo caricaAbbonamentoClienteIscrittoDaDB");
 			}
 			
-		}
-			
-		//}
-		//Se non è abbonato
-		/*else {
-			
-			System.out.println("Cliente non abbonato");
-			return;
-			
-		}
+		//} else{
+			//sysout ["cliente non abbonato"];
+			//}
 		
-	}*/
+		
+			
+	}
+			
 	
-	
-	//Getters and setters
+
+	//GETTERS AND SETTERS
 
 	public String getCodiceCliente() {
 		return codiceCliente;
@@ -243,7 +248,5 @@ public class ClienteIscrittoDAO {
 		this.abbonamentoAnnuale = abbonamentoAnnuale;
 	}
 
-	
-	
 	
 }
