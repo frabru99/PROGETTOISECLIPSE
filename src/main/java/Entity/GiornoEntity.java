@@ -52,7 +52,7 @@ public class GiornoEntity {
 	
 	
 	//Metodo scrivi su db
-	public int scriviSuDb(String nomeGiorno, String orarioApertura, String orarioChiusura) {
+	public int scriviSuDB(String nomeGiorno, String orarioApertura, String orarioChiusura) {
 		
 		//Variabile per il risultato della query
 		int ret=0;
@@ -60,7 +60,7 @@ public class GiornoEntity {
 		//Inizializzo un oggetto DAO per accedere ai suoi metodi
 		GiornoDAO giorno = new GiornoDAO();
 		
-		ret = giorno.salvaInDB(nomeGiorno, orarioApertura, orarioChiusura);
+		ret = giorno.salvaSuDB(nomeGiorno, orarioApertura, orarioChiusura);
 		
 		//Se la richiesta al DAO va a buon fine
 		if(ret!=-1) {	

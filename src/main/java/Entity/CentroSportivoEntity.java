@@ -53,7 +53,7 @@ public class CentroSportivoEntity {
 	
 	
 	//Metodo per la ricerca dei corsi disponibili all'interno 
-	public ArrayList<CorsoEntity> ricercaCorsiDisponibili(String nomeGiorno){
+	public ArrayList<CorsoEntity> ricercaCorsiConDisponibilita(String nomeGiorno){
 		
 		//Recupero dal calendario i giorni, al fine di recuperarne successivamente i corsi
 		ArrayList<GiornoEntity> giorni=CalendarioEntity.getGiorni();

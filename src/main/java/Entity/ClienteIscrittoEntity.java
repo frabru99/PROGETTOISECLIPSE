@@ -75,19 +75,19 @@ public class ClienteIscrittoEntity {
 	
 	
 	//Metodo scrivi su db
-	public int scriviSuDb(String nome, String cognome, String email){
+	public int scriviSuDB(String nome, String cognome, String email){
 		
 		//Variabile per il risultato della query
 		int ret=0;
 		
 		//Inizializzo un oggetto DAO per accedere ai suoi metodi
-		ClienteIscrittoDAO corso  = new ClienteIscrittoDAO();
+		ClienteIscrittoDAO cliente  = new ClienteIscrittoDAO();
 		
 		//Chiamo la funzione prelevaIdMassimo del DAO a cui aggiungo 1 per ottenere il nuovo codiceCliente
-		Integer maxcod = Integer.parseInt(corso.prelevaIdmassimo().split("_")[1])+1;
+		Integer maxcod = Integer.parseInt(cliente.prelevaIdmassimo().split("_")[1])+1;
 		String codiceCliente = "Cliente_"+maxcod;
 		
-		ret = corso.salvaInDB(codiceCliente, nome, cognome, email);
+		ret = cliente.salvaSuDB(codiceCliente, nome, cognome, email);
 		
 		//Se la richiesta al DAO va a buon fine
 		if(ret!=-1) {	
@@ -104,7 +104,56 @@ public class ClienteIscrittoEntity {
 		}
 		
 		return ret;
+		
 	}
+	
+	
+	//Metodo chiamato dal controller in seguito ad una richiesta di creazione di prenotazione
+		public int controllerScriviPrenotazioneSuDB(int idCorso) {
+			
+			//Inizializzo un oggetto DAO per accedere ai suoi metodi
+			PrenotazioneDAO pdao = new PrenotazioneDAO();
+			
+			//Setto l'id chiamando il metodo prelevaIdMassimo
+			int idpren = pdao.prelevaIdMassimo()+1;
+			
+			//Setto la data alla data odierna, e chiamo il metodo toString
+			Date dataod = new java.sql.Date(System.currentTimeMillis());
+			String data= dataod.toString();
+			
+			//Chiamo il metodo dell'oggetto DAO per scrivere sul DB
+			int val = pdao.salvaSuDB(idpren, data, this.codiceCliente, this.email, idCorso);
+		
+			return val;
+			
+		}
+		
+		
+		//Funzionalità DUMMY che permette di settare una data di sospensione e una data di ripresa all'abbonamento annuale
+		public int sospendiAbbonamentoAnnuale(String sospensione, String ripresa) { 
+			
+			System.out.println("[CLIENTE-ISCRITTO-ENTITY] Settata data di sospensione dell'abbonamento a "+sospensione+" e ripresa a "+ripresa);
+			return 0;
+			
+		}
+		
+		
+		//Funzione di utility che controlla se il cliente è un abbonato mensile o annuale
+		public int checkAbbonamento() {
+			
+			if (this.idAbbonamentoAnnuale != 0) {
+				
+				return 1;
+				
+			} else if (this.idAbbonamentoMensile!= 0) {
+				
+				return 2;
+				
+			}
+			
+			return 0;
+			
+		}
 	
 	
 	//GETTERS AND SETTERS
@@ -173,48 +222,14 @@ public class ClienteIscrittoEntity {
 	}
 	
 	
-	
 	//TO - STRING
 	@Override
 	public String toString() {
+		
 		return "ClienteIscrittoEntity [codiceCliente=" + codiceCliente + ", nome=" + nome + ", cognome=" + cognome
 				+ ", email=" + email + ", abbonamentoMensile=" + abbonamentoMensile + ", abbonamentoAnnuale="
 				+ abbonamentoAnnuale + "]";
-	}
-	
-	
-	//Metodo chiamato dal controller in seguito ad una richiesta di creazione di prenotazione
-	public int controllerScriviPrenotazioneSuDB(int idCorso) {
-		
-		//Inizializzo un oggetto DAO per accedere ai suoi metodi
-		PrenotazioneDAO pdao = new PrenotazioneDAO();
-		
-		//Setto l'id chiamando il metodo prelevaIdMassimo
-		int idpren = pdao.prelevaIdMassimo()+1;
-		
-		//Setto la data alla data odierna, e chiamo il metodo toString
-		Date dataod = new java.sql.Date(System.currentTimeMillis());
-		String data= dataod.toString();
-		
-		//Chiamo il metodo dell'oggetto DAO per scrivere sul DB
-		int val = pdao.scrivisuDB(idpren, data, this.codiceCliente, this.email, idCorso);
-	
-		return val;
 		
 	}
-	
-	
-	//Funzione di utility che controlla se il cliente è un abbonato mensile o annuale
-	public int checkAbbonamento() {
-		
-		if (this.idAbbonamentoAnnuale != 0) {
-			return 1;
-		} else if (this.idAbbonamentoMensile!= 0) {
-			return 2;
-		}
-		
-		return 0;
-	}
-	
 	
 }

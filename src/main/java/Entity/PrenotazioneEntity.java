@@ -91,13 +91,13 @@ public class PrenotazioneEntity {
 
 	
 	//Metodo scrivi su db
-	public int scrivisuDB() {
+	public int scriviSuDB() {
 		
 		//Inizializzo un oggetto DAO per accedere ai suoi metodi
 		PrenotazioneDAO pr = new PrenotazioneDAO();
 		
 		//Variabile per il risultato della query
-		int ret = pr.scrivisuDB(this.idPrenotazione, this.dataPrenotazione, this.codiceCliente, this.emailCliente, this.codiceCorso);
+		int ret = pr.salvaSuDB(this.idPrenotazione, this.dataPrenotazione, this.codiceCliente, this.emailCliente, this.codiceCorso);
 		
 		//Se la richiesta al DAO va a buon fine
 		if(ret != -1) {

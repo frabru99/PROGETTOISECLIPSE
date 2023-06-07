@@ -35,7 +35,7 @@ public class SalaperCorsiEntity {
 	
 	
 	//Metodo scrivi su db
-	public int ScriviSuDB(int idSalaCorsi, int capienza) {
+	public int scriviSuDB(int idSalaCorsi, int capienza) {
 		
 		//Variabile per il risultato della query
 		int ret=0;
@@ -43,7 +43,7 @@ public class SalaperCorsiEntity {
 		//Inizializzo un oggetto DAO per accedere ai suoi metodi
 		SalaperCorsiDAO sala= new SalaperCorsiDAO();
 		
-		ret = sala.scriviSala(idSalaCorsi, capienza);
+		ret = sala.salvaSuDB(idSalaCorsi, capienza);
 		
 		//Se la richiesta al DAO va a buon fine
 		if(ret!=-1) {			

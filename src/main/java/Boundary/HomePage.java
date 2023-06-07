@@ -50,7 +50,9 @@ public class HomePage extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnEffettuaPren = new JButton("Effettua Prenotazione");
+		
+		
+		JButton btnEffettuaPren = new JButton("Ricerca corsi e effettua Prenotazione");
 		btnEffettuaPren.setFont(new Font("Consolas", Font.BOLD, 9));
 		btnEffettuaPren.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -58,7 +60,9 @@ public class HomePage extends JFrame {
 				new RicercaCorsi(codiceCliente, email).setVisible(true);
 			}
 		});
-		btnEffettuaPren.setBounds(131, 53, 140, 62);
+		
+		
+		btnEffettuaPren.setBounds(108, 53, 211, 62);
 		contentPane.add(btnEffettuaPren);
 		
 		JButton btnAbbonati = new JButton("Abbonati");
@@ -67,9 +71,11 @@ public class HomePage extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				//creare vista abbonamenti SEGUENDO IL SEQUENCE DIAGRAM
+				
+				new VistaAbbonamenti(codiceCliente, email).setVisible(true);
 			}
 		});
-		btnAbbonati.setBounds(131, 139, 140, 62);
+		btnAbbonati.setBounds(108, 139, 211, 62);
 		contentPane.add(btnAbbonati);
 	}
 }

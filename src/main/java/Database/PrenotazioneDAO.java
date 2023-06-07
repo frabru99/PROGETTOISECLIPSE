@@ -163,7 +163,7 @@ public class PrenotazioneDAO {
 	
 	
 	//Metodo di CREATE del CRUD 
-	public int scrivisuDB(int idPrenotazione, String dataPrenotazione, String codiceCliente, String email, int codiceCorso) {
+	public int salvaSuDB(int idPrenotazione, String dataPrenotazione, String codiceCliente, String email, int codiceCorso) {
 		
 		//Variabile per il risultato della query
 		int ret=0;

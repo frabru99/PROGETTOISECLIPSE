@@ -40,17 +40,6 @@ public class Controller {
 	}
 	
 	
-	//Metodo che ricerca i corsi disponibili dato il nome di un giorno da un cliente
-	public static ArrayList<CorsoEntity> ricercaCorsiDisponibili(String giorno_scelto){
-		
-		//Richiamo il singleton del centro sportivo ed evoco il suo metodo ricercaCorsiDisponibili
-		CentroSportivoEntity centro=CentroSportivoEntity.getInstance();
-		ArrayList<CorsoEntity> corsi=centro.ricercaCorsiDisponibili(giorno_scelto);
-		
-		return corsi;
-		
-	}
-	
 	
 	//Metodo che permette o vieta l'accesso al centro ad un cliente
 	public static boolean AccessoAlCentro(String codiceCliente,String email) {
@@ -63,129 +52,103 @@ public class Controller {
 		return val;
 		
 	}
-
-	
-	//Metodo che ricerca i corsi disponibili dato il nome di un giorno da un cliente -- CONTROLLARE
-	public static ArrayList<CorsoEntity> ricercaCorsiOggetto(String giorno_scelto){
-		
-		GiornoEntity giorno = new GiornoEntity(giorno_scelto);
-		ArrayList<CorsoEntity> corsi = new ArrayList<CorsoEntity>();
-		corsi=giorno.getCorsi();
-		return corsi;
-		
-	}
-	
-	//Metodo che ricerca i corsi disponibili dato il nome di un giorno da un cliente e ritorna una stringa
-	public static String ricercaCorsiStringa(String giorno_scelto){
-		
-		GiornoEntity giorno = new GiornoEntity(giorno_scelto);
-		
-		//Due array per differenziare tutti i corsi, e quelli con disponibilità di posti
-		ArrayList<CorsoEntity> corsi = new ArrayList<CorsoEntity>();
-		ArrayList<CorsoEntity> corsidisp = new ArrayList<CorsoEntity>();
-		corsi=giorno.getCorsi();
-		
-		for(int i =0; i < corsi.size(); i++){
-			
-			if(corsi.get(i).getPostiDisponibili()>0) {
-				
-				corsidisp.add(corsi.get(i)); 
-				
-			}
-			
-		}
-		
-		return corsidisp.toString();
-		
-	}
 	
 	
 	//Metodo che ricerca i corsi disponibili dato il nome di un giorno da un cliente e ritorna un array di stringhe
-	public static ArrayList<String> ricercaCorsiArrayStringa(String giorno_scelto){
-		
-		//GiornoEntity giorno = new GiornoEntity(giorno_scelto);
-//
-//		ArrayList<CorsoEntity> corsi = new ArrayList<CorsoEntity>();
-//		
-//		corsi = giorno.getCorsi();
-		
-		
-		ArrayList<CorsoEntity> corsidisp = ricercaCorsiDisponibili(giorno_scelto);
-		
-		
-		
+	public static ArrayList<String> ricercaCorsiConDisponibilita(String giorno_scelto){
+			
+		//Richiamo il singleton del centro sportivo ed evoco il suo metodo ricercaCorsiDisponibili
+		CentroSportivoEntity centro=CentroSportivoEntity.getInstance();
+		ArrayList<CorsoEntity> corsidisp = centro.ricercaCorsiConDisponibilita(giorno_scelto);
 		ArrayList<String> corsistr = new ArrayList<String>();
 		
 		for(int k=0;k<corsidisp.size();k++) {
+			
 			String corso = corsidisp.get(k).toString();
 			System.out.println(corso);
-			
 			corsistr.add(corso);
+			
 		}
 		
-	
-		
 		return corsistr;
+		
 	}
 	
 	
-	
-	//permette di sottoscrivere un abbonamento annuale (CHECKARE)
+	//Permette di sottoscrivere un abbonamento annuale (CHECKARE)
 	public static int sottoscriviAbbonamentoAnnuale() {
 		AbbonamentoAnnualeEntity abbann = new AbbonamentoAnnualeEntity();
-		int ret=abbann.scriviAbbsuDB();
+		int ret=abbann.scriviSuDB();
 		return ret;
 	}
 	
-	//FARE NUOVO METODO DI INSERT IN ABBANNUALEDAO IN CUI SI FA L'UPDATE DELLA DATA DI SOSPENSIONE 
-//	public static int sospendiAbbonamentoAnnuale() {
-//		AbbonamentoAnnualeEntity abbann = new AbbonamentoAnnualeEntity();
-//	}
-	
-	
-	public static int scriviPrenotazione(String codiceCliente, int codiceCorso) {
+
+	//Metodo DUMMY che permette di settare la data di sospensione e di ripresa di un abbonamento annuale
+	public static int sospendiAbbonamentoAnnuale(String codiceCliente, String dataSospensione, String dataRipresa) {
 		
+		int ret;
 		ClienteIscrittoEntity cliente = new ClienteIscrittoEntity(codiceCliente);
+		ret=cliente.sospendiAbbonamentoAnnualeEntity(dataSospensione, dataRipresa);
+		return ret;
 		
+	}
 	
+	
+	//Metodo per la funzionalità effettuaPrenotazione - Permette di salvare una richiesta di prenotazione effettuata da un cliente per un corso
+	public static int effettuaPrenotazione(String codiceCliente, int codiceCorso) {
+		
+		//Provo a scrivere la prenotazione sul DB
+		ClienteIscrittoEntity cliente = new ClienteIscrittoEntity(codiceCliente);
 		int val = cliente.controllerScriviPrenotazioneSuDB(codiceCorso);
 		
-		
+		//In caso di esito positivo
 		if(val!=-1) {
 		
+		//Recupero tutti i giorni dal calendario
 		ArrayList<GiornoEntity> giorni  = CalendarioEntity.getGiorni();
 		
-		
+		//Scorro l'array di giorni
 		for(int i=0; i<giorni.size(); i++) {
+			
+			//Scorro l'array di corsi per ogni giorno
 			for(int j=0; j<giorni.get(i).getCorsi().size(); j++) {
+				
+				//Se il corso desiderato è quello richiesto
 				if(giorni.get(i).getCorsi().get(j).getCodiceCorso()==codiceCorso) {
+					
+					//Decremento i posti disponibili
 					giorni.get(i).getCorsi().get(j).decrementaPostiDisponibili();
+					
 					}
+				
 				}
+			
 			}
 		
 		}
 		
-		return val; //funzione di scrittura prenotazione da Boundary		
+		return val;
+		
 	}
 	
 	
+	//Funzione di utility che permette di controllare se, data una PK, esiste un abbonamento per un cliente
 	public static int checkAbbonamento (String codiceCliente) {
 		
         ClienteIscrittoEntity cliente = new ClienteIscrittoEntity(codiceCliente);
-        
         int val = cliente.checkAbbonamento();
+        return val;
         
-        return val; //funzione di scrittura prenotazione da Boundary
 	}
 	
-	public static int checkCorso(int idCorso) {
+	
+	//Funzione di utility che permette di controllare se, data una PK, esiste un corso ed ha disponibilità di posti
+	public static int checkDisponibilitaCorso(int idCorso) {
 		
         CorsoEntity corso = new CorsoEntity();
+        int val = corso.checkDisponibilitaCorso(idCorso);
+        return val;
         
-        int val = corso.checkCorso(idCorso);
-        
-        return val; //funzione di check corso!
 	}
 	
 	

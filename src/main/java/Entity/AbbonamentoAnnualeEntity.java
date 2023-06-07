@@ -11,6 +11,7 @@ import Database.AbbonamentoMensileDAO;
 
 public class AbbonamentoAnnualeEntity {
 
+	
 	//Variabili membro. Data sospensione e ripresa inizializzate a null poichè opzionali.
 	private int idAbbonamentoAnnuale;
 	private int prezzo;
@@ -54,7 +55,7 @@ public class AbbonamentoAnnualeEntity {
 	
 	
 	//Metodo chiamato dal controller in seguito ad una richiesta di un utente iscritto per salvare un abbonamento annuale
-	public int scriviAbbsuDB() {
+	public int scriviSuDB() {
 		
 		//Variabile per il risultato della query
 		int ret=0;
@@ -71,8 +72,7 @@ public class AbbonamentoAnnualeEntity {
 		//Dopo 365 giorni dalla sottoscrizione
 		Date dataScadenza = addDays(dataSottoscrizione, 365); 
 		
-		//AGGIUNGERE NUOVO METODO DI SCRITTURA SU DB (solo con idAbbAnn, dataSottoscrizione e dataScadenza) IN ABBONAMENTOANNUALEDAO
-		ret = abb.scriviAbbonamentoAnnuale(max, dataSottoscrizione.toString(), dataScadenza.toString(), 250);
+		ret = abb.salvaSuDB(max, dataSottoscrizione.toString(), dataScadenza.toString(), 250);
 		
 		//Se la richiesta al DAO va a buon fine
 		if(ret!=-1) {
@@ -89,50 +89,14 @@ public class AbbonamentoAnnualeEntity {
 	}
 	
 	
-	//Funzionalità che permette di sospendere un abbonamento annuale
-	public int sospendiAbbonamento(int idAbb, java.util.Date dataSospensione, java.util.Date dataRipresa) {
+	//Funzionalità DUMMY che permette di di settare una data di sospensione e una data di ripresa all'abbonamento annuale
+	public int sospendiAbbonamento(java.util.Date dataSospensione, java.util.Date dataRipresa) {
 		
-		//Inizializzo un oggetto DAO per accedere ai suoi metodi
-		AbbonamentoAnnualeDAO abb = new AbbonamentoAnnualeDAO();
+		System.out.println("[ABBONAMENTO-ANNUALE-DAO] Settata data di sospensione e di ripresa dell'abbonamento "+this.idAbbonamentoAnnuale+" con successo");
 		
-		//Variabile per il risultato della query
-		int ret = abb.sospendiAbbonamentoAnnuale(idAbb, dataSospensione, dataRipresa);
-		
-		return ret;
+		return 0;
 		
 	}
-	
-	
-	// CONTROLLARE SE SERVE
-	
-	/*
-	public int sospendiAbbonamentoAnnualeEntity(String sospensione, String ripresa) { //aggiunger euna data sospensione e una data di ripresa!
-		
-	}
-	
-	
-	//classica funzione di scrittura
-	public int scrivisuDB(int idAbbonamentoAnnuale, String dataSottoscrizione, String dataScadenza, int prezzo) {
-		
-		int ret=0;
-		
-		AbbonamentoAnnualeDAO abb = new AbbonamentoAnnualeDAO();
-		
-		//provo a scrivere sul DB
-		
-		ret = abb.scriviAbbonamentoAnnuale(idAbbonamentoAnnuale, dataSottoscrizione, dataScadenza, prezzo);
-		
-		if(ret!=-1) {	
-			this.idAbbonamentoAnnuale = idAbbonamentoAnnuale;
-           this.dataSottoscrizione = dataSottoscrizione;
-            this.dataScadenza = dataScadenza;
-            this.prezzo = prezzo;	
-		}
-		
-		return ret;
-		
-	}
-	*/
 	
 	
 	//Funzione di utility per aggiungere giorni all'oggetto Date

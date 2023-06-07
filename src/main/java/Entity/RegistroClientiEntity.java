@@ -68,21 +68,18 @@ public class RegistroClientiEntity {
 		return false;
 		
 	}
-
+	
+	
+	//Metodo DUMMY per la funzionalità registratiAlCentro - permette ad un cliente di registrarsi
+	public boolean creaIscritto(String nome, String cognome, String email) {
+		
+		System.out.println("[REGISTRO-CLIENTI-ENTITY] Registrato con successo il cliente "+nome+" "+cognome+" "+email);
+		return true;
+		
+	}
+	
 
 	//GETTERS AND SETTERS
-	
-	/*
-	public ClienteIscrittoEntity getClienteAttivo() {
-		return clienteAttivo;
-	}
-
-
-	public void setClienteAttivo(ClienteIscrittoEntity clienteAttivo) {
-		this.clienteAttivo = clienteAttivo;
-	}
-	*/
-
 	public static ArrayList<ClienteIscrittoEntity> getClienti() {
 		return clienti;
 	}

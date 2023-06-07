@@ -155,7 +155,7 @@ public class RicercaCorsi extends JFrame {
 				textFieldScelta.setVisible(false);
 				
 				
-				ArrayList<String> corsi = Controller.ricercaCorsiArrayStringa("Lunedi");
+				ArrayList<String> corsi = Controller.ricercaCorsiConDisponibilita("Lunedi");
 				//Se non vengono trovati corsi viene promptato un errore
 				
 				if (corsi.size()==0) {
@@ -194,7 +194,7 @@ public class RicercaCorsi extends JFrame {
 				btnConfermaPrenotazione.setVisible(false);
 				lblNewLabel.setVisible(false);
 				textFieldScelta.setVisible(false);
-				ArrayList<String> corsi = Controller.ricercaCorsiArrayStringa("Martedi");
+				ArrayList<String> corsi = Controller.ricercaCorsiConDisponibilita("Martedi");
 				//Se non vengono trovati corsi viene promptato un errore
 				
 				if (corsi.size()==0) {
@@ -226,7 +226,7 @@ public class RicercaCorsi extends JFrame {
 				btnConfermaPrenotazione.setVisible(false);
 				lblNewLabel.setVisible(false);
 				textFieldScelta.setVisible(false);
-				ArrayList<String> corsi = Controller.ricercaCorsiArrayStringa("Mercoledi");
+				ArrayList<String> corsi = Controller.ricercaCorsiConDisponibilita("Mercoledi");
 				//Se non vengono trovati corsi viene promptato un errore
 				
 				if (corsi.size()==0) {
@@ -259,7 +259,7 @@ public class RicercaCorsi extends JFrame {
 				btnConfermaPrenotazione.setVisible(false);
 				lblNewLabel.setVisible(false);
 				textFieldScelta.setVisible(false);
-				ArrayList<String> corsi = Controller.ricercaCorsiArrayStringa("Giovedi");
+				ArrayList<String> corsi = Controller.ricercaCorsiConDisponibilita("Giovedi");
 				//Se non vengono trovati corsi viene promptato un errore
 				
 				if (corsi.size()==0) {
@@ -290,7 +290,7 @@ public class RicercaCorsi extends JFrame {
 				btnConfermaPrenotazione.setVisible(false);
 				lblNewLabel.setVisible(false);
 				textFieldScelta.setVisible(false);
-				ArrayList<String> corsi = Controller.ricercaCorsiArrayStringa("Venerdi");
+				ArrayList<String> corsi = Controller.ricercaCorsiConDisponibilita("Venerdi");
 				//Se non vengono trovati corsi viene promptato un errore
 				
 				if (corsi.size()==0) {
@@ -341,7 +341,7 @@ public class RicercaCorsi extends JFrame {
 					//devo checkare sul corso!
 					
 					
-				int checkid = Controller.checkCorso(value);
+				int checkid = Controller.checkDisponibilitaCorso(value);
 					
 					
 					if(checkid!= -1) {
@@ -350,7 +350,7 @@ public class RicercaCorsi extends JFrame {
 		
 						 value = Integer.parseInt(textFieldScelta.getText());					
 							
-						int ret = Controller.scriviPrenotazione(codCliente, value);
+						int ret = Controller.effettuaPrenotazione(codCliente, value);
 						
 							if(ret !=-1) {
 								labelErrorePrenotazione.setText("Prenotazione effettuata!");

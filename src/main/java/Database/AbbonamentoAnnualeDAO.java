@@ -89,7 +89,7 @@ public class AbbonamentoAnnualeDAO {
 	
 	
 	//Metodo di CREATE del CRUD
-	public int scriviAbbonamentoAnnuale(int id, String dataSottoscrizione, String dataScadenza, int prezzo){
+	public int salvaSuDB(int id, String dataSottoscrizione, String dataScadenza, int prezzo){
 		
 		//Variabile per il risultato della query
 		int ret =0;
@@ -114,37 +114,12 @@ public class AbbonamentoAnnualeDAO {
 	}
 	
 	
-	//Funzionalità che permette di sospendere un abbonamento annuale
+	//Funzionalità DUMMY che permette di sospendere un abbonamento annuale
 	public int sospendiAbbonamentoAnnuale(int idAbbAnnuale, java.util.Date dataSospensione, java.util.Date dataRipresa) {
 	
-		//Variabile per il risultato della query
-		int ret=0;
+		System.out.println("[ABBONAMENTO-ANNUALE-DAO] Settata data di sospensione e di ripresa dell'abbonamento "+idAbbAnnuale+" con successo");
 		
-		
-		//HARDCODED
-		int anno =(dataSospensione.getYear())-100;
-	
-		String datasosp = "20"+anno+"-"+dataSospensione.getMonth()+"-"+dataSospensione.getDay(); //scusaci ingegner de luca.......
-		
-		String datarip = "20"+anno+"-"+dataRipresa.getMonth()+"-"+dataRipresa.getDay(); //scusaci ingegner de luca.......
-		//HARDCODED
-		
-		
-		try {
-			
-			//Query
-            String upd = "UPDATE AbbonamentoAnnuale SET dataSospensione = '"+datasosp+"', dataRipresa = '"+datarip+"' WHERE idAbbonamentoAnnuale = "+idAbbAnnuale+";";
-     			
- 			ret=DBConnectionManager.updateQuery(upd);
-         
-		}catch(ClassNotFoundException | SQLException e) {
-			
-			System.out.println("[ABBONAMENTO-ANNUALE-DAO] Errore nel metodo sospendiAbbonamentoAnnuale");
-			ret = -1;	//In caso di esito negativo della query
-			
-		}
-		
-		return ret;
+		return 0;
 		
 	}
 	

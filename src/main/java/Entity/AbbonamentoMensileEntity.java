@@ -50,7 +50,7 @@ public class AbbonamentoMensileEntity {
 	
 	
 	//Metodo chiamato dal controller in seguito ad una richiesta di un utente iscritto per salvare un abbonamento mensile
-	public int scrivisuDB(String nomeMese) {
+	public int scriviSuDB(String nomeMese) {
 		
 		//Variabile per il risultato della query
 		int ret=0;
@@ -61,9 +61,9 @@ public class AbbonamentoMensileEntity {
 		//Chiamo la funzione prelevaIdMassimo del DAO a cui aggiungo 1 per ottenere il nuovo idAbbonamento
 		int max=(abb.prelevaIdMassimo()+1);
 		
-		// ??
-		Date tempoSott = new java.sql.Date(System.currentTimeMillis());
-		int anno = tempoSott.getYear();
+		//Recupero la data di sottoscrizione evocando il metodo di Date
+		Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+		int anno = tempoSottoscrizione.getYear();
 		String dataSottoscrizione = new String();
 		String dataScadenza = new String();
 			
@@ -109,7 +109,7 @@ public class AbbonamentoMensileEntity {
 		//HARDCODED
 		
 		
-		ret = abb.scriviAbbonamentoMensile(max, dataSottoscrizione, dataScadenza, 40, nomeMese);
+		ret = abb.salvaSuDB(max, dataSottoscrizione, dataScadenza, 40, nomeMese);
 		
 		//Se la richiesta al DAO va a buon fine
 		if(ret!=-1) {	

@@ -72,7 +72,7 @@ public class CorsoEntity {
 	
 	
 	//Metodo scrivi su db
-	public int scriviSuDb(String nomeCorso, String istruttore, String oraInizio, String durataCorso, int postiDisp ,int idSalaperCorsi) {
+	public int scriviSuDB(String nomeCorso, String istruttore, String oraInizio, String durataCorso, int postiDisp ,int idSalaperCorsi) {
 		
 		//Variabile per il risultato della query
 		int ret=0;
@@ -83,7 +83,7 @@ public class CorsoEntity {
 		//Chiamo la funzione prelevaIdMassimo del DAO a cui aggiungo 1 per ottenere il nuovo idCorso
 		int idCorso = corso.prelevaIdMassimo()+1;
 		
-		ret = corso.salvaInDB(idCorso, nomeCorso, istruttore, oraInizio, durataCorso, postiDisp, idSalaperCorsi);
+		ret = corso.salvaSuDB(idCorso, nomeCorso, istruttore, oraInizio, durataCorso, postiDisp, idSalaperCorsi);
 		
 		//Se la richiesta al DAO va a buon fine
 		if(ret!=-1) {
@@ -113,11 +113,11 @@ public class CorsoEntity {
 	}
 	
 	
-	//Funzione di utility che permette di controllare se data una chiave, esiste quel corso sul DB
-	public int checkCorso(int idCorso) {
+	//Funzione di utility che permette di controllare se data una chiave, esiste quel corso sul DB ed ha disponibilità di posti
+	public int checkDisponibilitaCorso(int idCorso) {
 		
 		CorsoDAO corso = new CorsoDAO();
-		int val = corso.checkCorsosuDB(idCorso);
+		int val = corso.checkDisponibilitaCorsoSuDB(idCorso);
 		return val;
         
 	}

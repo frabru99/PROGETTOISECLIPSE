@@ -63,7 +63,7 @@ public class ClienteIscrittoDAO {
 	
 	
 	//Metodo di CREATE del CRUD
-	public int salvaInDB(String codiceCliente, String nome, String cognome, String email) {
+	public int salvaSuDB(String codiceCliente, String nome, String cognome, String email) {
 		
 		//Variabile per il risultato della query
 		int ret=0;
@@ -121,7 +121,6 @@ public class ClienteIscrittoDAO {
 		String query;
 			
 		//Controllo se è un abbonato mensile
-		//if (this.idAbbonamentoMensile!=-1 ) {
 			
 			query=new String("SELECT * FROM AbbonamentoMensile WHERE idAbbonamentoMensile= "+this.idAbbonamentoMensile+";");
 		
@@ -145,11 +144,8 @@ public class ClienteIscrittoDAO {
 				System.out.println("[CLIENTE-ISCRITTO-DAO] Errore nel metodo caricaAbbonamentoClienteIscrittoDaDB");
 			}
 		
-
-		//}
 		//Controllo se è un abbonato annuale
-		//else if (this.idAbbonamentoAnnuale!=-1  && this.idAbbonamentoMensile==-1) {
-			
+		
 			query=new String("SELECT * FROM AbbonamentoAnnuale WHERE idAbbonamentoAnnuale= "+this.idAbbonamentoAnnuale+" ;");	
 		
 			try {
@@ -171,19 +167,11 @@ public class ClienteIscrittoDAO {
 			} catch (ClassNotFoundException | SQLException e) {
 				System.out.println("[CLIENTE-ISCRITTO-DAO] Errore nel metodo caricaAbbonamentoClienteIscrittoDaDB");
 			}
-			
-		//} else{
-			//sysout ["cliente non abbonato"];
-			//}
-		
-		
-			
+				
 	}
 			
 	
-
 	//GETTERS AND SETTERS
-
 	public String getCodiceCliente() {
 		return codiceCliente;
 	}

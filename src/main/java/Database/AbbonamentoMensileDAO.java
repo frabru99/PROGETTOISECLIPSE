@@ -86,7 +86,7 @@ public class AbbonamentoMensileDAO {
 	
 	
 	//Metodo di CREATE del CRUD
-	public int scriviAbbonamentoMensile(int id, String dataSottoscrizione, String dataScadenza, int prezzo, String nomeMese){
+	public int salvaSuDB(int id, String dataSottoscrizione, String dataScadenza, int prezzo, String nomeMese){
 		
 		//Variabile per il risultato della query
 		int ret =0;

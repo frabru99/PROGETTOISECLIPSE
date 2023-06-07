@@ -129,7 +129,7 @@ public class CorsoDAO {
 	
 	
 	//Metodo di CREATE del CRUD
-	public int salvaInDB(int codiceCorso,String nome, String istruttore, String oraInizio, String durataCorso, int postiDisponibili,int idSalaperCorsi) {
+	public int salvaSuDB(int codiceCorso,String nome, String istruttore, String oraInizio, String durataCorso, int postiDisponibili,int idSalaperCorsi) {
 		
 		//Variabile per il risultato della query
 		int ret=0;
@@ -199,10 +199,10 @@ public class CorsoDAO {
 	}
 	
 	
-	//Funzione di utility che permette di controllare se data una chiave, esiste quel corso sul DB
-	public int checkCorsosuDB(int codCorso) {
+	//Funzione di utility che permette di controllare se data una chiave, esiste quel corso sul DB ed ha disponibilità di posti
+	public int checkDisponibilitaCorsoSuDB(int codCorso) {
 		
-        String query = "SELECT * FROM Corso WHERE codiceCorso = "+codCorso+";";
+        String query = "SELECT * FROM Corso WHERE codiceCorso = "+codCorso+" AND numeroPosti>0;";
         
         try {
             

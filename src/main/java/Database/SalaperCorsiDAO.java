@@ -52,7 +52,7 @@ public class SalaperCorsiDAO {
 	
 	
 	//Metodo di CREATE del CRUD
-	public int scriviSala(int idSalaCorsi, int capienza) {
+	public int salvaSuDB(int idSalaCorsi, int capienza) {
 		
 		//Variabile per il risultato della query
 		int ret=0;
@@ -72,36 +72,6 @@ public class SalaperCorsiDAO {
         
         return ret;
 	}
-	
-	
-//	public void caricaCorsi() {
-//		String query = "SELECT * FROM CORSI WHERE SalaperCorsi_idSalaperCorsi= \'"+this.idSalaCorsi+"');";
-//	
-//		try {
-//			
-//			ResultSet rs = DBConnectionManager.selectQuery(query);
-//			
-//			while(rs.next()) {
-//				
-//				CorsoDAO corso = new CorsoDAO();
-//				corso.setCodiceCorso(rs.getInt("codiceCorso"));
-//				corso.setNomeCorso(rs.getString("nomeCorso"));
-//				corso.setIstruttore(rs.getString("istruttore"));
-//				corso.setOraInizio(rs.getString("oraInizio"));
-//				corso.setDurataCorso(rs.getString("durataCorso"));
-//				corso.setIdSalaperCorsi(rs.getInt("SalaperCorsi_idSalaperCorsi"));
-//														
-//			}
-//			
-//			
-//		} catch (ClassNotFoundException | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			
-//		}
-//	
-//
-//	}
 	
 
 	//GETTERS AND SETTERS
