@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.StringTokenizer;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
@@ -108,21 +109,99 @@ public class DefinisciGiorni extends JFrame {
 					//controllo se il giorno sia già stato inserito nel db
 					
 					int ok = Controller.checkGiorno(nomeGiorno);
+					
 					if(ok!=-1) {
 						//il giorno è stato già inserito precedentemente nel db e quindi devo fare l'update degli orari di apertura e chiusura
-						int val = Controller.aggiornaOrariGiorno(nomeGiorno, oraApertura, oraChiusura);
-						if(val!=-1) {
-							lblErrore.setText("Aggiornati gli orari di apertura e chiusura!");
+						
+						//collochiamo le ore e i minuti in due vettori di stringhe
+						
+						if(textFieldOraApertura.getText().length()==5 && textFieldOraChiusura.getText().length()==5 && textFieldOraApertura.getText().charAt(2)==':' && textFieldOraChiusura.getText().charAt(2)==':') {
+							char separatore=':';
+							
+							String[] str_apertura = oraApertura.split(":");
+							String[] str_chiusura = oraChiusura.split(":");
+							
+							String ore_apertura=str_apertura[0];
+							String minuti_apertura=str_apertura[1];
+							
+							String ore_chiusura=str_chiusura[0];
+							String minuti_chiusura=str_chiusura[1];
+							
+							try {
+								
+								Integer hour_apertura = Integer.parseInt(ore_apertura);
+								Integer minutes_apertura = Integer.parseInt(minuti_apertura);
+								
+								Integer hour_chiusura = Integer.parseInt(ore_chiusura);
+								Integer minutes_chiusura = Integer.parseInt(minuti_chiusura);
+								
+							
+							
+							if((hour_apertura>=00 && hour_apertura<=23) && (minutes_apertura>=00 && minutes_apertura<=59) && (hour_chiusura>=00 && hour_chiusura<=23) && (minutes_chiusura>=00 && minutes_chiusura<=59) ) {
+								int val = Controller.aggiornaOrariGiorno(nomeGiorno, oraApertura, oraChiusura);
+								
+								if(val!=-1) {
+									lblErrore.setText("Aggiornati gli orari di apertura e chiusura!");
+								}
+							}else {
+								lblErrore.setText("Formato ora non valido");
+								System.out.println("separatore valido ma ore/minuti non valido");
+							}
+							
+							}catch(NumberFormatException excp) {
+								System.out.println("Le ore o minuti non sono tutti numeri");
+								lblErrore.setText("Le ore o minuti non sono tutti numeri");
+							}
+							
+						}else {
+							lblErrore.setText("Formato ora non valido");
+							System.out.println("separatore non valido o lunghezza stringa non valido");
 						}
+							
 					}else {
-						//inserisco il giorno e gli orari nel db----MANCANTE ancora da passare
-						int value=Controller.inserisciOrariCentro(nomeGiorno, oraApertura, oraChiusura);
-						if(value!=-1) {
-							lblErrore.setText("Giorno inserito correttamente");
+						
+						if(textFieldOraApertura.getText().length()==5 && textFieldOraChiusura.getText().length()==5 && textFieldOraApertura.getText().charAt(2)==':' && textFieldOraChiusura.getText().charAt(2)==':') {
+							
+							char separatore=':';
+							
+							String[] str_apertura = oraApertura.split(":");
+							String[] str_chiusura = oraChiusura.split(":");
+							
+							String ore_apertura=str_apertura[0];
+							String minuti_apertura=str_apertura[1];
+							
+							String ore_chiusura=str_chiusura[0];
+							String minuti_chiusura=str_chiusura[1];
+							
+						try {	
+							Integer hour_open = Integer.parseInt(ore_apertura);
+							Integer minutes_open = Integer.parseInt(minuti_apertura);
+							
+							Integer hour_chiusura = Integer.parseInt(ore_chiusura);
+							Integer minutes_chiusura = Integer.parseInt(minuti_chiusura);
+							
+							if((hour_open>=00 && hour_open<=23) && (minutes_open>=00 && minutes_open<=59) && (hour_chiusura>=00 && hour_chiusura<=23) && (minutes_chiusura>=00 && minutes_chiusura<=59)) {
+								int value=Controller.inserisciOrariCentro(nomeGiorno, oraApertura, oraChiusura);
+								
+								if(value!=-1) {
+									lblErrore.setText("Giorno inserito correttamente");
+								}
+							}else {
+								lblErrore.setText("Formato ora non valido");
+								System.out.println("separatore valido ma ore/minuti non valido");
+							}
+							
+						}catch(NumberFormatException excp) {
+							System.out.println("Le ore o minuti non sono tutti numeri");
+							lblErrore.setText("Le ore o minuti non sono tutti numeri");
+						}
+							
+						}else {
+							lblErrore.setText("Formato ora non valido");
+							System.out.println("separatore non valido o lunghezza stringa non valido");
 						}
 					}
 				}else {
-					
 					textFieldGiorno.setText("");
 					textFieldOraApertura.setText("");
 					textFieldOraChiusura.setText("");
@@ -132,8 +211,3 @@ public class DefinisciGiorni extends JFrame {
 		});
 	}
 }
-
-
-
-
-//USARE SPLIT PER CHECK SU FORMAT ORARIO (HH:MM) IN QUESTA FUNZIONE
