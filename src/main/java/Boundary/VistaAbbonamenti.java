@@ -68,6 +68,7 @@ public class VistaAbbonamenti extends JFrame {
 				
 				//area di testo di riepilogo
 				JTextArea textAreaRiepilogo = new JTextArea();
+				textAreaRiepilogo.setEditable(false);
 				textAreaRiepilogo.setBounds(10, 161, 560, 91);
 				contentPane.add(textAreaRiepilogo);
 				
@@ -538,11 +539,7 @@ public class VistaAbbonamenti extends JFrame {
 				//
 			}
 		});
-		
-		
-		//bottone abbonamento mensile
-		btnAbbAnnuale.setHorizontalAlignment(SwingConstants.RIGHT);
-		btnAbbAnnuale.setBounds(10, 33, 135, 21);
+		btnAbbAnnuale.setBounds(10, 33, 180, 21);
 		contentPane.add(btnAbbAnnuale);
 		
 		JButton btnAbbMensile = new JButton("Abbonamento Mensile");
@@ -568,7 +565,7 @@ public class VistaAbbonamenti extends JFrame {
 		});
 		
 		
-		btnAbbMensile.setBounds(178, 33, 153, 21);
+		btnAbbMensile.setBounds(200, 33, 180, 21);
 		contentPane.add(btnAbbMensile);
 		
 		

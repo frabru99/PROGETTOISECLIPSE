@@ -24,7 +24,7 @@ import java.awt.Font;
 
 //QUESTA RIGUARDA LA GUI DELL'AMMINISTRAZIONE
 
-public class DefinisciGiorni extends JFrame {
+public class DefinisciGiorniAdmin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldGiorno;
@@ -41,7 +41,7 @@ public class DefinisciGiorni extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DefinisciGiorni frame = new DefinisciGiorni();
+					DefinisciGiorniAdmin frame = new DefinisciGiorniAdmin();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +53,7 @@ public class DefinisciGiorni extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DefinisciGiorni() {
+	public DefinisciGiorniAdmin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -61,7 +61,7 @@ public class DefinisciGiorni extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblGiorno = new JLabel("Inserire il giorno in cui il centro sarà aperto:");
+		JLabel lblGiorno = new JLabel("Inserire il giorno in cui il centro sarà aperto (es. Lunedi):");
 		lblGiorno.setBounds(5, 5, 424, 14);
 		contentPane.add(lblGiorno);
 		
@@ -71,7 +71,7 @@ public class DefinisciGiorni extends JFrame {
 		textFieldGiorno.setColumns(10);
 		
 		JLabel lblOraApertura = new JLabel("Inserire l'ora di apertura del centro (formato hh:mm): ");
-		lblOraApertura.setBounds(10, 61, 266, 14);
+		lblOraApertura.setBounds(10, 61, 419, 14);
 		contentPane.add(lblOraApertura);
 		
 		textFieldOraApertura = new JTextField();
@@ -80,7 +80,7 @@ public class DefinisciGiorni extends JFrame {
 		textFieldOraApertura.setColumns(10);
 		
 		JLabel lblOraChiusura = new JLabel("Inserire l'ora di chiusura del centro (formato hh:mm):");
-		lblOraChiusura.setBounds(10, 118, 266, 14);
+		lblOraChiusura.setBounds(10, 118, 419, 14);
 		contentPane.add(lblOraChiusura);
 		
 		textFieldOraChiusura = new JTextField();

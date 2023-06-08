@@ -81,17 +81,17 @@ public class RicercaCorsi extends JFrame {
 		
 		JButton btnLunedi = new JButton("Lunedì");
 		btnLunedi.setToolTipText("");
-		btnLunedi.setFont(new Font("Consolas", Font.BOLD, 10));
+		btnLunedi.setFont(new Font("Calibri", Font.BOLD, 12));
 		btnLunedi.setBounds(10, 35, 107, 21);
 		contentPane.add(btnLunedi);
 		
 		JButton btnMartedi = new JButton("Martedì");
-		btnMartedi.setFont(new Font("Consolas", Font.BOLD, 10));
+		btnMartedi.setFont(new Font("Calibri", Font.BOLD, 12));
 		btnMartedi.setBounds(10, 62, 107, 21);
 		contentPane.add(btnMartedi);
 		
 		JButton btnMercoledi = new JButton("Mercoledì");
-		btnMercoledi.setFont(new Font("Consolas", Font.BOLD, 10));
+		btnMercoledi.setFont(new Font("Calibri", Font.BOLD, 12));
 		btnMercoledi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -100,12 +100,12 @@ public class RicercaCorsi extends JFrame {
 		contentPane.add(btnMercoledi);
 		
 		JButton btnGiovedi = new JButton("Giovedì");
-		btnGiovedi.setFont(new Font("Consolas", Font.BOLD, 10));
+		btnGiovedi.setFont(new Font("Calibri", Font.BOLD, 12));
 		btnGiovedi.setBounds(10, 124, 107, 21);
 		contentPane.add(btnGiovedi);
 		
 		JButton btnVenerdi = new JButton("Venerdì");
-		btnVenerdi.setFont(new Font("Consolas", Font.BOLD, 10));
+		btnVenerdi.setFont(new Font("Calibri", Font.BOLD, 12));
 		btnVenerdi.setBounds(10, 155, 107, 21);
 		contentPane.add(btnVenerdi);
 		
@@ -316,38 +316,33 @@ public class RicercaCorsi extends JFrame {
 		btnConfermaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//check per capire se l'utente e' abbonato
-				
-				
-				
-				
-				
-				
-				int val = Controller.AccessoAlCentro(codCliente);
-				
-				
-				
-				
-				
-				
+			//check per capire se l'utente e' abbonato
+			int val = Controller.AccessoAlCentro(codCliente);
+			
+			int value=-1;
+			
+			try {
+				value = Integer.parseInt(textFieldScelta.getText());
+			} catch(NumberFormatException ex) {
+				labelErrorePrenotazione.setText("Inserisci un valore valido");
+				System.out.println("Non puoi inserire lettere.");
+			}
+			
 			if(val==1 || val ==2) {
 					
 				System.out.println("Il cliente è abbonato!");
 					
-					
-					
-				int value = Integer.parseInt(textFieldScelta.getText());
+				
 					
 					//devo checkare sul corso!
-					
-					
 				int checkid = Controller.checkDisponibilitaCorso(value);
 					
 					
 					if(checkid!= -1) {
 					
 						if((textFieldScelta.getText()).compareTo("")!=0) {
-		
+							
+						
 						 value = Integer.parseInt(textFieldScelta.getText());					
 							
 						int ret = Controller.effettuaPrenotazione(codCliente, value);
@@ -357,6 +352,7 @@ public class RicercaCorsi extends JFrame {
 							} else {
 								labelErrorePrenotazione.setText("La prenotazione è già presente!");
 							}
+							
 						
 						} else {
 							labelErrorePrenotazione.setText("Inserisci il valore del corso da prenotare");
