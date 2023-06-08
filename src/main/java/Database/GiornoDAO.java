@@ -135,6 +135,18 @@ public int checkGiornoSuDB(String nomeGiorno) {
 		
 		return ret;
 	}
+
+public int updateOrariSuDB(String nomeGiorno, String oraApertura, String oraChiusura) {
+	String query = "UPDATE Giorno SET orarioAperturaCentro = '"+oraApertura+"' , orarioChiusuraCentro ='"+oraChiusura+"' WHERE nomeGiorno = '"+nomeGiorno+"';";
+	int ret=0;
+	try {
+		ret=DBConnectionManager.updateQuery(query);
+		
+	}catch(SQLException | ClassNotFoundException e) {
+		e.printStackTrace();
+	}
+	return ret;
+}
 	
 	
 	//GETTERS AND SETTERS

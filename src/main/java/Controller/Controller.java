@@ -197,5 +197,11 @@ public class Controller {
         return val;
     }
 	
+	public static int aggiornaOrariGiorno(String nomeGiorno, String oraApertura, String oraChiusura) {
+		GiornoEntity giorno = new GiornoEntity();
+		int val=giorno.aggiornaOrari(nomeGiorno,oraApertura,oraChiusura);
+		return val;
+	}
+	
 	
 }

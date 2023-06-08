@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
 import javax.swing.SwingConstants;
+import java.awt.Font;
 
 //QUESTA RIGUARDA LA GUI DELL'AMMINISTRAZIONE
 
@@ -64,7 +65,7 @@ public class DefinisciGiorni extends JFrame {
 		contentPane.add(lblGiorno);
 		
 		textFieldGiorno = new JTextField();
-		textFieldGiorno.setBounds(10, 30, 193, 20);
+		textFieldGiorno.setBounds(10, 30, 198, 20);
 		contentPane.add(textFieldGiorno);
 		textFieldGiorno.setColumns(10);
 		
@@ -87,13 +88,13 @@ public class DefinisciGiorni extends JFrame {
 		textFieldOraChiusura.setColumns(10);
 		
 		JButton btnConferma = new JButton("Conferma");
-		btnConferma.setBounds(335, 227, 89, 23);
+		btnConferma.setBounds(313, 227, 111, 23);
 		contentPane.add(btnConferma);
 		
 		JLabel lblErrore = new JLabel("");
 		lblErrore.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblErrore.setBounds(10, 227, 193, 14);
-		contentPane.add(lblErrore);
+		lblErrore.setBounds(10, 227, 283, 23);
+		contentPane.add(lblErrore);	
 		btnConferma.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -108,8 +109,11 @@ public class DefinisciGiorni extends JFrame {
 					
 					int ok = Controller.checkGiorno(nomeGiorno);
 					if(ok!=-1) {
-						//il giorno è stato già inserito precedentemente nel db
-						lblErrore.setText("Il giorno inserito è già presente!");
+						//il giorno è stato già inserito precedentemente nel db e quindi devo fare l'update degli orari di apertura e chiusura
+						int val = Controller.aggiornaOrariGiorno(nomeGiorno, oraApertura, oraChiusura);
+						if(val!=-1) {
+							lblErrore.setText("Aggiornati gli orari di apertura e chiusura!");
+						}
 					}else {
 						//inserisco il giorno e gli orari nel db----MANCANTE ancora da passare
 						int value=Controller.inserisciOrariCentro(nomeGiorno, oraApertura, oraChiusura);
@@ -118,9 +122,18 @@ public class DefinisciGiorni extends JFrame {
 						}
 					}
 				}else {
+					
+					textFieldGiorno.setText("");
+					textFieldOraApertura.setText("");
+					textFieldOraChiusura.setText("");
 					lblErrore.setText("Giorno non valido");
 				}
 			}
 		});
 	}
 }
+
+
+
+
+//USARE SPLIT PER CHECK SU FORMAT ORARIO (HH:MM) IN QUESTA FUNZIONE

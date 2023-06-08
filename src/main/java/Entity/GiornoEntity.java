@@ -88,6 +88,12 @@ public class GiornoEntity {
 		
 	}
 	
+	public int aggiornaOrari(String nomeGiorno, String oraApertura, String oraChiusura) {
+		GiornoDAO giornodb = new GiornoDAO();
+		int val=giornodb.updateOrariSuDB(nomeGiorno,oraApertura,oraChiusura);
+		return val;
+	}
+	
 	public int checkGiorno(String giorno) {
 		GiornoDAO giornodb = new GiornoDAO();
 		int val=giornodb.checkGiornoSuDB(giorno);
