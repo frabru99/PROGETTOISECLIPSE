@@ -99,6 +99,12 @@ public class MainFrameCliente extends JFrame {
 				codiceCliente = textFieldCodiceCliente.getText();
 				email = textFieldEmail.getText();
 				
+				if(email.length()>30 || email.length()<=5) {
+					labelErroreLogin.setText("Email inserita non valida");
+					System.out.println("Email con più di 30 caratteri totali o minori/uguali a 5.");
+					return;
+				}
+				
 				//Chiamata al controller
 				boolean esito = Controller.LoginCentroSportivo(codiceCliente, email);
 				
