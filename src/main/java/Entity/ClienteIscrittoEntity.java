@@ -129,13 +129,14 @@ public class ClienteIscrittoEntity {
 		}
 		
 		public int sottoscriviAbbonamentoMensile(String nomeMese, String dataSottoscrizione, String dataScadenza) {
-			
+		
 			int ret=this.abbonamentoMensile.scriviSuDB(nomeMese, dataSottoscrizione, dataScadenza);
 			
 			//se l'inserimento va a buon fine devo aggiornare anche il cliente
 			if (ret!=-1) {
 				
 				ClienteIscrittoDAO cliente=new ClienteIscrittoDAO(this.codiceCliente);
+				System.out.println(this.abbonamentoMensile.getIdAbbonamentoMensile());
 				ret=cliente.updateAbbonamentoMensileSuDB(this.abbonamentoMensile.getIdAbbonamentoMensile());
 				
 				

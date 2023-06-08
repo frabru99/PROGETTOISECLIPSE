@@ -91,15 +91,16 @@ public class ClienteIscrittoDAO {
 		
 		int ret=0;
 		
-		String query ="UPDATE ClienteIscritto SET idAbbonamentoMensile="+idAbbonamentoMensile+" WHERE codiceCliente='"+this.codiceCliente+"';";
+		String query ="UPDATE ClienteIscritto SET idAbbMensile="+idAbbonamentoMensile+" WHERE codiceCliente='"+this.codiceCliente+"';";
 		
 		try {
 			
 			ret=DBConnectionManager.updateQuery(query);
 			
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			
-			System.out.println("[CLIENTE-ISCRITTO-DAO] Errore nella UPDATE ABBONAMENTO MENSILE");
+			System.out.println("[CLIENTE-ISCRITTO-DAO] Errore nella UPDATE ABBONAMENTO MENSILE" + e.getMessage());
 			ret=-1;
 	
 		}
@@ -114,7 +115,7 @@ public class ClienteIscrittoDAO {
 		
 		int ret=0;
 		
-		String query ="UPDATE ClienteIscritto SET idAbbonamentoAnnuale="+idAbbonamentoAnnuale+" WHERE codiceCliente='"+this.codiceCliente+"';";
+		String query ="UPDATE ClienteIscritto SET idAbbAnnuale="+idAbbonamentoAnnuale+" WHERE codiceCliente='"+this.codiceCliente+"';";
 		
 		try {
 			

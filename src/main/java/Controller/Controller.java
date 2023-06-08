@@ -76,17 +76,44 @@ public class Controller {
 	
 	//Metodo che permette di sottoscrivere un abbonamento mensile
 	public static int sottoscriviAbbonamentoMensile(String codiceCliente,String nomeMese,String dataSottoscrizione, String dataScadenza) {
+		int ret = 0;
+		
+		//prima di avviare la sottoscrizione, vedo se ho gia un abbonamento!
+		
+		int value = AccessoAlCentro(codiceCliente); //check dell'abbonamento, riuso del codice
+		
+		if(value==0) {
 		
 		ClienteIscrittoEntity cliente=new ClienteIscrittoEntity(codiceCliente);
-		int ret=cliente.sottoscriviAbbonamentoMensile(nomeMese,dataSottoscrizione,dataScadenza);
+		ret=cliente.sottoscriviAbbonamentoMensile(nomeMese,dataSottoscrizione,dataScadenza);
+		
+		
+		} else if (value ==1 || value ==2) {
+			ret = 2;
+		}
+		
 		return ret;
 	}
 	
 	//Metodo che permette di sottoscrivere un abbonamento annuale (CHECKARE)
 	public static int sottoscriviAbbonamentoAnnuale(String codiceCliente,String dataSottoscrizione, String dataScadenza) {
-		ClienteIscrittoEntity cliente=new ClienteIscrittoEntity(codiceCliente);
-		int ret=cliente.sottoscriviAbbonamentoAnnuale(dataSottoscrizione,dataScadenza);
-		return ret;
+		int ret =0;
+		//prima di avviare la sottoscrizione, vedo se ho gia un abbonamento!
+        
+        int value = AccessoAlCentro(codiceCliente); //check dell'abbonamento, riuso del codice
+        
+        if(value==0) {
+        
+        ClienteIscrittoEntity cliente=new ClienteIscrittoEntity(codiceCliente);
+        ret=cliente.sottoscriviAbbonamentoAnnuale(dataSottoscrizione,dataScadenza);
+        
+        
+        } else if (value ==1 || value ==2) {
+            ret = 2; //clienmte gia abbonato!
+        }
+        
+        return ret;
+		
 	}
 	
 

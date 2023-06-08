@@ -33,18 +33,18 @@ public class VistaAbbonamenti extends JFrame {
 	 * Launch the application.
 	 */
 	//MESSO FRAME VISIBILE SOLO PER PROVARE BISOGNA CAMBIARLO
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VistaAbbonamenti frame = new VistaAbbonamenti("Cliente_1","puppa@gmail.com");
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					VistaAbbonamenti frame = new VistaAbbonamenti("Cliente_1","puppa@gmail.com");
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -71,6 +71,11 @@ public class VistaAbbonamenti extends JFrame {
 				textAreaRiepilogo.setBounds(10, 161, 560, 91);
 				contentPane.add(textAreaRiepilogo);
 				
+				
+				JLabel lblCheckConferma = new JLabel("");
+				lblCheckConferma.setHorizontalAlignment(SwingConstants.LEFT);
+				lblCheckConferma.setBounds(271, 287, 182, 13);
+				contentPane.add(lblCheckConferma);
 		
 		
 				//bottone di conferma mensile
@@ -83,6 +88,13 @@ public class VistaAbbonamenti extends JFrame {
 						int ret=Controller.sottoscriviAbbonamentoMensile(codCliente,nomeMese,dataSottoscrizione,dataScadenza);
 						
 						//gestione del ret e label a schermo
+						if(ret!=-1 && ret !=2) {
+							lblCheckConferma.setText("Abbonamento sottoscritto!");
+						} else if (ret ==2){
+							lblCheckConferma.setText("Abbonamento già sottoscritto!");
+						} else {
+							lblCheckConferma.setText("Errore nella sottoscrizione!");
+						}
 						
 					}
 					
@@ -102,13 +114,19 @@ public class VistaAbbonamenti extends JFrame {
 						int ret=Controller.sottoscriviAbbonamentoAnnuale(codCliente,dataSottoscrizione,dataScadenza);
 						
 						//gestione del ret e label a schermo
-						
+						if(ret!=-1 && ret !=2) {
+							lblCheckConferma.setText("Abbonamento sottoscritto");
+						} else if (ret ==2){
+							lblCheckConferma.setText("Abbonamento già sottoscritto!");
+						} else {
+							lblCheckConferma.setText("Errore nella sottoscrizione!");
+						}
 					}
 					
 				});
 				
 
-				btnConfermaAnnuale.setBounds(463, 262, 107, 21);
+				btnConfermaAnnuale.setBounds(463, 283, 107, 21);
 				contentPane.add(btnConfermaAnnuale);
 
 		
@@ -495,6 +513,7 @@ public class VistaAbbonamenti extends JFrame {
 				btnAgosto.setVisible(false);
 				btnDicembre.setVisible(false);
 				btnOttobre.setVisible(false);
+				lblCheckConferma.setText("");
 				
 				
 				//settare il testo da visualizzare come riepilogo
@@ -544,12 +563,15 @@ public class VistaAbbonamenti extends JFrame {
 				btnOttobre.setVisible(true);
 				btnConfermaMensile.setVisible(false);
 				btnConfermaAnnuale.setVisible(false);
+				lblCheckConferma.setText("");
 			}
 		});
 		
 		
 		btnAbbMensile.setBounds(178, 33, 153, 21);
 		contentPane.add(btnAbbMensile);
+		
+		
 		
 		
 		
