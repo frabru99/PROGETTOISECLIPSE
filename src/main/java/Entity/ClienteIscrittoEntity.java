@@ -128,6 +128,37 @@ public class ClienteIscrittoEntity {
 			
 		}
 		
+		public int sottoscriviAbbonamentoMensile(String nomeMese, String dataSottoscrizione, String dataScadenza) {
+			
+			int ret=this.abbonamentoMensile.scriviSuDB(nomeMese, dataSottoscrizione, dataScadenza);
+			
+			//se l'inserimento va a buon fine devo aggiornare anche il cliente
+			if (ret!=-1) {
+				
+				ClienteIscrittoDAO cliente=new ClienteIscrittoDAO(this.codiceCliente);
+				ret=cliente.updateAbbonamentoMensileSuDB(this.abbonamentoMensile.getIdAbbonamentoMensile());
+				
+				
+			}
+			
+			return ret;
+		}
+		
+		public int sottoscriviAbbonamentoAnnuale(String dataSottoscrizione, String dataScadenza) {
+			
+			int ret=this.abbonamentoAnnuale.scriviSuDB(dataSottoscrizione,dataScadenza);
+			
+			//se l'inserimento va a buon fine devo aggiornare anche il cliente
+			if (ret!=-1) {
+				
+				ClienteIscrittoDAO cliente=new ClienteIscrittoDAO(this.codiceCliente);
+				ret=cliente.updateAbbonamentoAnnualeSuDB(this.abbonamentoAnnuale.getIdAbbonamentoAnnuale());
+				
+			}
+			
+			return ret;
+		}
+		
 		
 		//Funzionalità DUMMY che permette di settare una data di sospensione e una data di ripresa all'abbonamento annuale
 		public int sospendiAbbonamentoAnnuale(String sospensione, String ripresa) { 
@@ -139,7 +170,7 @@ public class ClienteIscrittoEntity {
 		
 		
 		//Funzione di utility che controlla se il cliente è un abbonato mensile o annuale
-		public int checkAbbonamento() {
+		public int AccessoAlCentro() {
 			
 			if (this.idAbbonamentoAnnuale != 0) {
 				

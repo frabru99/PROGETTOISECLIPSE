@@ -100,7 +100,7 @@ public class MainFrameCliente extends JFrame {
 				email = textFieldEmail.getText();
 				
 				//Chiamata al controller
-				boolean esito = Controller.AccessoAlCentro(codiceCliente, email);
+				boolean esito = Controller.LoginCentroSportivo(codiceCliente, email);
 				
 				if (esito == false) {
 					labelErroreLogin.setText("Errore login. Credenziali errate");

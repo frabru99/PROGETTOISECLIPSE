@@ -86,6 +86,51 @@ public class ClienteIscrittoDAO {
 		
 	}
 	
+	//Metodo di UPDATE del CRUD
+	public int updateAbbonamentoMensileSuDB(int idAbbonamentoMensile) {
+		
+		int ret=0;
+		
+		String query ="UPDATE ClienteIscritto SET idAbbonamentoMensile="+idAbbonamentoMensile+" WHERE codiceCliente='"+this.codiceCliente+"';";
+		
+		try {
+			
+			ret=DBConnectionManager.updateQuery(query);
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			
+			System.out.println("[CLIENTE-ISCRITTO-DAO] Errore nella UPDATE ABBONAMENTO MENSILE");
+			ret=-1;
+	
+		}
+		
+		return ret;
+		
+		
+	}
+	
+	//Metodo di UPDATE del CRUD
+	public int updateAbbonamentoAnnualeSuDB(int idAbbonamentoAnnuale) {
+		
+		int ret=0;
+		
+		String query ="UPDATE ClienteIscritto SET idAbbonamentoAnnuale="+idAbbonamentoAnnuale+" WHERE codiceCliente='"+this.codiceCliente+"';";
+		
+		try {
+			
+			ret=DBConnectionManager.updateQuery(query);
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			
+			System.out.println("[CLIENTE-ISCRITTO-DAO] Errore nella UPDATE ABBONAMENTO ANNUALE");
+			ret=-1;
+	
+		}
+		
+		return ret;
+		
+	}
+	
 	
 	//Funzione di utility per incrementare automaticamente il counter degli id degli iscritti
 	public String prelevaIdmassimo() {

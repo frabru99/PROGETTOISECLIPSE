@@ -39,7 +39,7 @@ public class AbbAnnualeTest {
 		
 		AbbonamentoAnnualeEntity abb = new AbbonamentoAnnualeEntity();
 		
-		abb.scriviSuDB();
+		//abb.scriviSuDB();
 		
 		System.out.println("Scritto su DB");
 		

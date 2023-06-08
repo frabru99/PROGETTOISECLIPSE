@@ -5,10 +5,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controller.Controller;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 
@@ -17,22 +21,30 @@ public class VistaAbbonamenti extends JFrame {
 	private JPanel contentPane;
 	private String codCliente;
 	private String email;
+	private Date tempoSottoscrizione;
+	private int anno;
+	private String nomeMese;
+	private int mese;
+	private int giorno;
+	private String dataSottoscrizione;
+	private String dataScadenza;
 
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					VistaAbbonamenti frame = new VistaAbbonamenti();
-//					frame.setVisible(false);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	//MESSO FRAME VISIBILE SOLO PER PROVARE BISOGNA CAMBIARLO
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VistaAbbonamenti frame = new VistaAbbonamenti("Cliente_1","puppa@gmail.com");
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
@@ -61,23 +73,43 @@ public class VistaAbbonamenti extends JFrame {
 				
 		
 		
-		//bottone di conferma
-				JButton btnConferma = new JButton("Conferma");
-				btnConferma.setVisible(false);	
-				btnConferma.addActionListener(new ActionListener() {
+				//bottone di conferma mensile
+				JButton btnConfermaMensile = new JButton("Conferma");
+				btnConfermaMensile.setVisible(false);	
+				btnConfermaMensile.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
+						//Alla conferma del cliente chiamo il metodo del controller per la sottoscrizione
+						int ret=Controller.sottoscriviAbbonamentoMensile(codCliente,nomeMese,dataSottoscrizione,dataScadenza);
 						
-						
-						
+						//gestione del ret e label a schermo
 						
 					}
 					
 				});
 				
 
-				btnConferma.setBounds(463, 262, 107, 21);
-				contentPane.add(btnConferma);
+				btnConfermaMensile.setBounds(463, 283, 107, 21);
+				contentPane.add(btnConfermaMensile);
+				
+				//bottone di conferma Annuale
+				JButton btnConfermaAnnuale = new JButton("Conferma");
+				btnConfermaAnnuale.setVisible(false);	
+				btnConfermaAnnuale.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						//Alla conferma del cliente chiamo il metodo del controller per la sottoscrizione
+						int ret=Controller.sottoscriviAbbonamentoAnnuale(codCliente,dataSottoscrizione,dataScadenza);
+						
+						//gestione del ret e label a schermo
+						
+					}
+					
+				});
+				
+
+				btnConfermaAnnuale.setBounds(463, 262, 107, 21);
+				contentPane.add(btnConfermaAnnuale);
 
 		
 		JButton btnGennaio = new JButton("Gennaio");
@@ -87,14 +119,22 @@ public class VistaAbbonamenti extends JFrame {
 				
 				//resetto il text area e conferma
 				textAreaRiepilogo.setText("");
-				btnConferma.setVisible(false);
+				btnConfermaMensile.setVisible(false);
 				
 				
-				//impostare il riepilogo
+				//creo la data di sottosscrizione e di scadenza per mostrarle come riepilogo
+				Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+				anno = tempoSottoscrizione.getYear()-100;
+				nomeMese=new String("Gennaio");
+				dataSottoscrizione = new String("01/01/20"+anno);
+				dataScadenza = new String("01/02/20"+anno);
+				
+				textAreaRiepilogo.setText("L'abbonamento mensile scelto va dal 01/01/20"+anno+" al 01/02/20"+anno+"\nCosto: 40.00\nPremere Conferma per proseguire con la sottoscrizione");
+				
 				
 				if(textAreaRiepilogo.getText().compareTo("")!=0) {
 					
-					btnConferma.setVisible(true);
+					btnConfermaMensile.setVisible(true);
 				}
 				
 			}
@@ -108,15 +148,23 @@ public class VistaAbbonamenti extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//resetto il text area e conferma
 				textAreaRiepilogo.setText("");
-				btnConferma.setVisible(false);
+				btnConfermaMensile.setVisible(false);
 				
 				
 				//impostare il riepilogo
+				Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+				anno = tempoSottoscrizione.getYear()-100;
+				nomeMese=new String("Novembre");
+				dataSottoscrizione = new String("01/11/20"+anno);
+				dataScadenza = new String("01/12/20"+anno);
+				
+				textAreaRiepilogo.setText("L'abbonamento mensile scelto va dal 01/11/20"+anno+" al 01/12/20"+anno+"\nCosto: 40.00\nPremere Conferma per proseguire con la sottoscrizione");
+				
 				
 				
 				if(textAreaRiepilogo.getText().compareTo("")!=0) {
 					
-					btnConferma.setVisible(true);
+					btnConfermaMensile.setVisible(true);
 				}
 			}
 		});
@@ -130,14 +178,22 @@ public class VistaAbbonamenti extends JFrame {
 				
 				//resetto il text area e conferma
 				textAreaRiepilogo.setText("");
-				btnConferma.setVisible(false);
+				btnConfermaMensile.setVisible(false);
 				
 				
 				//impostare il riepilogo
+				Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+				anno = tempoSottoscrizione.getYear()-100;
+				nomeMese=new String("Febbraio");
+				dataSottoscrizione = new String("01/02/20"+anno);
+				dataScadenza = new String("01/03/20"+anno);
+				
+				textAreaRiepilogo.setText("L'abbonamento mensile scelto va dal 01/02/20"+anno+" al 01/03/20"+anno+"\nCosto: 40.00\nPremere Conferma per proseguire con la sottoscrizione");
+				
 				
 				if(textAreaRiepilogo.getText().compareTo("")!=0) {
 					
-					btnConferma.setVisible(true);
+					btnConfermaMensile.setVisible(true);
 				}
 			}
 		});
@@ -153,14 +209,22 @@ public class VistaAbbonamenti extends JFrame {
 				
 				//resetto il text area e conferma
 				textAreaRiepilogo.setText("");
-				btnConferma.setVisible(false);
+				btnConfermaMensile.setVisible(false);
 				
 				
 				//impostare il riepilogo
+				Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+				anno = tempoSottoscrizione.getYear()-100;
+				nomeMese=new String("Marzo");
+				dataSottoscrizione = new String("01/03/20"+anno);
+				dataScadenza = new String("01/04/20"+anno);
+				
+				textAreaRiepilogo.setText("L'abbonamento mensile scelto va dal 01/03/20"+anno+" al 01/04/20"+anno+"\nCosto: 40.00\nPremere Conferma per proseguire con la sottoscrizione");
+				
 				
 				if(textAreaRiepilogo.getText().compareTo("")!=0) {
 					
-					btnConferma.setVisible(true);
+					btnConfermaMensile.setVisible(true);
 				}
 				
 			}
@@ -175,14 +239,22 @@ public class VistaAbbonamenti extends JFrame {
 				
 				//resetto il text area e conferma
 				textAreaRiepilogo.setText("");
-				btnConferma.setVisible(false);
+				btnConfermaMensile.setVisible(false);
 				
 				
 				//impostare il riepilogo
+				Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+				anno = tempoSottoscrizione.getYear()-100;
+				nomeMese=new String("Settembre");
+				dataSottoscrizione = new String("01/09/20"+anno);
+				dataScadenza = new String("01/10/20"+anno);
+				
+				textAreaRiepilogo.setText("L'abbonamento mensile scelto va dal 01/09/20"+anno+" al 01/10/20"+anno+"\nCosto: 40.00\nPremere Conferma per proseguire con la sottoscrizione");
+				
 				
 				if(textAreaRiepilogo.getText().compareTo("")!=0) {
 					
-					btnConferma.setVisible(true);
+					btnConfermaMensile.setVisible(true);
 				}
 			}
 		});
@@ -196,14 +268,22 @@ public class VistaAbbonamenti extends JFrame {
 				
 				//resetto il text area e conferma
 				textAreaRiepilogo.setText("");
-				btnConferma.setVisible(false);
+				btnConfermaMensile.setVisible(false);
 				
 				
 				//impostare il riepilogo
+				Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+				anno = tempoSottoscrizione.getYear()-100;
+				nomeMese=new String("Aprile");
+				dataSottoscrizione = new String("01/04/20"+anno);
+				dataScadenza = new String("01/05/20"+anno);
+				
+				textAreaRiepilogo.setText("L'abbonamento mensile scelto va dal 01/04/20"+anno+" al 01/05/20"+anno+"\nCosto: 40.00\nPremere Conferma per proseguire con la sottoscrizione");
+				
 				
 				if(textAreaRiepilogo.getText().compareTo("")!=0) {
 					
-					btnConferma.setVisible(true);
+					btnConfermaMensile.setVisible(true);
 				}
 			}
 		});
@@ -217,14 +297,22 @@ public class VistaAbbonamenti extends JFrame {
 				
 				//resetto il text area e conferma
 				textAreaRiepilogo.setText("");
-				btnConferma.setVisible(false);
+				btnConfermaMensile.setVisible(false);
 				
 				
 				//impostare il riepilogo
+				Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+				anno = tempoSottoscrizione.getYear()-100;
+				nomeMese=new String("Maggio");
+				dataSottoscrizione = new String("01/05/20"+anno);
+				dataScadenza = new String("01/06/20"+anno);
+				
+				textAreaRiepilogo.setText("L'abbonamento mensile scelto va dal 01/05/20"+anno+" al 01/06/20"+anno+"\nCosto: 40.00\nPremere Conferma per proseguire con la sottoscrizione");
+				
 				
 				if(textAreaRiepilogo.getText().compareTo("")!=0) {
 					
-					btnConferma.setVisible(true);
+					btnConfermaMensile.setVisible(true);
 				}
 				
 			}
@@ -239,14 +327,22 @@ public class VistaAbbonamenti extends JFrame {
 				
 				//resetto il text area e conferma
 				textAreaRiepilogo.setText("");
-				btnConferma.setVisible(false);
+				btnConfermaMensile.setVisible(false);
 				
 				
 				//impostare il riepilogo
+				Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+				anno = tempoSottoscrizione.getYear()-100;
+				nomeMese=new String("Luglio");
+				dataSottoscrizione = new String("01/07/20"+anno);
+				dataScadenza = new String("01/08/20"+anno);
+				
+				textAreaRiepilogo.setText("L'abbonamento mensile scelto va dal 01/07/20"+anno+" al 01/08/20"+anno+"\nCosto: 40.00\nPremere Conferma per proseguire con la sottoscrizione");
+				
 				
 				if(textAreaRiepilogo.getText().compareTo("")!=0) {
 					
-					btnConferma.setVisible(true);
+					btnConfermaMensile.setVisible(true);
 				}
 				
 			}
@@ -261,14 +357,21 @@ public class VistaAbbonamenti extends JFrame {
 				
 				//resetto il text area e conferma
 				textAreaRiepilogo.setText("");
-				btnConferma.setVisible(false);
+				btnConfermaMensile.setVisible(false);
 				
 				
 				//impostare il riepilogo
+				Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+				anno = tempoSottoscrizione.getYear()-100;
+				nomeMese=new String("Giugno");
+				dataSottoscrizione = new String("01/06/20"+anno);
+				dataScadenza = new String("01/07/20"+anno);
+				
+				textAreaRiepilogo.setText("L'abbonamento mensile scelto va dal 01/06/20"+anno+" al 01/07/20"+anno+"\nCosto: 40.00\nPremere Conferma per proseguire con la sottoscrizione");
 				
 				if(textAreaRiepilogo.getText().compareTo("")!=0) {
 					
-					btnConferma.setVisible(true);
+					btnConfermaMensile.setVisible(true);
 				}
 				
 			}
@@ -283,14 +386,22 @@ public class VistaAbbonamenti extends JFrame {
 				
 				//resetto il text area e conferma
 				textAreaRiepilogo.setText("");
-				btnConferma.setVisible(false);
+				btnConfermaMensile.setVisible(false);
 				
 				
 				//impostare il riepilogo
+				Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+				anno = tempoSottoscrizione.getYear()-100;
+				nomeMese=new String("Agosto");
+				dataSottoscrizione = new String("01/08/20"+anno);
+				dataScadenza = new String("01/09/20"+anno);
+				
+				textAreaRiepilogo.setText("L'abbonamento mensile scelto va dal 01/08/20"+anno+" al 01/09/20"+anno+"\nCosto: 40.00\nPremere Conferma per proseguire con la sottoscrizione");
+				
 				
 				if(textAreaRiepilogo.getText().compareTo("")!=0) {
 					
-					btnConferma.setVisible(true);
+					btnConfermaMensile.setVisible(true);
 				}
 			}
 		});
@@ -303,17 +414,23 @@ public class VistaAbbonamenti extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//resetto il text area e conferma
 				textAreaRiepilogo.setText("");
-				btnConferma.setVisible(false);
+				btnConfermaMensile.setVisible(false);
 				
 				
 				//impostare il riepilogo
+				Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+				anno = tempoSottoscrizione.getYear()-100;
+				nomeMese=new String("Ottobre");
+				dataSottoscrizione = new String("01/10/20"+anno);
+				dataScadenza = new String("01/11/20"+anno);
 				
-				textAreaRiepilogo.setText("Ciao");
+				textAreaRiepilogo.setText("L'abbonamento mensile scelto va dal 01/10/20"+anno+" al 01/11/20"+anno+"\nCosto: 40.00\nPremere Conferma per proseguire con la sottoscrizione");
+				
 				
 				
 				if(textAreaRiepilogo.getText().compareTo("")!=0) {
 				
-					btnConferma.setVisible(true);
+					btnConfermaMensile.setVisible(true);
 				}
 			}
 		});
@@ -326,16 +443,23 @@ public class VistaAbbonamenti extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//resetto il text area e conferma
 				textAreaRiepilogo.setText("");
-				btnConferma.setVisible(false);
+				btnConfermaMensile.setVisible(false);
 				
 				
 				//impostare il riepilogo
+				Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+				anno = tempoSottoscrizione.getYear()-100;
+				nomeMese=new String("Dicembre");
+				dataSottoscrizione = new String("01/12/20"+anno);
+				dataScadenza = new String("01/01/20"+(anno+1));
+				
+				textAreaRiepilogo.setText("L'abbonamento mensile scelto va dal 01/12/20"+anno+" al 01/01/20"+(anno+1)+"\nCosto: 40.00\nPremere Conferma per proseguire con la sottoscrizione");
 				
 				
 				
 				if(textAreaRiepilogo.getText().compareTo("")!=0) {
 					
-					btnConferma.setVisible(true);
+					btnConfermaMensile.setVisible(true);
 				}
 				
 			}
@@ -357,8 +481,8 @@ public class VistaAbbonamenti extends JFrame {
 		btnAbbAnnuale.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textAreaRiepilogo.setText("");
-				btnConferma.setVisible(false);
-				
+				btnConfermaAnnuale.setVisible(false);
+				btnConfermaMensile.setVisible(false);
 				btnGennaio.setVisible(false);
 				btnNovembre.setVisible(false);
 				btnFebbraio.setVisible(false);
@@ -374,13 +498,20 @@ public class VistaAbbonamenti extends JFrame {
 				
 				
 				//settare il testo da visualizzare come riepilogo
+				Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+				anno = tempoSottoscrizione.getYear()-100;
+				mese=tempoSottoscrizione.getMonth()+1;
+				giorno=tempoSottoscrizione.getDay()+4;
+				dataSottoscrizione = new String(giorno+"/"+mese+"/"+anno);
+				dataScadenza = new String(giorno+"/"+mese+"/"+(anno+1));
+				
+				textAreaRiepilogo.setText("L'abbonamento annuale scelto va dal "+giorno+"/"+mese+"/"+anno+" al "+giorno+"/"+mese+"/"+(anno+1)+"\nCosto: 250.00\nPremere Conferma per proseguire con la sottoscrizione");
 				
 				
-				textAreaRiepilogo.setText("ciao");
 				
 				if(textAreaRiepilogo.getText().compareTo("")!=0) {
 					
-					btnConferma.setVisible(true);
+					btnConfermaAnnuale.setVisible(true);
 				}
 				
 				
@@ -411,7 +542,8 @@ public class VistaAbbonamenti extends JFrame {
 				btnAgosto.setVisible(true);
 				btnDicembre.setVisible(true);
 				btnOttobre.setVisible(true);
-				btnConferma.setVisible(false);
+				btnConfermaMensile.setVisible(false);
+				btnConfermaAnnuale.setVisible(false);
 			}
 		});
 		

@@ -50,7 +50,7 @@ public class AbbonamentoMensileEntity {
 	
 	
 	//Metodo chiamato dal controller in seguito ad una richiesta di un utente iscritto per salvare un abbonamento mensile
-	public int scriviSuDB(String nomeMese) {
+	public int scriviSuDB(String nomeMese,String dataSottoscrizione,String dataScadenza) {
 		
 		//Variabile per il risultato della query
 		int ret=0;
@@ -60,54 +60,6 @@ public class AbbonamentoMensileEntity {
 		
 		//Chiamo la funzione prelevaIdMassimo del DAO a cui aggiungo 1 per ottenere il nuovo idAbbonamento
 		int max=(abb.prelevaIdMassimo()+1);
-		
-		//Recupero la data di sottoscrizione evocando il metodo di Date
-		Date tempoSottoscrizione = new java.sql.Date(System.currentTimeMillis());
-		int anno = tempoSottoscrizione.getYear();
-		String dataSottoscrizione = new String();
-		String dataScadenza = new String();
-			
-		
-		//HARDCODED
-		if(nomeMese.equals("Gennaio")){
-			dataSottoscrizione = new String("20"+(anno-100)+"-01-01");	 //gestione hardcoded della data, scusaci ing de Luca....
-			dataScadenza = new String("20"+(anno-100)+"-02-01");
-		} else if(nomeMese.equals("Febbraio")){
-			dataSottoscrizione = new String("20"+(anno-100)+"-02-01");	
-			dataScadenza = new String("20"+(anno-100)+"-03-01");
-		} else if(nomeMese.equals("Marzo")){
-			dataSottoscrizione = new String("20"+(anno-100)+"-03-01");	
-			dataScadenza = new String("20"+(anno-100)+"-04-01");
-		} else if(nomeMese.equals("Aprile")){
-			dataSottoscrizione = new String("20"+(anno-100)+"-04-01");	
-			dataScadenza = new String("20"+(anno-100)+"-05-01");
-		} else if(nomeMese.equals("Maggio")){
-			dataSottoscrizione = new String("20"+(anno-100)+"-05-01");	
-			dataScadenza = new String("20"+(anno-100)+"-06-01");
-		} else if(nomeMese.equals("Giugno")){
-			dataSottoscrizione = new String("20"+(anno-100)+"-06-01");	
-			dataScadenza = new String("20"+(anno-100)+"-07-01");
-		} else if(nomeMese.equals("Luglio")){
-			dataSottoscrizione = new String("20"+(anno-100)+"-07-01");	
-			dataScadenza = new String("20"+(anno-100)+"-08-01");
-		} else if(nomeMese.equals("Agosto")){
-			dataSottoscrizione = new String("20"+(anno-100)+"-08-01");	
-			dataScadenza = new String("20"+(anno-100)+"-09-01");
-		} else if(nomeMese.equals("Settembre")){
-			dataSottoscrizione = new String("20"+(anno-100)+"-09-01");	
-			dataScadenza = new String("20"+(anno-100)+"-10-01");
-		} else if(nomeMese.equals("Ottobre")){
-			dataSottoscrizione = new String("20"+(anno-100)+"-10-01");	
-			dataScadenza = new String("20"+(anno-100)+"-11-01");
-		} else if(nomeMese.equals("Novembre")){
-			dataSottoscrizione = new String("20"+(anno-100)+"-11-01");	
-			dataScadenza = new String("20"+(anno-100)+"-12-01");
-		} else if(nomeMese.equals("Dicembre")){
-			dataSottoscrizione = new String("20"+(anno-100)+"-01-01");	
-			dataScadenza = new String(("20"+(anno-100)+1)+"-02-01");
-		}
-		//HARDCODED
-		
 		
 		ret = abb.salvaSuDB(max, dataSottoscrizione, dataScadenza, 40, nomeMese);
 		

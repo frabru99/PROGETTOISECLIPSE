@@ -55,7 +55,7 @@ public class AbbonamentoAnnualeEntity {
 	
 	
 	//Metodo chiamato dal controller in seguito ad una richiesta di un utente iscritto per salvare un abbonamento annuale
-	public int scriviSuDB() {
+	public int scriviSuDB(String dataSottoscrizione, String dataScadenza) {
 		
 		//Variabile per il risultato della query
 		int ret=0;
@@ -67,19 +67,19 @@ public class AbbonamentoAnnualeEntity {
 		int max=(abb.prelevaIdmassimo()+1);
 		
 		//Data corrente
-		Date dataSottoscrizione = new java.sql.Date(System.currentTimeMillis());
+		//Date dataSottoscrizione = new java.sql.Date(System.currentTimeMillis());
 		
 		//Dopo 365 giorni dalla sottoscrizione
-		Date dataScadenza = addDays(dataSottoscrizione, 365); 
+		//Date dataScadenza = addDays(dataSottoscrizione, 365); 
 		
-		ret = abb.salvaSuDB(max, dataSottoscrizione.toString(), dataScadenza.toString(), 250);
+		ret = abb.salvaSuDB(max, dataSottoscrizione, dataScadenza, 250);
 		
 		//Se la richiesta al DAO va a buon fine
 		if(ret!=-1) {
 			
 			this.idAbbonamentoAnnuale = max;
-            this.dataSottoscrizione = dataSottoscrizione.toString();
-            this.dataScadenza = dataScadenza.toString();
+            this.dataSottoscrizione = dataSottoscrizione;
+            this.dataScadenza = dataScadenza;
             this.prezzo = 250;	
             
 		}

@@ -87,6 +87,18 @@ public class GiornoEntity {
 		}
 		
 	}
+	
+	public int checkGiorno(String giorno) {
+		GiornoDAO giornodb = new GiornoDAO();
+		int val=giornodb.checkGiornoSuDB(giorno);
+		return val;
+	}
+	
+	public int inserisciOrari(String nomeGiorno, String oraApertura, String oraChiusura) {
+		GiornoDAO giornodb = new GiornoDAO();
+		int ret=giornodb.salvaSuDB(nomeGiorno, oraApertura, oraChiusura);
+		return ret;
+	}
 
 	
 	//GETTERS AND SETTERS

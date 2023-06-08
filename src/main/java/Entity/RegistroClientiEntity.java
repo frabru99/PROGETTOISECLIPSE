@@ -50,7 +50,7 @@ public class RegistroClientiEntity {
 	
 	
 	//Metodo che permette di controllare l'accesso al centro dei clienti tramite la loro PK
-	public boolean AccessoAlCentro(String codiceCliente,String email) {
+	public boolean LoginCentroSportivo(String codiceCliente,String email) {
 		
 		//Scorro l'array di clienti
 		for (int i=0;i<clienti.size(); i++) {

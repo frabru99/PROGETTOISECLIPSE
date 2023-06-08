@@ -42,12 +42,12 @@ public class Controller {
 	
 	
 	//Metodo che permette o vieta l'accesso al centro ad un cliente
-	public static boolean AccessoAlCentro(String codiceCliente,String email) {
+	public static boolean LoginCentroSportivo(String codiceCliente,String email) {
 		
 		boolean val = false;
 		//Richiamo il singleton del registro clienti ed evoco il suo metodo AccessoAlCentro
 		RegistroClientiEntity registro=RegistroClientiEntity.getInstance();
-		val =registro.AccessoAlCentro(codiceCliente,email);
+		val =registro.LoginCentroSportivo(codiceCliente,email);
 		
 		return val;
 		
@@ -74,11 +74,18 @@ public class Controller {
 		
 	}
 	
+	//Metodo che permette di sottoscrivere un abbonamento mensile
+	public static int sottoscriviAbbonamentoMensile(String codiceCliente,String nomeMese,String dataSottoscrizione, String dataScadenza) {
+		
+		ClienteIscrittoEntity cliente=new ClienteIscrittoEntity(codiceCliente);
+		int ret=cliente.sottoscriviAbbonamentoMensile(nomeMese,dataSottoscrizione,dataScadenza);
+		return ret;
+	}
 	
-	//Permette di sottoscrivere un abbonamento annuale (CHECKARE)
-	public static int sottoscriviAbbonamentoAnnuale() {
-		AbbonamentoAnnualeEntity abbann = new AbbonamentoAnnualeEntity();
-		int ret=abbann.scriviSuDB();
+	//Metodo che permette di sottoscrivere un abbonamento annuale (CHECKARE)
+	public static int sottoscriviAbbonamentoAnnuale(String codiceCliente,String dataSottoscrizione, String dataScadenza) {
+		ClienteIscrittoEntity cliente=new ClienteIscrittoEntity(codiceCliente);
+		int ret=cliente.sottoscriviAbbonamentoAnnuale(dataSottoscrizione,dataScadenza);
 		return ret;
 	}
 	
@@ -133,10 +140,10 @@ public class Controller {
 	
 	
 	//Funzione di utility che permette di controllare se, data una PK, esiste un abbonamento per un cliente
-	public static int checkAbbonamento (String codiceCliente) {
+	public static int  AccessoAlCentro(String codiceCliente) {
 		
         ClienteIscrittoEntity cliente = new ClienteIscrittoEntity(codiceCliente);
-        int val = cliente.checkAbbonamento();
+        int val = cliente.AccessoAlCentro();
         return val;
         
 	}
@@ -150,6 +157,18 @@ public class Controller {
         return val;
         
 	}
+	
+	public static int checkGiorno(String nomeGiorno) {
+		GiornoEntity giorno = new GiornoEntity();
+		int ok = giorno.checkGiorno(nomeGiorno);
+		return ok;
+	}    
+	
+	public static int inserisciOrariCentro(String nomeGiorno, String oraApertura, String oraChiusura) {
+        GiornoEntity giorno = new GiornoEntity();
+        int val=giorno.inserisciOrari(nomeGiorno,oraApertura,oraChiusura);
+        return val;
+    }
 	
 	
 }

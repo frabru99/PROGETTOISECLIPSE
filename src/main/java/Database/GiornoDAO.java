@@ -113,6 +113,29 @@ public class GiornoDAO {
 		
 	}
 	
+public int checkGiornoSuDB(String nomeGiorno) {
+		
+		String query="SELECT * FROM Giorno WHERE nomeGiorno='"+nomeGiorno+"';";
+		int ret=0;
+		try {
+			
+			ResultSet rs=DBConnectionManager.selectQuery(query);
+			
+			if(rs.next()) {
+				
+				ret=1;
+			}else {
+				ret=-1;
+			}
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return ret;
+	}
+	
 	
 	//GETTERS AND SETTERS
 	public String getNomeGiorno() {

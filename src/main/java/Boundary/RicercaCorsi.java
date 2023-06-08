@@ -323,7 +323,7 @@ public class RicercaCorsi extends JFrame {
 				
 				
 				
-				int val = Controller.checkAbbonamento(codCliente);
+				int val = Controller.AccessoAlCentro(codCliente);
 				
 				
 				
