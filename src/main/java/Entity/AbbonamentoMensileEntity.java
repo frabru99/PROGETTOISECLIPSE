@@ -7,6 +7,15 @@ import Database.AbbonamentoAnnualeDAO;
 import Database.AbbonamentoMensileDAO;
 import ch.qos.logback.core.joran.conditional.IfAction;
 
+/**
+ * Classe del package Entity che rappresenta l'oggetto del mondo reale definendone il comportamento e l'implementazione vera e propria dei metodi
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class AbbonamentoMensileEntity {
 	
 	//Variabili membro.
@@ -17,7 +26,10 @@ public class AbbonamentoMensileEntity {
 	private String nomeMese;
 	
 	
-	//Costruttore per caricamento da classe DAO attraverso la PK
+	/**
+	 * Costruttore per caricamento da classe DAO attraverso la PK
+	 * @param id
+	 */
 	public AbbonamentoMensileEntity(int id) {
 		
 		AbbonamentoMensileDAO db = new AbbonamentoMensileDAO(id);
@@ -30,13 +42,18 @@ public class AbbonamentoMensileEntity {
 	}
 	
 	
-	//Costruttore vuoto
+	/**
+	 * Costruttore vuoto
+	 */
 	public AbbonamentoMensileEntity() {
 		super();
 	}
 
 	
-	//Costruttore per caricamento da un'istanza della classe DAO
+	/**
+	 * Costruttore per caricamento da un'istanza della classe DAO
+	 * @param db
+	 */
 	public AbbonamentoMensileEntity(AbbonamentoMensileDAO db) {
 		
 		
@@ -49,7 +66,13 @@ public class AbbonamentoMensileEntity {
 	}
 	
 	
-	//Metodo chiamato dal controller in seguito ad una richiesta di un utente iscritto per salvare un abbonamento mensile
+	/**
+	 * Metodo chiamato dal controller in seguito ad una richiesta di un utente iscritto per salvare persistentemente un abbonamento mensile
+	 * @param nomeMese
+	 * @param dataSottoscrizione
+	 * @param dataScadenza
+	 * @return esito
+	 */
 	public int scriviSuDB(String nomeMese,String dataSottoscrizione,String dataScadenza) {
 		
 		//Variabile per il risultato della query
@@ -79,42 +102,82 @@ public class AbbonamentoMensileEntity {
 	
 	//GETTERS AND SETTERS
 	
+	/**
+	 * Getter
+	 * @return idAbbonamentoMensile
+	 */
 	public int getIdAbbonamentoMensile() {
 		return idAbbonamentoMensile;
 	}
 	
+	/**
+	 * Setter
+	 * @param idAbbonamentoMensile
+	 */
 	public void setIdAbbonamentoMensile(int idAbbonamentoMensile) {
 		this.idAbbonamentoMensile = idAbbonamentoMensile;
 	}
 	
+	/**
+	 * Getter
+	 * @return dataSottoscrizione
+	 */
 	public String getDataSottoscrizione() {
 		return dataSottoscrizione;
 	}
 	
+	/**
+	 * Setter
+	 * @param dataSottoscrizione
+	 */
 	public void setDataSottoscrizione(String dataSottoscrizione) {
 		this.dataSottoscrizione = dataSottoscrizione;
 	}
 	
+	/**
+	 * Getter 
+	 * @return dataScadenza
+	 */
 	public String getDataScadenza() {
 		return dataScadenza;
 	}
 	
+	/**
+	 * Setter
+	 * @param dataScadenza
+	 */
 	public void setDataScadenza(String dataScadenza) {
 		this.dataScadenza = dataScadenza;
 	}
 	
+	/**
+	 * Getter
+	 * @return prezzo
+	 */
 	public int getPrezzo() {
 		return prezzo;
 	}
 	
+	/**
+	 * Setter
+	 * @param prezzo
+	 */
 	public void setPrezzo(int prezzo) {
 		this.prezzo = prezzo;
 	}
 	
+	/**
+	 * Getter
+	 * @return nomeMese
+	 */
 	public String getNomeMese() {
 		return nomeMese;
 	}
 	
+	/**
+	 * Setter
+	 * @param nomeMese
+	 */
 	public void setNomeMese(String nomeMese) {
 		this.nomeMese = nomeMese;
 	}

@@ -5,7 +5,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+/**
+ * Classe del package Database utilizzata per semplificare l'accesso al database da parte delle classi DAO. Fornisce metodi per stabilire la connessione al database, chiuderla e ottenere un oggetto di connessione valido da utilizzare nelle operazioni di accesso al database. 
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class DBConnectionManager {
 	
 	//Variabili membro - costanti necessarie per la connessione
@@ -16,7 +24,12 @@ public class DBConnectionManager {
 	public static String password="Cmcfb2002!";
 	
 	
-	//Metodo che crea la connessione dal driver
+	/**
+	 * Metodo che crea la connessione dal driver
+	 * @return connessione
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		
 		//Creo oggetto connection
@@ -30,7 +43,11 @@ public class DBConnectionManager {
 	}
 	
 	
-	//Metodo che chiude la connessione con il DB
+	/**
+	 * Metodo che chiude la connessione con il DB
+	 * @param c
+	 * @throws SQLException
+	 */
 	public static void closeConnection(Connection c) throws SQLException{
 		
 		System.out.println("Chiudo connessione...");
@@ -39,7 +56,13 @@ public class DBConnectionManager {
 	}
 	
 	
-	//ResultSet - ritorna i risultati di una query
+	/**
+	 * ResultSet - ritorna i risultati di una query
+	 * @param query
+	 * @return resultSet
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static ResultSet selectQuery(String query) throws ClassNotFoundException, SQLException{
 		
 		//Invoco getConnection
@@ -56,7 +79,13 @@ public class DBConnectionManager {
 	}
 	
 	
-	//Query per inserimento ed update
+	/**
+	 * Query per inserimento ed update
+	 * @param query
+	 * @return esito
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static int updateQuery(String query) throws ClassNotFoundException, SQLException{
 		
 		//Invoco getConnection

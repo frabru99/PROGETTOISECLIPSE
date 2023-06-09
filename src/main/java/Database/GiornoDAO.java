@@ -4,6 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Classe DAO del package Database per la gestione della persistenza dei dati ed il loro retrieval evocando i propri metodi dalle classi del layer Entity
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class GiornoDAO {
 	
 	//Variabili membro
@@ -13,7 +22,10 @@ public class GiornoDAO {
 	ArrayList<CorsoDAO> corsi;
 	
 	
-	//Costruttore per caricamento da DB attraverso la PK
+	/**
+	 * Costruttore per caricamento da DB attraverso la PK
+	 * @param nomeGiorno
+	 */
 	public GiornoDAO(String nomeGiorno) {
 		
 		this.nomeGiorno=nomeGiorno;
@@ -23,7 +35,9 @@ public class GiornoDAO {
 	}
 
 	
-	//Costruttore vuoto per inizializzazione
+	/**
+	 * Costruttore vuoto per inizializzazione
+	 */
 	public GiornoDAO() {
 		
 		super();
@@ -32,7 +46,9 @@ public class GiornoDAO {
 	}
 	
 	
-	//Funzione di loading degli attributi del DAO attraverso una query di SELECT
+	/**
+	 * Funzione di loading degli attributi del DAO attraverso una query di SELECT
+	 */
 	public void caricaDaDB() {
 		
 		String query="SELECT * FROM Giorno WHERE nomeGiorno='"+this.nomeGiorno+"';";
@@ -57,7 +73,9 @@ public class GiornoDAO {
 	}
 	
 	
-	//Funzione di loading dell'array CorsoDAO
+	/**
+	 * Funzione di loading dell'array CorsoDAO
+	 */
 	public void caricaCorsiGiornoDaDB() {
 			
 		String query=new String("SELECT * FROM Corso WHERE codiceCorso IN(SELECT Corso_codiceCorso FROM Corso_has_Giorno WHERE Giorno_nomeGiorno=\'"+this.nomeGiorno+"')");
@@ -89,7 +107,13 @@ public class GiornoDAO {
 	}
 	
 	
-	//Metodo di CREATE del CRUD
+	/**
+	 * Metodo di CREATE del CRUD
+	 * @param nomeGiorno
+	 * @param orarioAperturaCentro
+	 * @param orarioChiusuraCentro
+	 * @return esito
+	 */
 	public int salvaSuDB(String nomeGiorno,String orarioAperturaCentro, String orarioChiusuraCentro) {
 		
 		
@@ -113,71 +137,129 @@ public class GiornoDAO {
 		
 	}
 	
-public int checkGiornoSuDB(String nomeGiorno) {
-		
+	
+	/**
+	 * Funzione di utility che checka se data una PK, esiste il giorno corrispondete sul DB
+	 * @param nomeGiorno
+	 * @return esito
+	 */
+	public int checkGiornoSuDB(String nomeGiorno) {
+			
 		String query="SELECT * FROM Giorno WHERE nomeGiorno='"+nomeGiorno+"';";
 		int ret=0;
-		try {
-			
-			ResultSet rs=DBConnectionManager.selectQuery(query);
-			
-			if(rs.next()) {
+		
+			try {
 				
-				ret=1;
-			}else {
-				ret=-1;
+				ResultSet rs=DBConnectionManager.selectQuery(query);
+				
+				if(rs.next()) {
+					
+					ret=1;
+					
+				}else {
+					
+					ret=-1;
+					
+				}
+				
+			} catch (ClassNotFoundException | SQLException e) {
+				
+				System.out.println("[GIORNO-DAO] Errore nel metodo checkGiornoSuDB");
+				
 			}
 			
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		
 		return ret;
-	}
-
-public int updateOrariSuDB(String nomeGiorno, String oraApertura, String oraChiusura) {
-	String query = "UPDATE Giorno SET orarioAperturaCentro = '"+oraApertura+"' , orarioChiusuraCentro ='"+oraChiusura+"' WHERE nomeGiorno = '"+nomeGiorno+"';";
-	int ret=0;
-	try {
-		ret=DBConnectionManager.updateQuery(query);
 		
-	}catch(SQLException | ClassNotFoundException e) {
-		e.printStackTrace();
+		}
+	
+	
+	/**
+	 * Metodo che permette di aggiornare gli orari del centro dato un giorno
+	 * @param nomeGiorno, oraApertura, oraChiusura
+	 * @return esito
+	 */
+	public int updateOrariSuDB(String nomeGiorno, String oraApertura, String oraChiusura) {
+		
+		String query = "UPDATE Giorno SET orarioAperturaCentro = '"+oraApertura+"' , orarioChiusuraCentro ='"+oraChiusura+"' WHERE nomeGiorno = '"+nomeGiorno+"';";
+		int ret=0;
+		
+			try {
+				
+				ret=DBConnectionManager.updateQuery(query);
+				
+			}catch(SQLException | ClassNotFoundException e) {
+				
+				System.out.println("[GIORNO-DAO] Errore nel metodo updateOrariSuDB");
+				
+			}
+			
+		return ret;
+		
 	}
-	return ret;
-}
 	
 	
 	//GETTERS AND SETTERS
+	
+	/**
+	 * Getter
+	 * @return nomeGiorno;
+	 */
 	public String getNomeGiorno() {
 		return nomeGiorno;
 	}
 
+	/**
+	 * Setter
+	 * @param nomeGiorno
+	 */
 	public void setNomeGiorno(String nomeGiorno) {
 		this.nomeGiorno = nomeGiorno;
 	}
 
+	/**
+	 * Getter
+	 * @return orarioAperturaCentro
+	 */
 	public String getOrarioAperturaCentro() {
 		return orarioAperturaCentro;
 	}
 
+	/**
+	 * Setter
+	 * @param orarioAperturaCentro
+	 */
 	public void setOrarioAperturaCentro(String orarioAperturaCentro) {
 		this.orarioAperturaCentro = orarioAperturaCentro;
 	}
 
+	/**
+	 * Getter
+	 * @return orarioChiusuraCentro
+	 */
 	public String getOrarioChiusuraCentro() {
 		return orarioChiusuraCentro;
 	}
 
+	/**
+	 * Setter
+	 * @param orarioChiusuraCentro
+	 */
 	public void setOrarioChiusuraCentro(String orarioChiusuraCentro) {
 		this.orarioChiusuraCentro = orarioChiusuraCentro;
 	}
 
+	/**
+	 * Getter
+	 * @return corsi
+	 */
 	public ArrayList<CorsoDAO> getCorsi() {
 		return corsi;
 	}
 
+	/**
+	 * Setter
+	 * @param corsi
+	 */
 	public void setCorsi(ArrayList<CorsoDAO> corsi) {
 		this.corsi = corsi;
 	}

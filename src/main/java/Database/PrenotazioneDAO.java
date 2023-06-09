@@ -7,6 +7,15 @@ import java.sql.SQLException;
 import Entity.ClienteIscrittoEntity;
 import Entity.CorsoEntity;
 
+/**
+ * Classe DAO del package Database per la gestione della persistenza dei dati ed il loro retrieval evocando i propri metodi dalle classi del layer Entity
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class PrenotazioneDAO {
 
 	//Variabili membro
@@ -19,7 +28,10 @@ public class PrenotazioneDAO {
 	private CorsoDAO corso;
 	
 	
-	//Costruttore per caricamento da DB attraverso la PK
+	/**
+	 * Costruttore per caricamento da DB attraverso la PK
+	 * @param idPrenotazione
+	 */
 	public PrenotazioneDAO(int idPrenotazione) {
 		
 		this.idPrenotazione = idPrenotazione;
@@ -28,13 +40,17 @@ public class PrenotazioneDAO {
 	}
 	
 	
-	//Costruttore vuoto per inizializzazione
+	/**
+	 * Costruttore vuoto per inizializzazione
+	 */
 	public PrenotazioneDAO() {
 		super();
 	}
 	
 	
-	//Funzione di loading degli attributi del DAO attraverso una query di SELECT
+	/**
+	 * Funzione di loading degli attributi del DAO attraverso una query di SELECT
+	 */
 	public void caricaDaDB() {
 		
 		String query = "SELECT * FROM Prenotazione WHERE idPrenotazione='"+this.idPrenotazione+"';";	
@@ -62,7 +78,9 @@ public class PrenotazioneDAO {
 	}
 	
 	
-	//Funzione di loading del corso a cui si riferisce la prenotazione
+	/**
+	 * Funzione di loading del corso a cui si riferisce la prenotazione
+	 */
 	public void caricaCorsoDaDB() {
 		
 		String query = "SELECT * FROM Corso WHERE codiceCorso =" + this.codiceCorso;
@@ -97,7 +115,9 @@ public class PrenotazioneDAO {
 	}
 	
 	
-	//Funzione di loading del cliente a cui si riferisce la prenotazione
+	/**
+	 * Funzione di loading del cliente a cui si riferisce la prenotazione
+	 */
 	public void caricaClienteDaDB() {
 		
 		String query = "SELECT * FROM ClienteIscritto WHERE codiceCliente = '" + this.codiceCliente+"';";
@@ -132,7 +152,10 @@ public class PrenotazioneDAO {
 	}
 	
 	
-	//Funzione di utility per incrementare automaticamente il counter delle prenotazioni
+	/**
+	 * Funzione di utility per incrementare automaticamente il counter delle prenotazioni
+	 * @return id massimo (da incrementare)
+	 */
 	public int prelevaIdMassimo() {
 		
 		//Inizializzo il massimo a -1.
@@ -162,7 +185,15 @@ public class PrenotazioneDAO {
 	}
 	
 	
-	//Metodo di CREATE del CRUD 
+	/**
+	 * Metodo di CREATE del CRUD 
+	 * @param idPrenotazione
+	 * @param dataPrenotazione
+	 * @param codiceCliente
+	 * @param email
+	 * @param codiceCorso
+	 * @return esito
+	 */
 	public int salvaSuDB(int idPrenotazione, String dataPrenotazione, String codiceCliente, String email, int codiceCorso) {
 		
 		//Variabile per il risultato della query
@@ -204,58 +235,114 @@ public class PrenotazioneDAO {
 	
 	
 	//GETTERS AND SETTERS
+	
+	/**
+	 * Getter
+	 * @return idPrenotazione
+	 */
 	public int getIdPrenotazione() {
 		return idPrenotazione;
 	}
 
+	/**
+	 * Setter
+	 * @param idPrenotazione
+	 */
 	public void setIdPrenotazione(int idPrenotazione) {
 		this.idPrenotazione = idPrenotazione;
 	}
 
+	/**
+	 * Getter
+	 * @return dataPrenotazione
+	 */
 	public String getDataPrenotazione() {
 		return dataPrenotazione;
 	}
 
+	/**
+	 * Setter
+	 * @param dataPrenotazione
+	 */
 	public void setDataPrenotazione(String dataPrenotazione) {
 		this.dataPrenotazione = dataPrenotazione;
 	}
 
+	/**
+	 * Getter
+	 * @return codiceCliente
+	 */
 	public String getCodiceCliente() {
 		return codiceCliente;
 	}
 
+	/**
+	 * Setter
+	 */
 	public void setCodiceCliente(String codiceCliente) {
 		this.codiceCliente = codiceCliente;
 	}
 
+	/**
+	 * Getter 
+	 * @return codiceCorso
+	 */
 	public int getCodiceCorso() {
 		return codiceCorso;
 	}
 
+	/**
+	 * Setter
+	 * @param codiceCorso
+	 */
 	public void setCodiceCorso(int codiceCorso) {
 		this.codiceCorso = codiceCorso;
 	}
 
+	/**
+	 * Getter
+	 * @return emailCliente
+	 */
 	public String getEmailCliente() {
 		return emailCliente;
 	}
 
+	/**
+	 * Setter
+	 * @param emailCliente
+	 */
 	public void setEmailCliente(String emailCliente) {
 		this.emailCliente = emailCliente;
 	}
 
+	/**
+	 * Getter
+	 * @return cliente
+	 */
 	public ClienteIscrittoDAO getCliente() {
 		return cliente;
 	}
 
+	/**
+	 * Setter
+	 * @param cliente
+	 */
 	public void setCliente(ClienteIscrittoDAO cliente) {
 		this.cliente = cliente;
 	}
 
+	/**
+	 * Getter
+	 * @return corso
+	 */
 	public CorsoDAO getCorso() {
 		return corso;
 	}
 
+	/**
+	 * Setter
+	 * @param corso
+	 */
 	public void setCorso(CorsoDAO corso) {
 		this.corso = corso;
 	}

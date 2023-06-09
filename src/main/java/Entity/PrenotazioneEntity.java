@@ -6,6 +6,15 @@ import Database.ClienteIscrittoDAO;
 import Database.CorsoDAO;
 import Database.PrenotazioneDAO;
 
+/**
+ * Classe del package Entity che rappresenta l'oggetto del mondo reale definendone il comportamento e l'implementazione vera e propria dei metodi
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class PrenotazioneEntity {
 
 	private int idPrenotazione;
@@ -16,7 +25,12 @@ public class PrenotazioneEntity {
 	private ClienteIscrittoEntity cliente;
 	private CorsoEntity corso;
 	
-	//Costruttore che permette di CREARE una prenotazione passando le PK del corso e del cliente
+	/**
+	 * Costruttore che permette di CREARE una prenotazione passando le PK del corso e del cliente
+	 * @param cl
+	 * @param cr
+	 * @throws NullPointerException
+	 */
 	public PrenotazioneEntity(ClienteIscrittoEntity cl , CorsoEntity cr) throws NullPointerException {
 
 		
@@ -43,13 +57,18 @@ public class PrenotazioneEntity {
 
 	}
 	
-	//Costruttore vuoto
+	/**
+	 * Costruttore vuoto
+	 */
 	public PrenotazioneEntity() {
 		super();
 	}
 	
 	
-	//Costruttore per CARICAMENTO da classe DAO attraverso la PK
+	/**
+	 * Costruttore per CARICAMENTO da classe DAO attraverso la PK
+	 * @param idPren
+	 */
 	public PrenotazioneEntity(int idPren) {
 		
 		PrenotazioneDAO pren = new PrenotazioneDAO(idPren);		
@@ -70,7 +89,10 @@ public class PrenotazioneEntity {
 	}
 	
 	
-	//Costruttore per caricamento da un'istanza della classe DAO
+	/**
+	 * Costruttore per caricamento da un'istanza della classe DAO
+	 * @param pren
+	 */
 	public PrenotazioneEntity(PrenotazioneDAO pren) {
 		
 		this.idPrenotazione = pren.getIdPrenotazione();
@@ -90,7 +112,10 @@ public class PrenotazioneEntity {
 	}
 
 	
-	//Metodo scrivi su db
+	/**
+	 * Metodo per rendere persistente il salvataggio di una prenotazione
+	 * @return 
+	 */
 	public int scriviSuDB() {
 		
 		//Inizializzo un oggetto DAO per accedere ai suoi metodi
@@ -115,7 +140,10 @@ public class PrenotazioneEntity {
 	}
 		
 	
-	//Funzione di loading del cliente
+	/**
+	 * Funzione di loading del cliente
+	 * @param pren
+	 */
 	public void caricaCliente(PrenotazioneDAO pren) {
 		
 		ClienteIscrittoEntity cl = new ClienteIscrittoEntity(pren.getCliente());
@@ -123,7 +151,10 @@ public class PrenotazioneEntity {
 		
 	}
 	
-	//Funzione di loading del corso
+	/**
+	 * Funzione di loading del corso
+	 * @param pren
+	 */
 	public void caricaCorso(PrenotazioneDAO pren ) {
 		
 		CorsoEntity cr = new CorsoEntity(pren.getCorso());
@@ -132,31 +163,60 @@ public class PrenotazioneEntity {
 	}
 
 
-	//GETTERS AND SETTERS
+	//GETTERS 
+	
+	/**
+	 * Getter
+	 * @return idPrenotazione
+	 */
 	public int getIdPrenotazione() {
 		return idPrenotazione;
 	}
 
+	/**
+	 * Getter
+	 * @return dataPrenotazione
+	 */
 	public String getDataPrenotazione() {
 		return dataPrenotazione;
 	}
 
+	/**
+	 * Getter
+	 * @return codiceCliente
+	 */
 	public String getCodiceCliente() {
 		return codiceCliente;
 	}
 
+	/**
+	 * Getter
+	 * @return codiceCorso
+	 */
 	public int getCodiceCorso() {
 		return codiceCorso;
 	}
 
+	/**
+	 * Getter
+	 * @return emailCliente
+	 */
 	public String getEmailCliente() {
 		return emailCliente;
 	}
 
+	/**
+	 * Getter
+	 * @return cliente
+	 */
 	public ClienteIscrittoEntity getCliente() {
 		return cliente;
 	}
 
+	/**
+	 * Getter
+	 * @return corso
+	 */
 	public CorsoEntity getCorso() {
 		return corso;
 	}

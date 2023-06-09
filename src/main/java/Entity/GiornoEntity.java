@@ -4,6 +4,15 @@ import java.util.ArrayList;
 
 import Database.GiornoDAO;
 
+/**
+ * Classe del package Entity che rappresenta l'oggetto del mondo reale definendone il comportamento e l'implementazione vera e propria dei metodi
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class GiornoEntity {
 	
 	//Variabili membro.
@@ -13,7 +22,10 @@ public class GiornoEntity {
 	ArrayList<CorsoEntity> corsi;
 	
 	
-	//Costruttore per caricamento da classe DAO attraverso la PK
+	/**
+	 * Costruttore per caricamento da classe DAO attraverso la PK
+	 * @param nomeGiorno
+	 */
 	public GiornoEntity(String nomeGiorno) {
 	
 		GiornoDAO giorno=new GiornoDAO(nomeGiorno);
@@ -29,7 +41,10 @@ public class GiornoEntity {
 	}
 	
 	
-	//Costruttore per caricamento da un'istanza della classe DAO
+	/**
+	 * Costruttore per caricamento da un'istanza della classe DAO
+	 * @param giorno
+	 */
 	public GiornoEntity(GiornoDAO giorno) {
 		
 		this.nomeGiorno=giorno.getNomeGiorno();
@@ -44,14 +59,22 @@ public class GiornoEntity {
 	}
 	
 	
-	//Costruttore vuoto - inizializza l'array di corsi
+	/**
+	 * Costruttore vuoto - inizializza l'array di corsi
+	 */
 	public GiornoEntity() {
 		super();
 		this.corsi=new ArrayList<CorsoEntity>();	
 	}
 	
 	
-	//Metodo scrivi su db
+	/**
+	 * Metodo per rendere persistente il salvataggio di un corso
+	 * @param nomeGiorno
+	 * @param orarioApertura
+	 * @param orarioChiusura
+	 * @return
+	 */
 	public int scriviSuDB(String nomeGiorno, String orarioApertura, String orarioChiusura) {
 		
 		//Variabile per il risultato della query
@@ -76,7 +99,10 @@ public class GiornoEntity {
 	}
 	
 	
-	//Funzione di loading dei CorsoEntity
+	/**
+	 * Funzione di loading dei CorsoEntity
+	 * @param giorno
+	 */
 	public void caricaCorsi(GiornoDAO giorno) {
 		
 		for(int i=0;i<giorno.getCorsi().size();i++) {
@@ -88,54 +114,115 @@ public class GiornoEntity {
 		
 	}
 	
+	
+	/**
+	 * Metodo che permette di aggiornare gli orari del centro sportivo dato un giorno
+	 * @param nomeGiorno
+	 * @param oraApertura
+	 * @param oraChiusura
+	 * @return esito
+	 */
 	public int aggiornaOrari(String nomeGiorno, String oraApertura, String oraChiusura) {
+		
 		GiornoDAO giornodb = new GiornoDAO();
 		int val=giornodb.updateOrariSuDB(nomeGiorno,oraApertura,oraChiusura);
 		return val;
+		
 	}
 	
+	
+	/**
+	 * Funzione di utility che permette di controllare se, data una PK, esiste un giorno sul DB
+	 * @param giorno
+	 * @return esito
+	 */
 	public int checkGiorno(String giorno) {
+		
 		GiornoDAO giornodb = new GiornoDAO();
 		int val=giornodb.checkGiornoSuDB(giorno);
 		return val;
+		
 	}
 	
+	
+	/**
+	 * Metodo che permette di aggiornare gli inserire del centro sportivo dato un giorno
+	 * @param nomeGiorno
+	 * @param oraApertura
+	 * @param oraChiusura
+	 * @return esito
+	 */
 	public int inserisciOrari(String nomeGiorno, String oraApertura, String oraChiusura) {
+		
 		GiornoDAO giornodb = new GiornoDAO();
 		int ret=giornodb.salvaSuDB(nomeGiorno, oraApertura, oraChiusura);
 		return ret;
+		
 	}
 
 	
 	//GETTERS AND SETTERS
+	
+	/**
+	 * Getter
+	 * @return nomeGiorno
+	 */
 	public String getNomeGiorno() {
 		return nomeGiorno;
 	}
 	
+	/**
+	 * Setter
+	 * @param nomeGiorno
+	 */
 	public void setNomeGiorno(String nomeGiorno) {
 		this.nomeGiorno = nomeGiorno;
 	}
 	
+	/**
+	 * Getter
+	 * @return orarioAperturaCentro
+	 */
 	public String getOrarioAperturaCentro() {
 		return orarioAperturaCentro;
 	}
 	
+	/**
+	 * Setter
+	 * @param orarioAperturaCentro
+	 */
 	public void setOrarioAperturaCentro(String orarioAperturaCentro) {
 		this.orarioAperturaCentro = orarioAperturaCentro;
 	}
 	
+	/**
+	 * Getter
+	 * @return orarioChiusuraCentro
+	 */
 	public String getOrarioChiusuraCentro() {
 		return orarioChiusuraCentro;
 	}
 	
+	/**
+	 * Setter
+	 * @param orarioChiusuraCentro
+	 */
 	public void setOrarioChiusuraCentro(String orarioChiusuraCentro) {
 		this.orarioChiusuraCentro = orarioChiusuraCentro;
 	}
 	
+	/**
+	 * Getter 
+	 * @return corsi
+	 */
 	public ArrayList<CorsoEntity> getCorsi() {
 		return corsi;
 	}
 	
+	/**
+	 * Setter
+	 * @param corsi
+	 */
 	public void setCorsi(ArrayList<CorsoEntity> corsi) {
 		this.corsi = corsi;
 	}

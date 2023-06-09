@@ -3,7 +3,15 @@ package Database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+/**
+ * Classe DAO del package Database per la gestione della persistenza dei dati ed il loro retrieval evocando i propri metodi dalle classi del layer Entity
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class AbbonamentoMensileDAO {
 	
 	//Variabili membro.
@@ -14,7 +22,10 @@ public class AbbonamentoMensileDAO {
 	private String nomeMese;
 	
 	
-	//Costruttore per caricamento da DB attraverso la PK
+	/**
+	 * Costruttore per caricamento da DB attraverso la PK
+	 * @param id
+	 */
 	public AbbonamentoMensileDAO(int id) {
 		
 		this.idAbbonamentoMensile = id;
@@ -22,7 +33,9 @@ public class AbbonamentoMensileDAO {
 		
 	}
 	
-	//Costruttore vuoto per inizializzazione
+	/**
+	 * Costruttore vuoto per inizializzazione
+	 */
 	public AbbonamentoMensileDAO() {
 		
 		super();
@@ -30,7 +43,10 @@ public class AbbonamentoMensileDAO {
 	}
 	
 	
-	//Funzione di loading degli attributi del DAO attraverso una query di SELECT
+	/**
+	 * Funzione di loading degli attributi del DAO attraverso una query di SELECT
+	 * @param id
+	 */
 	public void caricaDaDB(int id) {
 		
 		String query = "SELECT * FROM AbbonamentoMensile WHERE idAbbonamentoMensile = '"+this.idAbbonamentoMensile+"';";
@@ -58,7 +74,10 @@ public class AbbonamentoMensileDAO {
 	}
 	
 	
-	//Funzione di utility per incrementare automaticamente il counter degli id degli abbonamenti
+	/**
+	 * Funzione di utility per incrementare automaticamente il counter degli id degli abbonamenti
+	 * @return id massimo (da incrementare)
+	 */
 	public int prelevaIdMassimo() {
 		
 		//Inizializzo il massimo a -1
@@ -85,7 +104,15 @@ public class AbbonamentoMensileDAO {
 	}
 	
 	
-	//Metodo di CREATE del CRUD
+	/**
+	 * Metodo di CREATE del CRUD
+	 * @param id
+	 * @param dataSottoscrizione
+	 * @param dataScadenza
+	 * @param prezzo
+	 * @param nomeMese
+	 * @return esito
+	 */
 	public int salvaSuDB(int id, String dataSottoscrizione, String dataScadenza, int prezzo, String nomeMese){
 		
 		//Variabile per il risultato della query
@@ -112,42 +139,83 @@ public class AbbonamentoMensileDAO {
 
 	
 	//SETTERS AND GETTERS
+	
+	/**
+	 * Getter
+	 * @return idAbbonamentoMensile
+	 */
 	public int getIdAbbonamentoMensile() {
 		return idAbbonamentoMensile;
 	}
 	
+	/**
+	 * Setter
+	 * @param idAbbonamentoMensile
+	 */
 	public void setIdAbbonamentoMensile(int idAbbonamentoMensile) {
 		this.idAbbonamentoMensile = idAbbonamentoMensile;
 	}
 	
+	/**
+	 * Getter
+	 * @return dataSottoscrizione
+	 */
 	public String getDataSottoscrizione() {
 		return dataSottoscrizione;
 	}
 	
+	/**
+	 * Setter
+	 * @param dataSottoscrizione
+	 */
 	public void setDataSottoscrizione(String dataSottoscrizione) {
 		this.dataSottoscrizione = dataSottoscrizione;
 	}
 	
+	/**
+	 * Getter
+	 * @return dataScadenza
+	 */
 	public String getDataScadenza() {
 		return dataScadenza;
 	}
 	
+	/**
+	 * Setter
+	 * @param dataScadenza
+	 */
 	public void setDataScadenza(String dataScadenza) {
 		this.dataScadenza = dataScadenza;
 	}
 	
+	/**
+	 * Getter
+	 * @return nomeMese
+	 */
 	public String getNomeMese() {
 		return nomeMese;
 	}
 	
+	/**
+	 * Setter
+	 * @param nomeMese
+	 */
 	public void setNomeMese(String nomeMese) {
 		this.nomeMese = nomeMese;
 	}
 	
+	/**
+	 * Getter
+	 * @return prezzo
+	 */
 	public int getPrezzo() {
 		return prezzo;
 	}
 
+	/**
+	 * Setter
+	 * @param prezzo
+	 */
 	public void setPrezzo(int prezzo) {
 		this.prezzo = prezzo;
 	}

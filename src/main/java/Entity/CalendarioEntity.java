@@ -4,6 +4,15 @@ import java.util.ArrayList;
 import Database.CalendarioDAO;
 import Database.GiornoDAO;
 
+/**
+ * Classe Singleton del package Entity che rappresenta l'oggetto del mondo reale definendone il comportamento e l'implementazione vera e propria dei metodi
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class CalendarioEntity {
 
     //Variabili membro.
@@ -11,7 +20,9 @@ public class CalendarioEntity {
     private static ArrayList<GiornoEntity> giorni;
     
     
-    //Costruttore vuoto - recupera tutte le informazioni dei giorni
+    /**
+     * Costruttore vuoto - recupera tutte le informazioni dei giorni dal DAO
+     */
     private CalendarioEntity() {
         
     	//Inizializzo l'array di giorni
@@ -32,7 +43,10 @@ public class CalendarioEntity {
     }
     
     
-    //Metodo getInstance per implementare il pattern Singleton - crea il Singleton se l'istanza è null oppure la ritorna
+    /**
+     * Metodo getInstance per implementare il pattern Singleton - crea il Singleton se l'istanza è null oppure la ritorna
+     * @return uniqueInstance
+     */
     public static CalendarioEntity getInstance() {
         
         if (uniqueInstance == null) {
@@ -46,7 +60,11 @@ public class CalendarioEntity {
     }
     
     
-    //Metodo per la ricerca del giorno all'interno del calendario
+    /**
+     * Metodo per la ricerca del giorno all'interno del calendario
+     * @param nomeGiorno
+     * @return giorno
+     */
     public GiornoEntity cercaGiorno(String nomeGiorno) {
         
         GiornoEntity giorno = new GiornoEntity();
@@ -68,11 +86,19 @@ public class CalendarioEntity {
 
     
     //GETTERS AND SETTERS
-
+    
+    /**
+     * Getter
+     * @return giorni
+     */
     public static ArrayList<GiornoEntity> getGiorni() {
         return giorni;
     }
 
+    /**
+     * Setter
+     * @param giorni
+     */
     public static void setGiorni(ArrayList<GiornoEntity> giorni) {
         CalendarioEntity.giorni = giorni;
     }

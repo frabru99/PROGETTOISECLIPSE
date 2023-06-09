@@ -10,31 +10,27 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
+/**
+ * 
+ * Classe del package Boundary che permette al cliente di scegliere se abbonarsi o effettuare la prenotazione
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ */
+
 public class HomePage extends JFrame {
 
 	private JPanel contentPane;
 	private String codCliente;
 	private String email;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					MainPage frame = new MainPage();
-//					frame.setVisible(false);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
-	 * Create the frame.
+	 * Costruttore del frame
 	 */
+	
 	public HomePage(String codiceCliente, String email) {
 		setResizable(false);
 		
@@ -69,10 +65,9 @@ public class HomePage extends JFrame {
 		btnAbbonati.setFont(new Font("Calibri", Font.BOLD, 16));
 		btnAbbonati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//creare vista abbonamenti SEGUENDO IL SEQUENCE DIAGRAM
-				
+								
 				new VistaAbbonamenti(codiceCliente, email).setVisible(true);
+				
 			}
 		});
 		btnAbbonati.setBounds(82, 163, 352, 72);

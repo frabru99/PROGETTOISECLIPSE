@@ -16,6 +16,16 @@ import java.sql.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 
+/**
+ * Classe del package Boundary che permette ad un utente di abbonarsi
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
+
 public class VistaAbbonamenti extends JFrame {
 
 	private JPanel contentPane;
@@ -30,24 +40,7 @@ public class VistaAbbonamenti extends JFrame {
 	private String dataScadenza;
 
 	/**
-	 * Launch the application.
-	 */
-	//MESSO FRAME VISIBILE SOLO PER PROVARE BISOGNA CAMBIARLO
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					VistaAbbonamenti frame = new VistaAbbonamenti("Cliente_1","puppa@gmail.com");
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the frame.
+	 * Costruttore del frame
 	 */
 	public VistaAbbonamenti(String cod, String email) {
 		

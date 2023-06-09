@@ -5,6 +5,15 @@ import java.util.ArrayList;
 import Database.CorsoDAO;
 import Database.GiornoDAO;
 
+/**
+ * Classe del package Entity che rappresenta l'oggetto del mondo reale definendone il comportamento e l'implementazione vera e propria dei metodi
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class CorsoEntity {
 
 	//Variabili membro.
@@ -18,7 +27,9 @@ public class CorsoEntity {
 	private SalaperCorsiEntity salaCorso;
 	
 	
-	//Costruttore vuoto
+	/**
+	 * Costruttore vuoto
+	 */
 	public CorsoEntity() {
 		
 		super();
@@ -26,7 +37,10 @@ public class CorsoEntity {
 	}
 	
 	
-	//Costruttore per caricamento da classe DAO attraverso la PK
+	/**
+	 * Costruttore per caricamento da classe DAO attraverso la PK
+	 * @param codiceCorso
+	 */
 	public CorsoEntity(int codiceCorso) {
 		
 		CorsoDAO corso=new CorsoDAO(codiceCorso);
@@ -45,7 +59,10 @@ public class CorsoEntity {
 	}
 	
 	
-	//Costruttore per caricamento da un'istanza della classe DAO
+	/**
+	 * Costruttore per caricamento da un'istanza della classe DAO
+	 * @param corso
+	 */
 	public CorsoEntity(CorsoDAO corso) {
 			
         this.codiceCorso=corso.getCodiceCorso();
@@ -63,7 +80,9 @@ public class CorsoEntity {
 	}
 	
 	
-	//Funzione che permette di decrementare i posti disponibili di un corso
+	/**
+	 * Funzione che permette di decrementare i posti disponibili di un corso
+	 */
 	public void decrementaPostiDisponibili() {
 		
 		this.postiDisponibili--;
@@ -75,7 +94,16 @@ public class CorsoEntity {
 	}
 	
 	
-	//Metodo scrivi su db
+	/**
+	 * Metodo per rendere persistente il salvataggio di un corso
+	 * @param nomeCorso
+	 * @param istruttore
+	 * @param oraInizio
+	 * @param durataCorso
+	 * @param postiDisp
+	 * @param idSalaperCorsi
+	 * @return esito
+	 */
 	public int scriviSuDB(String nomeCorso, String istruttore, String oraInizio, String durataCorso, int postiDisp ,int idSalaperCorsi) {
 		
 		//Variabile per il risultato della query
@@ -108,7 +136,10 @@ public class CorsoEntity {
 	}
 	
 	
-	//Funzione di loading della SalaperCorsi
+	/**
+	 * Funzione di loading della SalaperCorsi
+	 * @param corso
+	 */
 	public void caricaSalaperCorsi(CorsoDAO corso) {
 		
 		SalaperCorsiEntity sala = new SalaperCorsiEntity(corso.getSalaCorso());
@@ -117,7 +148,11 @@ public class CorsoEntity {
 	}
 	
 	
-	//Funzione di utility che permette di controllare se data una chiave, esiste quel corso sul DB ed ha disponibilità di posti
+	/**
+	 * Funzione di utility che permette di controllare se data una chiave, esiste quel corso sul DB ed ha disponibilità di posti
+	 * @param idCorso
+	 * @return disponibilità
+	 */
 	public int checkDisponibilitaCorso(int idCorso) {
 		
 		CorsoDAO corso = new CorsoDAO();
@@ -128,66 +163,131 @@ public class CorsoEntity {
 	
 	
 	//GETTERS AND SETTERS
+	
+	/**
+	 * Getter
+	 * @return postiDisponibili
+	 */
 	public int getPostiDisponibili() {
 		return postiDisponibili;
 	}
 
+	/**
+	 * Setter
+	 * @param postiDisponibili
+	 */
 	public void setPostiDisponibili(int postiDisponibili) {
 		this.postiDisponibili = postiDisponibili;
 	}
 
+	/**
+	 * Getter
+	 * @return
+	 */
 	public int getCodiceCorso() {
 		return codiceCorso;
 	}
 	
+	/**
+	 * Setter
+	 * @param codiceCorso
+	 */
 	public void setCodiceCorso(int codiceCorso) {
 		this.codiceCorso = codiceCorso;
 	}
 	
+	/**
+	 * Getter
+	 * @return nomeCorso
+	 */
 	public String getNomeCorso() {
 		return nomeCorso;
 	}
 	
+	/**
+	 * Setter
+	 * @param nomeCorso
+	 */
 	public void setNomeCorso(String nomeCorso) {
 		this.nomeCorso = nomeCorso;
 	}
 	
+	/**
+	 * Getter
+	 * @return
+	 */
 	public String getIstruttore() {
 		return istruttore;
 	}
 	
+	/**
+	 * Setter
+	 * @param istruttore
+	 */
 	public void setIstruttore(String istruttore) {
 		this.istruttore = istruttore;
 	}
 	
+	/**
+	 * Getter
+	 * @return oraInizio
+	 */
 	public String getOraInizio() {
 		return oraInizio;
 	}
 	
+	/**
+	 * Setter
+	 * @param oraInizio
+	 */
 	public void setOraInizio(String oraInizio) {
 		this.oraInizio = oraInizio;
 	}
 	
+	/**
+	 * Getter
+	 * @return durataCorso
+	 */
 	public String getDurataCorso() {
 		return durataCorso;
 	}
 	
+	/**
+	 * Setter
+	 * @param durataCorso
+	 */
 	public void setDurataCorso(String durataCorso) {
 		this.durataCorso = durataCorso;
 	}
 	
+	/**
+	 * Getter 
+	 * @return
+	 */
 	public int getIdSalaperCorsi() {
 		return idSalaperCorsi;
 	}
 	
+	/**
+	 * Setter
+	 * @param idSalaperCorsi
+	 */
 	public void setIdSalaperCorsi(int idSalaperCorsi) {
 		this.idSalaperCorsi = idSalaperCorsi;
 	}
 	
+	/**
+	 * Getter
+	 * @return salaCorso
+	 */
 	public SalaperCorsiEntity getSalaCorso() {
 		return salaCorso;
 	}
 
+	/**
+	 * Setter
+	 * @param salaCorso
+	 */
 	public void setSalaCorso(SalaperCorsiEntity salaCorso) {
 		this.salaCorso = salaCorso;
 	}

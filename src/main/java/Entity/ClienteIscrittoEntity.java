@@ -8,6 +8,15 @@ import Database.ClienteIscrittoDAO;
 import Database.CorsoDAO;
 import Database.PrenotazioneDAO;
 
+/**
+ * Classe del package Entity che rappresenta l'oggetto del mondo reale definendone il comportamento e l'implementazione vera e propria dei metodi
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class ClienteIscrittoEntity {
 	
 	//Variabili membro.
@@ -21,14 +30,19 @@ public class ClienteIscrittoEntity {
 	private AbbonamentoAnnualeEntity abbonamentoAnnuale;
 	
 	
-	//Costruttore vuoto
+	/**
+	 * Costruttore vuoto
+	 */
 	public ClienteIscrittoEntity() {
 		
 		super();
 		
 	}
 	
-	//Costruttore per caricamento da un'istanza della classe DAO
+	/**
+	 * Costruttore per caricamento da un'istanza della classe DAO
+	 * @param cdao
+	 */
 	public ClienteIscrittoEntity(ClienteIscrittoDAO	cdao) {
 		
 		this.codiceCliente = cdao.getCodiceCliente();
@@ -45,7 +59,10 @@ public class ClienteIscrittoEntity {
 	}
 	
 	
-	//Costruttore per caricamento da classe DAO attraverso la PK
+	/**
+	 * Costruttore per caricamento da classe DAO attraverso la PK
+	 * @param codiceCliente
+	 */
 	public ClienteIscrittoEntity(String codiceCliente) {
 		
 		ClienteIscrittoDAO cdao = new ClienteIscrittoDAO(codiceCliente);
@@ -63,7 +80,10 @@ public class ClienteIscrittoEntity {
 	}
 	
 	
-	//Funzione di loading degli abbonamenti del cliente SE ESISTONO.
+	/**
+	 * Funzione di loading degli abbonamenti del cliente SE ESISTONO.
+	 * @param cdao
+	 */
 	public void caricaAbbonamento(ClienteIscrittoDAO cdao) {
 			
 			AbbonamentoAnnualeEntity abbann = new AbbonamentoAnnualeEntity(cdao.getAbbonamentoAnnuale());
@@ -74,7 +94,13 @@ public class ClienteIscrittoEntity {
 	}
 	
 	
-	//Metodo scrivi su db
+	/**
+	 * Metodo per rendere persistente il salvataggio di un cliente 
+	 * @param nome
+	 * @param cognome
+	 * @param email
+	 * @return esito
+	 */
 	public int scriviSuDB(String nome, String cognome, String email){
 		
 		//Variabile per il risultato della query
@@ -108,147 +134,242 @@ public class ClienteIscrittoEntity {
 	}
 	
 	
-	//Metodo chiamato dal controller in seguito ad una richiesta di creazione di prenotazione
-		public int controllerScriviPrenotazioneSuDB(int idCorso) {
-			
-			//Inizializzo un oggetto DAO per accedere ai suoi metodi
-			PrenotazioneDAO pdao = new PrenotazioneDAO();
-			
-			//Setto l'id chiamando il metodo prelevaIdMassimo
-			int idpren = pdao.prelevaIdMassimo()+1;
-			
-			//Setto la data alla data odierna, e chiamo il metodo toString
-			Date dataod = new java.sql.Date(System.currentTimeMillis());
-			String data= dataod.toString();
-			
-			//Chiamo il metodo dell'oggetto DAO per scrivere sul DB
-			int val = pdao.salvaSuDB(idpren, data, this.codiceCliente, this.email, idCorso);
+	/**
+	 * Metodo chiamato dal controller in seguito ad una richiesta di creazione di prenotazione per un corso
+	 * @param idCorso
+	 * @return esito
+	 */
+	public int controllerScriviPrenotazioneSuDB(int idCorso) {
 		
-			return val;
+		//Inizializzo un oggetto DAO per accedere ai suoi metodi
+		PrenotazioneDAO pdao = new PrenotazioneDAO();
+		
+		//Setto l'id chiamando il metodo prelevaIdMassimo
+		int idpren = pdao.prelevaIdMassimo()+1;
+		
+		//Setto la data alla data odierna, e chiamo il metodo toString
+		Date dataod = new java.sql.Date(System.currentTimeMillis());
+		String data= dataod.toString();
+		
+		//Chiamo il metodo dell'oggetto DAO per scrivere sul DB
+		int val = pdao.salvaSuDB(idpren, data, this.codiceCliente, this.email, idCorso);
+	
+		return val;
+		
+	}
+	
+	
+	/**
+	 * Metodo che aggiorna le informazioni sull'abbonamento mensile del cliente dopo una sottoscrizione
+	 * @param nomeMese
+	 * @param dataSottoscrizione
+	 * @param dataScadenza
+	 * @return esito
+	 */
+	public int sottoscriviAbbonamentoMensile(String nomeMese, String dataSottoscrizione, String dataScadenza) {
+	
+		//Salvo sul database l'abbonamento
+		int ret=this.abbonamentoMensile.scriviSuDB(nomeMese, dataSottoscrizione, dataScadenza);
+		
+		//Se il salvataggio va a buon fine, aggiorno le informazioni del cliente
+		if (ret!=-1) {
+			
+			ClienteIscrittoDAO cliente=new ClienteIscrittoDAO(this.codiceCliente);
+			System.out.println(this.abbonamentoMensile.getIdAbbonamentoMensile());
+			ret=cliente.updateAbbonamentoMensileSuDB(this.abbonamentoMensile.getIdAbbonamentoMensile());
+			
 			
 		}
 		
-		public int sottoscriviAbbonamentoMensile(String nomeMese, String dataSottoscrizione, String dataScadenza) {
+		return ret;
+	}
+	
+	
+	/**
+	 * Metodo che aggiorna le informazioni sull'abbonamento annuale del cliente dopo una sottoscrizione
+	 * @param nomeMese
+	 * @param dataSottoscrizione
+	 * @param dataScadenza
+	 * @return esito
+	 */
+	public int sottoscriviAbbonamentoAnnuale(String dataSottoscrizione, String dataScadenza) {
 		
-			int ret=this.abbonamentoMensile.scriviSuDB(nomeMese, dataSottoscrizione, dataScadenza);
-			
-			//se l'inserimento va a buon fine devo aggiornare anche il cliente
-			if (ret!=-1) {
-				
-				ClienteIscrittoDAO cliente=new ClienteIscrittoDAO(this.codiceCliente);
-				System.out.println(this.abbonamentoMensile.getIdAbbonamentoMensile());
-				ret=cliente.updateAbbonamentoMensileSuDB(this.abbonamentoMensile.getIdAbbonamentoMensile());
-				
-				
-			}
-			
-			return ret;
-		}
+		//Salvo sul database l'abbonamento
+		int ret=this.abbonamentoAnnuale.scriviSuDB(dataSottoscrizione,dataScadenza);
 		
-		public int sottoscriviAbbonamentoAnnuale(String dataSottoscrizione, String dataScadenza) {
+		//Se il salvataggio va a buon fine, aggiorno le informazioni del cliente
+		if (ret!=-1) {
 			
-			int ret=this.abbonamentoAnnuale.scriviSuDB(dataSottoscrizione,dataScadenza);
-			
-			//se l'inserimento va a buon fine devo aggiornare anche il cliente
-			if (ret!=-1) {
-				
-				ClienteIscrittoDAO cliente=new ClienteIscrittoDAO(this.codiceCliente);
-				ret=cliente.updateAbbonamentoAnnualeSuDB(this.abbonamentoAnnuale.getIdAbbonamentoAnnuale());
-				
-			}
-			
-			return ret;
-		}
-		
-		
-		//Funzionalità DUMMY che permette di settare una data di sospensione e una data di ripresa all'abbonamento annuale
-		public int sospendiAbbonamentoAnnuale(String sospensione, String ripresa) { 
-			
-			System.out.println("[CLIENTE-ISCRITTO-ENTITY] Settata data di sospensione dell'abbonamento a "+sospensione+" e ripresa a "+ripresa);
-			return 0;
+			ClienteIscrittoDAO cliente=new ClienteIscrittoDAO(this.codiceCliente);
+			ret=cliente.updateAbbonamentoAnnualeSuDB(this.abbonamentoAnnuale.getIdAbbonamentoAnnuale());
 			
 		}
 		
+		return ret;
+	}
+	
+	
+	/**
+	 * Funzionalità DUMMY che permette di settare una data di sospensione e una data di ripresa all'abbonamento annuale
+	 * @param sospensione
+	 * @param ripresa
+	 * @return esito
+	 */
+	public int sospendiAbbonamentoAnnuale(String sospensione, String ripresa) { 
 		
-		//Funzione di utility che controlla se il cliente è un abbonato mensile o annuale
-		public int AccessoAlCentro() {
+		System.out.println("[CLIENTE-ISCRITTO-ENTITY] Settata data di sospensione dell'abbonamento a "+sospensione+" e ripresa a "+ripresa);
+		return 0;
+		
+	}
+	
+	
+	/**
+	 * Funzione di utility che controlla se il cliente dispone di un abbonamento mensile o annuale
+	 * @return permessi cliente
+	 */
+	public int AccessoAlCentro() {
+		
+		if (this.idAbbonamentoAnnuale != 0) {
 			
-			if (this.idAbbonamentoAnnuale != 0) {
-				
-				return 1;
-				
-			} else if (this.idAbbonamentoMensile!= 0) {
-				
-				return 2;
-				
-			}
+			return 1;
 			
-			return 0;
+		} else if (this.idAbbonamentoMensile!= 0) {
+			
+			return 2;
 			
 		}
+		
+		return 0;
+		
+	}
 	
 	
 	//GETTERS AND SETTERS
+	
+	/**
+	 * Getter
+	 * @return codiceCliente
+	 */
 	public String getCodiceCliente() {
 		return codiceCliente;
 	}
 
+	/**
+	 * Setter
+	 * @param codiceCliente
+	 */
 	public void setCodiceCliente(String codiceCliente) {
 		this.codiceCliente = codiceCliente;
 	}
 
+	/**
+	 * Getter
+	 * @return nome
+	 */
 	public String getNome() {
 		return nome;
 	}
 
+	/**
+	 * Setter
+	 * @param nome
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
+	/**
+	 * Getter
+	 * @return cognome
+	 */
 	public String getCognome() {
 		return cognome;
 	}
 
+	/**
+	 * Setter
+	 * @param cognome
+	 */
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
 
+	/**
+	 * Getter
+	 * @return email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Setter
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * Getter
+	 * @return idAbbonamentoMensile
+	 */
 	public int getIdAbbonamentoMensile() {
 		return idAbbonamentoMensile;
 	}
 
+	/**
+	 * Setter
+	 * @param idAbbonamentoMensile
+	 */
 	public void setIdAbbonamentoMensile(int idAbbonamentoMensile) {
 		this.idAbbonamentoMensile = idAbbonamentoMensile;
 	}
 
+	/**
+	 * Getter
+	 * @return idAbbonamentoAnnuale
+	 */
 	public int getIdAbbonamentoAnnuale() {
 		return idAbbonamentoAnnuale;
 	}
 
+	/**
+	 * Setter
+	 * @param idAbbonamentoAnnuale
+	 */
 	public void setIdAbbonamentoAnnuale(int idAbbonamentoAnnuale) {
 		this.idAbbonamentoAnnuale = idAbbonamentoAnnuale;
 	}
 
+	/**
+	 * Getter
+	 * @return abbonamentoMensile
+	 */
 	public AbbonamentoMensileEntity getAbbonamentoMensile() {
 		return abbonamentoMensile;
 	}
 
+	/**
+	 * Setter
+	 * @param abbonamentoMensile
+	 */
 	public void setAbbonamentoMensile(AbbonamentoMensileEntity abbonamentoMensile) {
 		this.abbonamentoMensile = abbonamentoMensile;
 	}
 
+	/**
+	 * Getter
+	 * @return abbonamentoAnnuale
+	 */
 	public AbbonamentoAnnualeEntity getAbbonamentoAnnuale() {
 		return abbonamentoAnnuale;
 	}
 
+	/**
+	 * Setter
+	 * @param abbonamentoAnnuale
+	 */
 	public void setAbbonamentoAnnuale(AbbonamentoAnnualeEntity abbonamentoAnnuale) {
 		this.abbonamentoAnnuale = abbonamentoAnnuale;
 	}

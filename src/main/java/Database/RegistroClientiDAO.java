@@ -4,13 +4,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Classe DAO del package Database per la gestione della persistenza dei dati ed il loro retrieval evocando i propri metodi dalle classi del layer Entity
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class RegistroClientiDAO {
     
 	//Variabili membro.
     private ArrayList<ClienteIscrittoDAO> clienti;
     
     
-    //Costruttore vuoto per inizializzazione
+    /**
+     * Costruttore vuoto per inizializzazione
+     */
     public RegistroClientiDAO() {
         
         clienti = new ArrayList<ClienteIscrittoDAO>();
@@ -19,7 +30,9 @@ public class RegistroClientiDAO {
     }
     
     
-    //Funzione di loading degli attributi del DAO attraverso una query di SELECT
+    /**
+     * Funzione di loading degli attributi del DAO attraverso una query di SELECT
+     */
     private void caricaDaDB() {
         
         //Carico tutti i clienti
@@ -46,10 +59,19 @@ public class RegistroClientiDAO {
 
     
     //GETTERS AND SETTERS
+    
+    /**
+     * Setter
+     * @param clienti
+     */
     public void setClienti(ArrayList<ClienteIscrittoDAO> clienti) {
         this.clienti = clienti;
     }
 
+    /**
+     * Getter
+     * @return clienti
+     */
     public ArrayList<ClienteIscrittoDAO> getClienti() {
         // TODO Auto-generated method stub
         return clienti;
