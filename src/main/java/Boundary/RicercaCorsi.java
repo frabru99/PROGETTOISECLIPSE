@@ -388,12 +388,5 @@ public class RicercaCorsi extends JFrame {
 		
 }
 	
-	//Funzione di utilità per cambiare pannello
-	public void passaAlPannello() {
-		remove(this.getContentPane());
-		//this.getContentPane().add(pannelloCorsiDisponibili);
-		this.pack();
-		this.setVisible(true);
-		validate();
-	}
+
 }
