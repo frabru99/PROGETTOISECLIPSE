@@ -7,6 +7,15 @@ import Database.CentroSportivoDAO;
 import Database.GiornoDAO;
 import Database.SalaperCorsiDAO;
 
+/**
+ * Classe Singleton del package Entity che rappresenta l'oggetto del mondo reale definendone il comportamento e l'implementazione vera e propria dei metodi
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class CentroSportivoEntity {
 	
 	//Variabili membro.
@@ -16,7 +25,9 @@ public class CentroSportivoEntity {
 	private static ArrayList<SalaperCorsiEntity> sale;
 	
 	
-	//Costruttore vuoto - recupera il registroClienti ed il calendario
+	/**
+	 * Costruttore vuoto - recupera il registroClienti ed il calendario
+	 */
 	private CentroSportivoEntity() {
         
 		registro=RegistroClientiEntity.getInstance();
@@ -38,7 +49,10 @@ public class CentroSportivoEntity {
     }
 
 	
-	//Metodo getInstance per implementare il pattern Singleton - crea il Singleton se l'istanza è null oppure la ritorna
+	/**
+	 * Metodo getInstance per implementare il pattern Singleton - crea il Singleton se l'istanza è null oppure la ritorna
+	 * @return uniqueInstance
+	 */
 	public static CentroSportivoEntity getInstance() {
 	
 		 if (uniqueInstance == null) {
@@ -52,7 +66,11 @@ public class CentroSportivoEntity {
 	}
 	
 	
-	//Metodo per la ricerca dei corsi disponibili all'interno 
+	/**
+	 * Metodo per la ricerca dei corsi con disponibilità di posti dato un giorno
+	 * @param nomeGiorno
+	 * @return corsi con disponibilità
+	 */
 	public ArrayList<CorsoEntity> ricercaCorsiConDisponibilita(String nomeGiorno){
 		
 		//Recupero dal calendario i giorni, al fine di recuperarne successivamente i corsi
@@ -93,26 +111,51 @@ public class CentroSportivoEntity {
 
 	
 	//GETTERS AND SETTERS
+	
+	/**
+	 * Getter
+	 * @return registro clienti
+	 */
 	public static RegistroClientiEntity getRegistro() {
 		return registro;
 	}
 
+	/**
+	 * Setter
+	 * @param registro
+	 */
 	public static void setRegistro(RegistroClientiEntity registro) {
 		CentroSportivoEntity.registro = registro;
 	}
 
+	/**
+	 * Getter
+	 * @return calendario
+	 */
 	public static CalendarioEntity getCalendario() {
 		return calendario;
 	}
 
+	/**
+	 * Setter
+	 * @param calendario
+	 */
 	public static void setCalendario(CalendarioEntity calendario) {
 		CentroSportivoEntity.calendario = calendario;
 	}
 
+	/**
+	 * Getter
+	 * @return sale
+	 */
 	public static ArrayList<SalaperCorsiEntity> getSale() {
 		return sale;
 	}
 
+	/**
+	 * Setter
+	 * @param sale
+	 */
 	public static void setSale(ArrayList<SalaperCorsiEntity> sale) {
 		CentroSportivoEntity.sale = sale;
 	}

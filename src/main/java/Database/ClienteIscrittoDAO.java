@@ -3,6 +3,15 @@ package Database;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
+/**
+ * Classe DAO del package Database per la gestione della persistenza dei dati ed il loro retrieval evocando i propri metodi dalle classi del layer Entity
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class ClienteIscrittoDAO {
 	
 	//Variabili membro.
@@ -16,7 +25,10 @@ public class ClienteIscrittoDAO {
 	private AbbonamentoAnnualeDAO abbonamentoAnnuale;
 	
 	
-	//Costruttore per caricamento da DB attraverso la PK
+	/**
+	 * Costruttore per caricamento da DB attraverso la PK
+	 * @param codiceCliente
+	 */
 	public ClienteIscrittoDAO(String codiceCliente) {
 		
 		this.codiceCliente=codiceCliente;
@@ -26,7 +38,9 @@ public class ClienteIscrittoDAO {
 		
 	}
 	
-	//Costruttore vuoto per inizializzazione
+	/**
+	 * Costruttore vuoto per inizializzazione
+	 */
 	public ClienteIscrittoDAO() {
 		
 		super();
@@ -36,7 +50,9 @@ public class ClienteIscrittoDAO {
 	}
 	
 	
-	//Funzione di loading degli attributi del DAO attraverso una query di SELECT
+	/**
+	 * Funzione di loading degli attributi del DAO attraverso una query di SELECT
+	 */
 	public void caricaDaDB() {
 		
 		String query="SELECT * FROM ClienteIscritto WHERE codiceCliente='"+this.codiceCliente+"';";
@@ -62,7 +78,14 @@ public class ClienteIscrittoDAO {
 	}
 	
 	
-	//Metodo di CREATE del CRUD
+	/**
+	 * Metodo di CREATE del CRUD
+	 * @param codiceCliente
+	 * @param nome
+	 * @param cognome
+	 * @param email
+	 * @return esito
+	 */
 	public int salvaSuDB(String codiceCliente, String nome, String cognome, String email) {
 		
 		//Variabile per il risultato della query
@@ -86,7 +109,12 @@ public class ClienteIscrittoDAO {
 		
 	}
 	
-	//Metodo di UPDATE del CRUD
+	
+	/**
+	 * Metodo di UPDATE del CRUD
+	 * @param idAbbonamentoMensile
+	 * @return esito
+	 */
 	public int updateAbbonamentoMensileSuDB(int idAbbonamentoMensile) {
 		
 		int ret=0;
@@ -110,7 +138,12 @@ public class ClienteIscrittoDAO {
 		
 	}
 	
-	//Metodo di UPDATE del CRUD
+	
+	/**
+	 * Metodo di UPDATE del CRUD
+	 * @param idAbbonamentoAnnuale
+	 * @return esito
+	 */
 	public int updateAbbonamentoAnnualeSuDB(int idAbbonamentoAnnuale) {
 		
 		int ret=0;
@@ -133,7 +166,10 @@ public class ClienteIscrittoDAO {
 	}
 	
 	
-	//Funzione di utility per incrementare automaticamente il counter degli id degli iscritti
+	/**
+	 * Funzione di utility per incrementare automaticamente il counter degli id degli iscritti
+	 * @return id massimo (da incrementare)
+	 */
 	public String prelevaIdmassimo() {
 		
 		//Inizializzo il massimo a null
@@ -161,7 +197,9 @@ public class ClienteIscrittoDAO {
 	}
 	
 	
-	//Funzione di loading degli abbonamenti del cliente SE ESISTONO.
+	/**
+	 * Funzione di loading degli abbonamenti del cliente SE ESISTONO.
+	 */
 	public void caricaAbbonamentoClienteIscrittoDaDB() {
 		
 		String query;
@@ -218,66 +256,131 @@ public class ClienteIscrittoDAO {
 			
 	
 	//GETTERS AND SETTERS
+	
+	/**
+	 * Getter
+	 * @return codiceCliente
+	 */
 	public String getCodiceCliente() {
 		return codiceCliente;
 	}
 
+	/**
+	 * Setter
+	 * @param codiceCliente
+	 */
 	public void setCodiceCliente(String codiceCliente) {
 		this.codiceCliente = codiceCliente;
 	}
 
+	/**
+	 * Getter
+	 * @return nome
+	 */
 	public String getNome() {
 		return nome;
 	}
 
+	/**
+	 * Setter
+	 * @param nome
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
+	/**
+	 * Getter
+	 * @return cognome
+	 */
 	public String getCognome() {
 		return cognome;
 	}
 
+	/**
+	 * Setter
+	 * @param cognome
+	 */
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
 
+	/**
+	 * Getter
+	 * @return email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Setter
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * Getter
+	 * @return idAbbonamentoMensile
+	 */
 	public int getIdAbbonamentoMensile() {
 		return idAbbonamentoMensile;
 	}
 
+	/**
+	 * Setter
+	 * @param idAbbonamentoMensile
+	 */
 	public void setIdAbbonamentoMensile(int idAbbonamentoMensile) {
 		this.idAbbonamentoMensile = idAbbonamentoMensile;
 	}
 
+	/**
+	 * Getter
+	 * @return idAbbonamentoAnnuale
+	 */
 	public int getIdAbbonamentoAnnuale() {
 		return idAbbonamentoAnnuale;
 	}
 
+	/**
+	 * Setter
+	 * @param idAbbonamentoAnnuale
+	 */
 	public void setIdAbbonamentoAnnuale(int idAbbonamentoAnnuale) {
 		this.idAbbonamentoAnnuale = idAbbonamentoAnnuale;
 	}
 
+	/**
+	 * Getter
+	 * @return abbonamentoMensile
+	 */
 	public AbbonamentoMensileDAO getAbbonamentoMensile() {
 		return abbonamentoMensile;
 	}
 
+	/**
+	 * Setter
+	 * @param abbonamentoMensile
+	 */
 	public void setAbbonamentoMensile(AbbonamentoMensileDAO abbonamentoMensile) {
 		this.abbonamentoMensile = abbonamentoMensile;
 	}
 
+	/**
+	 * Getter
+	 * @return abbonamentoAnnuale
+	 */
 	public AbbonamentoAnnualeDAO getAbbonamentoAnnuale() {
 		return abbonamentoAnnuale;
 	}
 
+	/**
+	 * Setter
+	 * @param abbonamentoAnnuale
+	 */
 	public void setAbbonamentoAnnuale(AbbonamentoAnnualeDAO abbonamentoAnnuale) {
 		this.abbonamentoAnnuale = abbonamentoAnnuale;
 	}

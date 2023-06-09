@@ -24,6 +24,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 
+/**
+ * 
+ * Classe del package Boundary che permette ad un cliente di ricercare i corsi
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ */
 
 public class RicercaCorsi extends JFrame {
 
@@ -35,26 +44,13 @@ public class RicercaCorsi extends JFrame {
 	private String codCliente;
 	private String email;
 	
-	
-	
-	//Main
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					RicercaCorsi frame = new RicercaCorsi();
-//					JPanel pannelloCorsiDisponibili = new JPanel();
-//				frame.getContentPane().add(pannelloCorsiDisponibili);
-//					//frame.pack();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
-	//Costruttore
+	/**
+	 * Costruttore del frame
+	 * @param codCliente 
+	 * @param email
+	 */
+	
 	public RicercaCorsi(String codCliente, String email) {
 		setResizable(false);
 		

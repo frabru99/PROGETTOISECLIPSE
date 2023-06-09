@@ -17,6 +17,16 @@ import javax.swing.JButton;
 
 import Controller.Controller;
 
+/**
+ * 
+ * Classe del package Boundary che avvia il login per un cliente
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ */
+
 public class MainFrameCliente extends JFrame {
 
 	
@@ -26,7 +36,12 @@ public class MainFrameCliente extends JFrame {
 	private String codiceCliente;
 	private String email;
 
-	//Main
+	/**
+	 * 
+	 * Avvia il frame
+	 * 
+	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -41,7 +56,12 @@ public class MainFrameCliente extends JFrame {
 	}
 
 	
-	//Costruttore del mainframe
+	/**
+	 * 
+	 * Costruttore del frame
+	 * 
+	 */
+	
 	public MainFrameCliente() {
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

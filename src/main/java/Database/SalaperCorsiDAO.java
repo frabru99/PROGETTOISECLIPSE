@@ -4,6 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Classe DAO del package Database per la gestione della persistenza dei dati ed il loro retrieval evocando i propri metodi dalle classi del layer Entity
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class SalaperCorsiDAO {
 	
 	//Variabili membro
@@ -11,7 +20,10 @@ public class SalaperCorsiDAO {
 	private int capienza;
 	
 	
-	//Costruttore per caricamento da DB attraverso la PK
+	/**
+	 * Costruttore per caricamento da DB attraverso la PK
+	 * @param idSala
+	 */
 	public SalaperCorsiDAO(int idSala) {
 		
 		this.idSalaCorsi = idSala;		
@@ -20,13 +32,17 @@ public class SalaperCorsiDAO {
 	}
 	
 	
-	//Costruttore vuoto per inizializzazione
+	/**
+	 * Costruttore vuoto per inizializzazione
+	 */
 	public SalaperCorsiDAO() {
 		super();
 	}
 	
 	
-	//Funzione di loading degli attributi del DAO attraverso una query di SELECT
+	/**
+	 * Funzione di loading degli attributi del DAO attraverso una query di SELECT
+	 */
 	public void caricaDaDB() {
 		
 		String query = "SELECT * FROM SalaperCorsi WHERE idSalaperCorsi='"+this.idSalaCorsi+"';";
@@ -51,7 +67,12 @@ public class SalaperCorsiDAO {
 	}
 	
 	
-	//Metodo di CREATE del CRUD
+	/**
+	 * Metodo di CREATE del CRUD
+	 * @param idSalaCorsi
+	 * @param capienza
+	 * @return esito
+	 */
 	public int salvaSuDB(int idSalaCorsi, int capienza) {
 		
 		//Variabile per il risultato della query
@@ -76,18 +97,34 @@ public class SalaperCorsiDAO {
 
 	//GETTERS AND SETTERS
 
+	/**
+	 * Getter
+	 * @return idSalaCorsi
+	 */
 	public int getIdSalaCorsi() {
 		return idSalaCorsi;
 	}
 
+	/**
+	 * Setter
+	 * @param idSalaCorsi
+	 */
 	public void setIdSalaCorsi(int idSalaCorsi) {
 		this.idSalaCorsi = idSalaCorsi;
 	}
 
+	/**
+	 * Getter
+	 * @return capienza
+	 */
 	public int getCapienza() {
 		return capienza;
 	}
 
+	/**
+	 * Setter
+	 * @param capienza
+	 */
 	public void setCapienza(int capienza) {
 		this.capienza =capienza;
 	}

@@ -22,10 +22,20 @@ import javax.swing.JSpinner;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
-//QUESTA RIGUARDA LA GUI DELL'AMMINISTRAZIONE
+
+/**
+ * Classe del package Boundary per l'inserimento dei giorni da parte di un amministratore
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 
 public class DefinisciGiorniAdmin extends JFrame {
 
+	
 	private JPanel contentPane;
 	private JTextField textFieldGiorno;
 	private JTextField textFieldOraApertura;
@@ -35,8 +45,10 @@ public class DefinisciGiorniAdmin extends JFrame {
 	private String oraChiusura;
 
 	/**
-	 * Launch the application.
+	 * 
+	 * Avvia il frame
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -50,7 +62,9 @@ public class DefinisciGiorniAdmin extends JFrame {
 		});
 	}
 
-	
+	/**
+	 * Costruttore del frame
+	 */
 	public DefinisciGiorniAdmin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

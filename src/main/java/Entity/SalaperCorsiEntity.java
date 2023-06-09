@@ -2,6 +2,15 @@ package Entity;
 
 import Database.SalaperCorsiDAO;
 
+/**
+ * Classe del package Entity che rappresenta l'oggetto del mondo reale definendone il comportamento e l'implementazione vera e propria dei metodi
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class SalaperCorsiEntity {
 
 	//Variabili membro.	
@@ -9,13 +18,18 @@ public class SalaperCorsiEntity {
 	private int idSalaCorsi;
 	
 	
-	//Costruttore vuoto
+	/**
+	 * Costruttore vuoto
+	 */
 	public SalaperCorsiEntity() {
 		super();
 	}
 	
 	
-	//Costruttore per caricamento da classe DAO attraverso la PK
+	/**
+	 * Costruttore per caricamento da classe DAO attraverso la PK
+	 * @param idSalaCorsi
+	 */
 	public SalaperCorsiEntity(int idSalaCorsi) {
 		
 		SalaperCorsiDAO db = new SalaperCorsiDAO(idSalaCorsi);
@@ -25,7 +39,10 @@ public class SalaperCorsiEntity {
 	}
 	
 	
-	//Costruttore per caricamento da un'istanza della classe DAO
+	/**
+	 * Costruttore per caricamento da un'istanza della classe DAO
+	 * @param db
+	 */
 	public SalaperCorsiEntity(SalaperCorsiDAO db) {
 		
 		this.capienza = db.getCapienza();
@@ -34,7 +51,7 @@ public class SalaperCorsiEntity {
 	}
 	
 	
-	//Metodo scrivi su db
+	//Metodo per rendere persistente il salvataggio di una sala per corsi
 	public int scriviSuDB(int idSalaCorsi, int capienza) {
 		
 		//Variabile per il risultato della query
@@ -58,18 +75,35 @@ public class SalaperCorsiEntity {
 	
 
 	//GETTERS AND SETTERS
+	
+	/**
+	 * Getter
+	 * @return capienza
+	 */
 	public int getCapienza() {
         return capienza;
     }
 	
+	/**
+	 * Setter
+	 * @param capienza
+	 */
 	public void setCapienza(int capienza) {
         this.capienza = capienza;
     }
 	
+	/**
+	 * Getter
+	 * @return idSalaCorsi
+	 */
     public int getIdSalaCorsi() {
         return idSalaCorsi;
     }
     
+    /**
+     * Setter
+     * @param idSalaCorsi
+     */
     public void setIdSalaCorsi(int idSalaCorsi) {
         this.idSalaCorsi = idSalaCorsi;
     }

@@ -4,7 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+/**
+ * Classe DAO del package Database per la gestione della persistenza dei dati ed il loro retrieval evocando i propri metodi dalle classi del layer Entity
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class CorsoDAO {
 	
 	//Variabili membro.
@@ -19,7 +27,10 @@ public class CorsoDAO {
 	private ArrayList<GiornoDAO> giorni;
 	
 	
-	//Costruttore per caricamento da DB attraverso la PK
+	/**
+	 * Costruttore per caricamento da DB attraverso la PK
+	 * @param codiceCorso
+	 */
 	public CorsoDAO(int codiceCorso) {
 		
 		this.codiceCorso=codiceCorso;
@@ -29,7 +40,9 @@ public class CorsoDAO {
 	}
 
 	
-	//Costruttore vuoto per inizializzazione
+	/**
+	 * Costruttore vuoto per inizializzazione
+	 */
 	public CorsoDAO() {
 		
 		super();
@@ -38,7 +51,9 @@ public class CorsoDAO {
 	}
 	
 	
-	//Funzione di loading degli attributi del DAO attraverso una query di SELECT
+	/**
+	 * Funzione di loading degli attributi del DAO attraverso una query di SELECT
+	 */
 	public void caricaDaDB() {
 		
 		String query="SELECT * FROM Corso WHERE CodiceCorso='"+this.codiceCorso+"';";
@@ -68,7 +83,9 @@ public class CorsoDAO {
 	}
 	
 	
-	//Funzione di loading dell'array GiornoDAO
+	/**
+	 * Funzione di loading dell'array GiornoDAO
+	 */
 	public void caricaGiorniCorsodaDB() {
 		
 		String query=new String("SELECT * FROM Giorno WHERE NomeGiorno IN (SELECT Giorno_nomeGiorno FROM Corso_has_Giorno WHERE Corso_codiceCorso=\'"+this.codiceCorso+"')");
@@ -97,7 +114,9 @@ public class CorsoDAO {
 	}
 	
 	
-	//Funzione di loading della SalaperCorsiDAO
+	/**
+	 * Funzione di loading della SalaperCorsiDAO
+	 */
 	public void caricaSalaperCorsiCorsodaDB() {
 		
 		//Inizializzo la variabile membro
@@ -128,7 +147,17 @@ public class CorsoDAO {
 	}
 	
 	
-	//Metodo di CREATE del CRUD
+	/**
+	 * Metodo di CREATE del CRUD
+	 * @param codiceCorso
+	 * @param nome
+	 * @param istruttore
+	 * @param oraInizio
+	 * @param durataCorso
+	 * @param postiDisponibili
+	 * @param idSalaperCorsi
+	 * @return esito
+	 */
 	public int salvaSuDB(int codiceCorso,String nome, String istruttore, String oraInizio, String durataCorso, int postiDisponibili,int idSalaperCorsi) {
 		
 		//Variabile per il risultato della query
@@ -152,7 +181,10 @@ public class CorsoDAO {
 	}
 	
 	
-	//Funzione di utility per incrementare automaticamente il counter del codice del corso
+	/**
+	 * Funzione di utility per incrementare automaticamente il counter del codice del corso
+	 * @return id massimo (da incrementare)
+	 */
 	public int prelevaIdMassimo() {
 		
 		//Inizializzo il massimo a -1.
@@ -181,7 +213,9 @@ public class CorsoDAO {
 	}
 	
 	
-	//Funzione che permette di aggiornare il numero di posti disponibili di un corso
+	/**
+	 * Funzione che permette di aggiornare il numero di posti disponibili di un corso
+	 */
 	public void updatePosti() {
 		
         String query = "UPDATE Corso SET postiDisponibili = postiDisponibili - 1 WHERE codiceCorso = "+this.codiceCorso;
@@ -199,7 +233,11 @@ public class CorsoDAO {
 	}
 	
 	
-	//Funzione di utility che permette di controllare se data una chiave, esiste quel corso sul DB ed ha disponibilità di posti
+	/**
+	 * Funzione di utility che permette di controllare se data una chiave, esiste quel corso sul DB ed ha disponibilità di posti
+	 * @param codCorso
+	 * @return disponibilità
+	 */
 	public int checkDisponibilitaCorsoSuDB(int codCorso) {
 		
         String query = "SELECT * FROM Corso WHERE codiceCorso = "+codCorso+" AND postiDisponibili>0;";
@@ -229,75 +267,147 @@ public class CorsoDAO {
 	
 	
 	//GETTERS AND SETTERS
+	
+	/**
+	 * Getter
+	 * @return postiDisponibili
+	 */
 	public int getPostiDisponibili() {
 		return postiDisponibili;
 	}
 
+	/**
+	 * Setter
+	 * @param postiDisponibili
+	 */
 	public void setPostiDisponibili(int postiDisponibili) {
 		this.postiDisponibili = postiDisponibili;
 	}
 
+	/**
+	 * Getter
+	 * @return codiceCorso
+	 */
 	public int getCodiceCorso() {
 		return codiceCorso;
 	}
 
+	/**
+	 * Setter
+	 * @param codiceCorso
+	 */
 	public void setCodiceCorso(int codiceCorso) {
 		this.codiceCorso = codiceCorso;
 	}
 
+	/**
+	 * Getter
+	 * @return nomeCorso
+	 */
 	public String getNomeCorso() {
 		return nomeCorso;
 	}
 
+	/**
+	 * Setter
+	 * @param nomeCorso
+	 */
 	public void setNomeCorso(String nomeCorso) {
 		this.nomeCorso = nomeCorso;
 	}
 
+	/**
+	 * Getter
+	 * @return istruttore
+	 */
 	public String getIstruttore() {
 		return istruttore;
 	}
 
+	/**
+	 * Setter
+	 * @param istruttore
+	 */
 	public void setIstruttore(String istruttore) {
 		this.istruttore = istruttore;
 	}
 
+	/**
+	 * Getter
+	 * @return oraInizio
+	 */
 	public String getOraInizio() {
 		return oraInizio;
 	}
 
+	/**
+	 * Setter
+	 * @param oraInizio
+	 */
 	public void setOraInizio(String oraInizio) {
 		this.oraInizio = oraInizio;
 	}
 
+	/**
+	 * Getter
+	 * @return durataCorso
+	 */
 	public String getDurataCorso() {
 		return durataCorso;
 	}
 
+	/**
+	 * Setter
+	 * @param durataCorso
+	 */
 	public void setDurataCorso(String durataCorso) {
 		this.durataCorso = durataCorso;
 	}
 
+	/**
+	 * Getter
+	 * @return salaCorso
+	 */
 	public SalaperCorsiDAO getSalaCorso() {
 		return salaCorso;
 	}
 
+	/**
+	 * Setter
+	 * @param sala
+	 */
 	public void setSalaCorso(SalaperCorsiDAO sala) {
 		this.salaCorso = sala;
 	}
 	
-	
+	/**
+	 * Getter
+	 * @return idSalaperCorsi
+	 */
 	public int getIdSalaperCorsi() {
 		return idSalaperCorsi;
 	}
 
+	/**
+	 * Setter
+	 * @param idSalaperCorsi
+	 */
 	public void setIdSalaperCorsi(int idSalaperCorsi) {
 		this.idSalaperCorsi = idSalaperCorsi;
 	}
 
+	/**
+	 * Getter
+	 * @return giorni
+	 */
 	public ArrayList<GiornoDAO> getGiorni() {
 		return giorni;
 	}
 
+	/**
+	 * Setter
+	 * @param giorni
+	 */
 	public void setGiorni(ArrayList<GiornoDAO> giorni) {
 		this.giorni = giorni;
 	}

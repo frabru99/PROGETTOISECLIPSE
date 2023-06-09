@@ -9,6 +9,15 @@ import java.util.stream.Collectors;
 import Database.AbbonamentoAnnualeDAO;
 import Database.AbbonamentoMensileDAO;
 
+/**
+ * Classe del package Entity che rappresenta l'oggetto del mondo reale definendone il comportamento e l'implementazione vera e propria dei metodi
+ * @author Salvatore Cangiano
+ * @author Giovanni Ciccarelli
+ * @author Antonio Boccarossa
+ * @author Francesco Brunello
+ * @version 09/06/2023
+ *
+ */
 public class AbbonamentoAnnualeEntity {
 
 	
@@ -21,13 +30,18 @@ public class AbbonamentoAnnualeEntity {
 	private String dataRipresa=null;
 	
 
-	//Costruttore vuoto
+	/**
+	 * Costruttore vuoto
+	 */
 	public AbbonamentoAnnualeEntity() {
 		super();
 	}
 	
 	
-	//Costruttore per caricamento da classe DAO attraverso la PK
+	/**
+	 * Costruttore per caricamento da classe DAO attraverso la PK
+	 * @param id
+	 */
 	public AbbonamentoAnnualeEntity(int id) {
 		
 		AbbonamentoAnnualeDAO db = new AbbonamentoAnnualeDAO(id);
@@ -41,7 +55,10 @@ public class AbbonamentoAnnualeEntity {
 	}
 	
 	
-	//Costruttore per caricamento da un'istanza della classe DAO
+	/**
+	 * Costruttore per caricamento da un'istanza della classe DAO
+	 * @param db
+	 */
 	public AbbonamentoAnnualeEntity(AbbonamentoAnnualeDAO db) {
 		
 		this.idAbbonamentoAnnuale = db.getIdAbbonamentoAnnuale();
@@ -54,7 +71,12 @@ public class AbbonamentoAnnualeEntity {
 	}
 	
 	
-	//Metodo chiamato dal controller in seguito ad una richiesta di un utente iscritto per salvare un abbonamento annuale
+	/**
+	 * Metodo chiamato dal controller in seguito ad una richiesta di un utente iscritto per salvare persistentemente un abbonamento annuale
+	 * @param dataSottoscrizione
+	 * @param dataScadenza
+	 * @return esito
+	 */
 	public int scriviSuDB(String dataSottoscrizione, String dataScadenza) {
 		
 		//Variabile per il risultato della query
@@ -89,7 +111,12 @@ public class AbbonamentoAnnualeEntity {
 	}
 	
 	
-	//Funzionalità DUMMY che permette di di settare una data di sospensione e una data di ripresa all'abbonamento annuale
+	/**
+	 * Funzionalità DUMMY che permette di di settare una data di sospensione e una data di ripresa all'abbonamento annuale
+	 * @param dataSospensione
+	 * @param dataRipresa
+	 * @return esito
+	 */
 	public int sospendiAbbonamento(java.util.Date dataSospensione, java.util.Date dataRipresa) {
 		
 		System.out.println("[ABBONAMENTO-ANNUALE-DAO] Settata data di sospensione e di ripresa dell'abbonamento "+this.idAbbonamentoAnnuale+" con successo");
@@ -99,7 +126,12 @@ public class AbbonamentoAnnualeEntity {
 	}
 	
 	
-	//Funzione di utility per aggiungere giorni all'oggetto Date
+	/**
+	 * Funzione di utility STATICper aggiungere giorni all'oggetto Date
+	 * @param date
+	 * @param days
+	 *
+	 */
 	public static Date addDays(Date date, int days) {
 		
         Calendar c = Calendar.getInstance();
@@ -112,50 +144,98 @@ public class AbbonamentoAnnualeEntity {
 
 	//GETTERS AND SETTERS
 	
+	/**
+	 * Getter 
+	 * @return dataSottoscrizione
+	 */
 	public String getDataSottoscrizione() {
 		return dataSottoscrizione;
 	}
 	
+	/**
+	 * Setter
+	 * @param dataSottoscrizione
+	 */
 	public void setDataSottoscrizione(String dataSottoscrizione) {
 		this.dataSottoscrizione = dataSottoscrizione;
 	}
 	
+	/**
+	 * Getter
+	 * @return dataScadenza
+	 */
 	public String getDataScadenza() {
 		return dataScadenza;
 	}
 	
+	/**
+	 * Setter
+	 * @param dataScadenza
+	 */
 	public void setDataScadenza(String dataScadenza) {
 		this.dataScadenza = dataScadenza;
 	}
 	
+	/**
+	 * Getter
+	 * @return prezzo
+	 */
 	public int getPrezzo() {
 		return prezzo;
 	}
 	
+	/**
+	 * Setter
+	 * @param prezzo
+	 */
 	public void setPrezzo(int prezzo) {
 		this.prezzo = prezzo;
 	}
 
+	/**
+	 * Getter
+	 * @return idAbbonamentoAnnuale
+	 */
 	public int getIdAbbonamentoAnnuale() {
 		return idAbbonamentoAnnuale;
 	}
 
+	/**
+	 * Setter
+	 * @param idAbbonamentoAnnuale
+	 */
 	public void setIdAbbonamentoAnnuale(int idAbbonamentoAnnuale) {
 		this.idAbbonamentoAnnuale = idAbbonamentoAnnuale;
 	}
 
+	/**
+	 * Getter
+	 * @return dataSospensione
+	 */
 	public String getDataSospensione() {
 		return dataSospensione;
 	}
 
+	/**
+	 * Setter
+	 * @param dataSospensione
+	 */
 	public void setDataSospensione(String dataSospensione) {
 		this.dataSospensione = dataSospensione;
 	}
 
+	/**
+	 * Getter
+	 * @return dataRipresa
+	 */
 	public String getDataRipresa() {
 		return dataRipresa;
 	}
 
+	/**
+	 * Setter
+	 * @param dataRipresa
+	 */
 	public void setDataRipresa(String dataRipresa) {
 		this.dataRipresa = dataRipresa;
 	}
