@@ -72,7 +72,7 @@ public class ClienteIscrittoDAO {
 				}
 				
 			} catch (ClassNotFoundException | SQLException e) {
-				System.out.println("[CLIENTE-ISCRITTO-DAO] Errore nel metodo caricaDaDB");
+				System.out.println("[CLIENTE-ISCRITTO-DAO] Errore nel metodo caricaDaDB" + e.getMessage());
 			}
 		
 	}

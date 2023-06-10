@@ -108,7 +108,7 @@ public class MainFrameCliente extends JFrame {
 		//Eventuale errore
 		JLabel labelErroreLogin = new JLabel("");
 		labelErroreLogin.setHorizontalAlignment(SwingConstants.RIGHT);
-		labelErroreLogin.setBounds(10, 190, 309, 25);
+		labelErroreLogin.setBounds(10, 213, 309, 25);
 		contentPane.add(labelErroreLogin);
 		
 		//Bottone di conferma
@@ -117,7 +117,7 @@ public class MainFrameCliente extends JFrame {
 		contentPane.add(btnConfermaLogin);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\anton\\Desktop\\093337312-4c7419f5-7f23-47c0-bb63-08c7cae199d4.jpg"));
+		lblNewLabel.setIcon(new ImageIcon(MainFrameCliente.class.getResource("/org/springframework/context/config/spring-context.gif")));
 		lblNewLabel.setBounds(-125, -14, 1029, 359);
 		contentPane.add(lblNewLabel);
 				

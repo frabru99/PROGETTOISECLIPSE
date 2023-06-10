@@ -51,7 +51,7 @@ public class RegistroClientiDAO {
             
         }catch(SQLException | ClassNotFoundException e) {
             
-            System.err.println("[REGISTRO-CLIENTI-DAO] Errore nel metodo caricaDaDB");
+            System.err.println("[REGISTRO-CLIENTI-DAO] Errore nel metodo caricaDaDB" + e.getMessage());
             
         }
         
