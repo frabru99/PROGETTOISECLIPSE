@@ -16,6 +16,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
 import Controller.Controller;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 /**
  * 
@@ -74,30 +76,32 @@ public class MainFrameCliente extends JFrame {
 		//Label login
 		JLabel labelLogin = new JLabel("LOGIN");
 		labelLogin.setFont(new Font("Tahoma", Font.BOLD, 20));
-		labelLogin.setBounds(170, 47, 75, 25);
+		labelLogin.setBounds(159, 47, 75, 25);
 		contentPane.add(labelLogin);
 		
 		//Text field email
 		textFieldEmail = new JTextField();
-		textFieldEmail.setBounds(159, 83, 160, 20);
+		textFieldEmail.setBounds(159, 103, 160, 20);
 		contentPane.add(textFieldEmail);
 		textFieldEmail.setColumns(10);
 		
 		//Text field codice cliente
 		textFieldCodiceCliente = new JTextField();
-		textFieldCodiceCliente.setBounds(159, 126, 160, 20);
+		textFieldCodiceCliente.setBounds(159, 149, 160, 20);
 		contentPane.add(textFieldCodiceCliente);
 		textFieldCodiceCliente.setColumns(10);
 		
 		//Label email
 		JLabel labelEmail = new JLabel("Email");
+		labelEmail.setForeground(Color.BLACK);
 		labelEmail.setVerticalAlignment(SwingConstants.BOTTOM);
-		labelEmail.setBounds(98, 86, 46, 14);
+		labelEmail.setBounds(103, 106, 46, 14);
 		contentPane.add(labelEmail);
 		
 		//Label codice cliente
 		JLabel labelCodiceCliente = new JLabel("Codice Cliente");
-		labelCodiceCliente.setBounds(65, 129, 84, 17);
+		labelCodiceCliente.setForeground(Color.BLACK);
+		labelCodiceCliente.setBounds(64, 151, 84, 17);
 		contentPane.add(labelCodiceCliente);
 		
 		//Eventuale errore
@@ -108,8 +112,13 @@ public class MainFrameCliente extends JFrame {
 		
 		//Bottone di conferma
 		JButton btnConfermaLogin = new JButton("Conferma");
-		btnConfermaLogin.setBounds(212, 156, 107, 23);
+		btnConfermaLogin.setBounds(212, 180, 107, 23);
 		contentPane.add(btnConfermaLogin);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\anton\\Desktop\\093337312-4c7419f5-7f23-47c0-bb63-08c7cae199d4.jpg"));
+		lblNewLabel.setBounds(-125, -14, 1029, 359);
+		contentPane.add(lblNewLabel);
 				
 		//Listener sul bottone di conferma
 		btnConfermaLogin.addMouseListener(new MouseAdapter() {
@@ -144,7 +153,6 @@ public class MainFrameCliente extends JFrame {
 		});
 		
 	}
-	
 }
 	
 		
