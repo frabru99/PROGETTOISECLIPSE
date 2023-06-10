@@ -43,6 +43,7 @@ public class VistaAbbonamenti extends JFrame {
 	 * Costruttore del frame
 	 */
 	public VistaAbbonamenti(String cod, String email) {
+		setResizable(false);
 		
 		this.codCliente = cod;
 		this.email=email;
