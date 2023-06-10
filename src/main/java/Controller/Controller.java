@@ -23,40 +23,12 @@ import Entity.SalaperCorsiEntity;
  */
 
 public class Controller {
-	
-	/**
-	 * Variabile per implementazione del pattern Singleton
-	 */
-	
-	private static Controller uniqueInstance; 
-	
+
 	
 	//Costruttore vuoto
 	private Controller() {
 		
-		super();
-		
 	}
-	
-	
-	/**
-	 * Metodo getInstance per implementare il pattern Singleton - crea il Singleton se l'istanza è null oppure la ritorna
-	 * @return uniqueInstance
-	 */
-	public static Controller getInstance() {
-        
-	    if (uniqueInstance == null) {
-	            
-	    	uniqueInstance = new Controller();
-	        
-	            
-	    }
-	        
-	    return uniqueInstance;
-	        
-	}
-	
-	
 	
 	/**
 	 * Metodo che permette o vieta l'accesso al centro ad un cliente
@@ -195,8 +167,9 @@ public class Controller {
 		//In caso di esito positivo
 		if(val!=-1) {
 		
+		CalendarioEntity calendario = CalendarioEntity.getInstance();
 		//Recupero tutti i giorni dal calendario
-		ArrayList<GiornoEntity> giorni  = CalendarioEntity.getGiorni();
+		ArrayList<GiornoEntity> giorni  = calendario.getGiorni();
 		
 		//Scorro l'array di giorni
 		for(int i=0; i<giorni.size(); i++) {

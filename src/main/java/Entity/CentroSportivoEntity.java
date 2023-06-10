@@ -74,7 +74,7 @@ public class CentroSportivoEntity {
 	public ArrayList<CorsoEntity> ricercaCorsiConDisponibilita(String nomeGiorno){
 		
 		//Recupero dal calendario i giorni, al fine di recuperarne successivamente i corsi
-		ArrayList<GiornoEntity> giorni=CalendarioEntity.getGiorni();
+		ArrayList<GiornoEntity> giorni=calendario.getGiorni();
 		
 		//Inizializzo due array - uno per tutti i corsi, ed uno per tutti i corsi con disponibilità di posti
 		ArrayList<CorsoEntity> corsi=new ArrayList<CorsoEntity>();
@@ -116,7 +116,7 @@ public class CentroSportivoEntity {
 	 * Getter
 	 * @return registro clienti
 	 */
-	public static RegistroClientiEntity getRegistro() {
+	public RegistroClientiEntity getRegistro() {
 		return registro;
 	}
 
@@ -124,7 +124,7 @@ public class CentroSportivoEntity {
 	 * Setter
 	 * @param registro
 	 */
-	public static void setRegistro(RegistroClientiEntity registro) {
+	public void setRegistro(RegistroClientiEntity registro) {
 		CentroSportivoEntity.registro = registro;
 	}
 
@@ -132,7 +132,7 @@ public class CentroSportivoEntity {
 	 * Getter
 	 * @return calendario
 	 */
-	public static CalendarioEntity getCalendario() {
+	public CalendarioEntity getCalendario() {
 		return calendario;
 	}
 
@@ -140,7 +140,7 @@ public class CentroSportivoEntity {
 	 * Setter
 	 * @param calendario
 	 */
-	public static void setCalendario(CalendarioEntity calendario) {
+	public void setCalendario(CalendarioEntity calendario) {
 		CentroSportivoEntity.calendario = calendario;
 	}
 
@@ -148,7 +148,7 @@ public class CentroSportivoEntity {
 	 * Getter
 	 * @return sale
 	 */
-	public static ArrayList<SalaperCorsiEntity> getSale() {
+	public  ArrayList<SalaperCorsiEntity> getSale() {
 		return sale;
 	}
 
@@ -156,7 +156,7 @@ public class CentroSportivoEntity {
 	 * Setter
 	 * @param sale
 	 */
-	public static void setSale(ArrayList<SalaperCorsiEntity> sale) {
+	public void setSale(ArrayList<SalaperCorsiEntity> sale) {
 		CentroSportivoEntity.sale = sale;
 	}
 	

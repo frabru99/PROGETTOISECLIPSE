@@ -110,7 +110,7 @@ public class RegistroClientiEntity {
 	 * Getter
 	 * @return clienti
 	 */
-	public static ArrayList<ClienteIscrittoEntity> getClienti() {
+	public ArrayList<ClienteIscrittoEntity> getClienti() {
 		return clienti;
 	}
 
@@ -118,7 +118,7 @@ public class RegistroClientiEntity {
 	 * Setter
 	 * @param clienti
 	 */
-	public static void setClienti(ArrayList<ClienteIscrittoEntity> clienti) {
+	public void setClienti(ArrayList<ClienteIscrittoEntity> clienti) {
 		RegistroClientiEntity.clienti = clienti;
 	}
 	 

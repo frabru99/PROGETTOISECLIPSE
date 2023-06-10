@@ -91,7 +91,7 @@ public class CalendarioEntity {
      * Getter
      * @return giorni
      */
-    public static ArrayList<GiornoEntity> getGiorni() {
+    public ArrayList<GiornoEntity> getGiorni() {
         return giorni;
     }
 
@@ -99,7 +99,7 @@ public class CalendarioEntity {
      * Setter
      * @param giorni
      */
-    public static void setGiorni(ArrayList<GiornoEntity> giorni) {
+    public void setGiorni(ArrayList<GiornoEntity> giorni) {
         CalendarioEntity.giorni = giorni;
     }
 
