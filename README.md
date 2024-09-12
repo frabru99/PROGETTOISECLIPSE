@@ -7,7 +7,7 @@
 E' stato sviluppato il sistema software di un centro sportivo per il corso di Ingegneria del Software 2022 - 2023 <br>
 Sono stati documentati tutti i passaggi del ciclo di sviluppo, dall'analisi e specifica dei requisiti al testing <br><br>
 
-## SOFTWARE DI SVILUPPO - JARS - LIBRERIE UTILIZZATI
+## SOFTWARE DI SVILUPPO - JARS - LIBRERIE UTILIZZATE
 
 E' stata utilizzata la seguente versione di VisualParadigm per lo sviluppo dei diagrammi UML:
 
